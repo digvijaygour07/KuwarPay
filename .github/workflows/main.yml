@@ -1,0 +1,24 @@
+name: KuwarPay Workflow
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Use secrets
+        env:
+          PASSWORD: ${{ secrets.PASSWORD }}
+          UPI_ID: ${{ secrets.UPI_ID }}
+        run: |
+          echo "Password: $PASSWORD"
+          echo "UPI ID: $UPI_ID"
+          
+      - name: Deploy to production
+        run: |
+          yarn install
+          yarn build
+          yarn deploy
