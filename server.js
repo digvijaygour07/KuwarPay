@@ -11,6 +11,7 @@ const WebSocket = require('ws');
 let orders = [];
 let isOrdersLoaded = false;
 
+// Load orders initially
 const loadOrders = async () => {
   try {
     const data = await fs.promises.readFile('orders.json', 'utf8');
@@ -91,13 +92,36 @@ const deleteOrder = async (id) => {
   }
 };
 
-// Load orders initially
-loadOrders();
+// Define the sendEmail function
+async function sendEmail(to, order) {
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // or 'STARTTLS'
+    auth: {
+      user: 'artbaba2007@gmail.com',
+      pass: process.env.EMAIL_PASSWORD, // Use environment variable
+    },
+  });
 
-const sellerPhonePeId = '9822242222@ybl'; // Replace with your actual PhonePe ID
-const sellerName = 'mahendra gour'; // Replace with your actual name
-const paymentAmount = 1;
-const paymentDescription = 'Half Sleeve Casual Shirt for Men';
+  const mailOptions = {
+    from: 'artbaba2007@gmail.com',
+    to: to,
+    subject: 'Order Confirmation',
+    html: `
+      <h2>Order Confirmation</h2>
+      <p>Order ID: ${order.id}</p>
+      <p>Order Details: ${JSON.stringify(order)}</p>
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('Email sent successfully!');
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
+}
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -108,7 +132,6 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.send('Welcome to the server!');
 });
-
 // Create a new order with PhonePe deep link
 app.post('/orders', async (req, res) => {
   try {
@@ -129,147 +152,117 @@ app.post('/orders', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
-
-// Get all orders
-app.get('/orders', async (req, res) => {
-  try {
-    const ordersData = await getOrders();
-    res.send(ordersData);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-// Get an order by ID
-app.get('/orders/:id', async (req, res) => {
-  try {
-    const id = req.params.id;
-    const order = await getOrderById(id);
-    if (!order) {
-      return res.status(404).json({ message: `Order with ID ${id} not found` });
-    }
-    res.json(order);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-});
-
-// Update an order
-app.put('/orders/:id', async (req, res) => {
-  try {
-    const id = req.params.id;
-    const updatedFormData = req.body;
-    if (!updatedFormData || Object.keys(updatedFormData).length === 0) {
-      return res.status(400).send('No form data received');
-    }
-    const order = await getOrderById(id);
-    if (!order) {
-      return res.status(404).send(`Order with ID ${id} not found`);
-    }
-    const updatedOrder = await updateOrder(id, updatedFormData);
-    res.send(updatedOrder);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
-// Delete an order
-app.delete('/orders/:id', async (req, res) => {
-  try {
-    const id = req.params.id;
-    const order = await getOrderById(id);
-    if (!order) {
-      return res.status(404).send(`Order with ID ${id} not found`);
-    }
-    const deletionMessage = await deleteOrder(id);
-    res.send(deletionMessage);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
-// Handle payment confirmation
-app.post('/payment-confirmation', async (req, res) => {
-  try {
-    const paymentResponse = req.body;
-    const orderId = paymentResponse.orderId;
-    const order = await getOrderById(orderId);
-    if (!order) {
-      return res.status(404).send(`Order with ID ${orderId} not found`);
-    }
-    if (paymentResponse.status === 'success') {
-      order.status = 'paid';
-      await updateOrder(orderId, order);
-      const sellerEmail = 'digvijaygour8@gmail.com';
-      sendEmail(sellerEmail, order);
-      res.send(`
-        <h2>Payment Successful!</h2>
-        <p>Thank you for your payment. Your order will be processed soon.</p>
-        <h3>Feedback</h3>
-        <form id="feedback-form">
-          <label for="feedback">How was your experience?</label>
-          <textarea id="question1" name="question1"></textarea>
-          <textarea id="question2" name="question2"></textarea>
-          <button>Submit Feedback</button>
-        </form>
-        <script src="feedback.js"></script>
-      `);
-    } else {
-      res.send('Payment failed. Please try again.');
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
-// Handle feedback submission
-app.post('/feedback', async (req, res) => {
-  try {
-    const feedback = req.body;
-    const feedbackJson = JSON.stringify(feedback, null, 2);
-    await fs.promises.appendFile('feedback.json', feedbackJson + '\n');
-    res.send('Feedback submitted successfully!');
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
-// Define the sendEmail function
-function sendEmail(to, order) {
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, 
-    auth: {
-      user: 'artbaba2007@gmail.com',
-      pass: 'khatra', // Replace with your actual password
-    },
-  });
-  const mailOptions = {
-    from: 'artbaba2007@gmail.com',
-    to: to,
-    subject: 'Order Confirmation',
-    html: `
-      <h2>Order Confirmation</h2>
-      <p>Order ID: ${order.id}</p>
-      <p>Order Details: ${JSON.stringify(order)}</p>
-    `,
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
+  
+  // Get all orders
+  app.get('/orders', async (req, res) => {
+    try {
+      const ordersData = await getOrders();
+      res.json(ordersData);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
     }
   });
-}
-
-app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
-});
+  
+  // Get an order by ID
+  app.get('/orders/:id', async (req, res) => {
+    try {
+      const id = req.params.id;
+      const order = await getOrderById(id);
+      if (!order) {
+        return res.status(404).json({ message: `Order with ID ${id} not found` });
+      }
+      res.json(order);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  });
+  
+  // Update an order
+  app.put('/orders/:id', async (req, res) => {
+    try {
+      const id = req.params.id;
+      const updatedFormData = req.body;
+      if (!updatedFormData || Object.keys(updatedFormData).length === 0) {
+        return res.status(400).send('No form data received');
+      }
+      const order = await getOrderById(id);
+      if (!order) {
+        return res.status(404).send(`Order with ID ${id} not found`);
+      }
+      const updatedOrder = await updateOrder(id, updatedFormData);
+      res.json(updatedOrder);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+  
+  // Delete an order
+  app.delete('/orders/:id', async (req, res) => {
+    try {
+      const id = req.params.id;
+      const order = await getOrderById(id);
+      if (!order) {
+        return res.status(404).send(`Order with ID ${id} not found`);
+      }
+      const deletionMessage = await deleteOrder(id);
+      res.send(deletionMessage);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+  
+  // Handle payment confirmation
+  app.post('/payment-confirmation', async (req, res) => {
+    try {
+      const paymentResponse = req.body;
+      const orderId = paymentResponse.orderId;
+      const order = await getOrderById(orderId);
+      if (!order) {
+        return res.status(404).send(`Order with ID ${orderId} not found`);
+      }
+      if (paymentResponse.status === 'success') {
+        order.status = 'paid';
+        await updateOrder(orderId, order);
+        const sellerEmail = 'digvijaygour8@gmail.com';
+        sendEmail(sellerEmail, order);
+        res.send(`
+          <h2>Payment Successful!</h2>
+          <p>Thank you for your payment. Your order will be processed soon.</p>
+          <h3>Feedback</h3>
+          <form id="feedback-form">
+            <label for="feedback">How was your experience?</label>
+            <textarea id="question1" name="question1"></textarea>
+            <textarea id="question2" name="question2"></textarea>
+            <button>Submit Feedback</button>
+          </form>
+          <script src="feedback.js"></script>
+        `);
+      } else {
+        res.send('Payment failed. Please try again.');
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+  
+  // Handle feedback submission
+  app.post('/feedback', async (req, res) => {
+    try {
+      const feedback = req.body;
+      const feedbackJson = JSON.stringify(feedback, null, 2);
+      await fs.promises.appendFile('feedback.json', feedbackJson + '\n');
+      res.send('Feedback submitted successfully!');
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+  
+  app.listen(port, () => {
+    console.log(`Server started on port ${port}`);
+  });
