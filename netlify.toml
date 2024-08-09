@@ -1,5 +1,5 @@
 [build]
-  command = "node server.js"
+  command = "esbuild server.js --bundle --platform=node --outdir=public"
   publish = "./public"
   timeout = 3600
 
