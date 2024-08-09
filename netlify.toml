@@ -1,6 +1,7 @@
 [build]
   command = "node server.js"
   publish = "./public"
+  timeout = 3600
 
 [dev]
   command = "node server.js"
