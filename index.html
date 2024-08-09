@@ -6,116 +6,101 @@
   <title>KuwarPay</title>
   <link rel="icon" href="icon.png">
   <link rel="stylesheet" href="styles.css">
- 
+  <style>
+    /* Add your CSS styles here */
+  </style>
 </head>
 <body>
-
-  
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
   </nav>
-<div class="container">
- 
-  <div class="popup" id="popup">
-    
-    <div class="popup-content">
-      <div class="left-container">
-       
-        <img src="tshirt1.jpg" alt="" id="product-image" class="product-image" />
-      </div>
-    
-     
-      <div class="right-container">
-        <div class="product-info">
-          <p id="product-description">Half Sleeve Casual Shirt for Men</p>
+  <div class="container">
+    <div class="popup" id="popup">
+      <div class="popup-content">
+        <div class="left-container">
+          <img src="tshirt1.jpg" alt="" id="product-image" class="product-image" />
         </div>
-        <p id="price" class="price">
-          ₹499
-        </p>
-       
-        <form id="checkout-form">
-          <h3>Checkout Details </h3>
-          <label for="name">Full Name:</label>
-          <input type="text" id="name" name="name" required>
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required>
-          <label for="phone">Phone:</label>
-          <input type="tel" id="phone" name="phone" required>
-          <h3>Address:</h3>
-          <label for="address-line1">Address Line 1:</label>
-          <input type="text" id="address-line1" name="address-line1" required>
-          <label for="address-line2">Address Line 2:</label>
-          <input type="text" id="address-line2" name="address-line2">
-          <label for="city">City:</label>
-          <input type="text" id="city" name="city" required>
-          <label for="state">State:</label>
-          <input type="text" id="state" name="state" required>
-          <label for="pincode">Pincode:</label>
-          <input type="number" id="pincode" name="pincode" required>
-        </form>
-       
-       
-      
+        <div class="right-container">
+          <div class="product-info">
+            <p id="product-description">Half Sleeve Casual Shirt for Men</p>
+          </div>
+          <p id="price" class="price">
+            ₹499
+          </p>
+          <form id="checkout-form">
+            <h3>Checkout Details</h3>
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" required>
+            <h3>Address:</h3>
+            <label for="address-line1">Address Line 1:</label>
+            <input type="text" id="address-line1" name="address-line1" required>
+            <label for="address-line2">Address Line 2:</label>
+            <input type="text" id="address-line2" name="address-line2">
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required>
+            <label for="state">State:</label>
+            <input type="text" id="state" name="state" required>
+            <label for="pincode">Pincode:</label>
+            <input type="number" id="pincode" name="pincode" required>
+          </form>
+        </div>
       </div>
-      
+      <button id="buy-now">Buy Now</button>
+      <div class="powered-by-container">
+        <p class="powered-by-text">Powered by</p>
+        <img src="logo.1.png" alt="" class="powered-by-logo">
+      </div>
     </div>
-    <button id="buy-now">Buy Now</button>
-    <div class="powered-by-container">
-      <p class="powered-by-text">Powered by</p>
-      <img src="logo.1.png" alt="" class="powered-by-logo">
-    </div>
-
   </div>
-</div>
 
-<script>
-  const socket = new WebSocket('ws://127.0.0.1:8080');
+  <script>
+    const socket = new WebSocket('ws://localhost:8080');
 
-  socket.onmessage = (event) => {
-    console.log(`Received message: ${event.data}`);
-  };
-
-  socket.onopen = () => {
-    console.log('Connected to the server');
-  };
-
-  socket.onclose = () => {
-    console.log('Disconnected from the server');
-  };
-
-  socket.onerror = (error) => {
-    console.log(`Error: ${error}`);
-  };
-
-  const buyNowButton = document.getElementById('buy-now');
-  const checkoutForm = document.getElementById('checkout-form');
-
-  buyNowButton.addEventListener('click', () => {
-    checkoutForm.submit();
-    const formData = {
-      name: checkoutForm.name.value,
-      email: checkoutForm.email.value,
-      phone: checkoutForm.phone.value,
-      'address-line1': checkoutForm['address-line1'].value,
-      'address-line2': checkoutForm['address-line2'].value,
-      city: checkoutForm.city.value,
-      state: checkoutForm.state.value,
-      pincode: checkoutForm.pincode.value,
+    socket.onmessage = (event) => {
+      console.log(`Received message: ${event.data}`);
+      // Handle incoming message from server
     };
 
-    console.log(formData);
+    socket.onopen = () => {
+      console.log('Connected to the server');
+      // Send a message to the server
+      socket.send('Hello from client!');
+    };
 
-    fetch('http://localhost:5500/orders', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        window.location.href = "https://phonepe.com/merchant/pay?sellerId=123456789&amount=1&currency=INR";
+    socket.onclose = () => {
+      console.log('Disconnected from the server');
+    };
+
+    socket.onerror = (error) => {
+      console.log(`Error: ${error}`);
+    };
+
+    const buyNowButton = document.getElementById('buy-now');
+    const checkoutForm = document.getElementById('checkout-form');
+
+    buyNowButton.addEventListener('click', () => {
+      const formData = new FormData(checkoutForm);
+
+      fetch('http://localhost:5500/orders', {
+        method: 'POST',
+        body: formData,
       })
-      .catch((error) => console.error(error));
-  });
-</script>
-
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          const redirectUrl = `upi://pay?pa=9822242222@ybl&pn=Mahendra%20Gour&am=1&tn=Half%20Sleeve%20Casual%20Shirt%20for%20Men&cu=INR`;
+          window.location.href = redirectUrl;
+        })
+        .catch((error) => console.error(error));
+    });
+  </script>
 </body>
 </html>

@@ -1,0 +1,16 @@
+[build]
+  command = "node server.js"
+  publish = "./public"
+
+[dev]
+  command = "node server.js"
+  port = 5500
+
+[functions]
+  node_bundler = "esbuild"
+
+[site]
+  id = "digvijaygour07"
+
+[deploy]
+  target = "production"

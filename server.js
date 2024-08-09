@@ -7,10 +7,10 @@ const nodemailer = require('nodemailer');
 const fs = require('fs');
 const WebSocket = require('ws');
 
+// Load orders from file
 let orders = [];
 let isOrdersLoaded = false;
 
-// Load orders from file
 const loadOrders = async () => {
   try {
     const data = await fs.promises.readFile('orders.json', 'utf8');
@@ -94,7 +94,8 @@ const deleteOrder = async (id) => {
 // Load orders initially
 loadOrders();
 
-const sellerPhonePeId = '9822242222@axl'; // Replace with your actual PhonePe ID
+const sellerPhonePeId = '9822242222@ybl'; // Replace with your actual PhonePe ID
+const sellerName = 'mahendra gour'; // Replace with your actual name
 const paymentAmount = 1;
 const paymentDescription = 'Half Sleeve Casual Shirt for Men';
 
@@ -108,20 +109,21 @@ app.get('/', (req, res) => {
   res.send('Welcome to the server!');
 });
 
-// Create a new order
+// Create a new order with PhonePe deep link
 app.post('/orders', async (req, res) => {
   try {
-    console.log('Received request:', req);
     const formData = req.body;
-    console.log('Received form data:', formData);
     if (!formData || Object.keys(formData).length === 0) {
       return res.status(400).send('No form data received');
     }
 
     const newOrder = await createOrder(formData);
-    const paymentUrl = `https://phonepe.com/upi/${sellerPhonePeId}/${paymentAmount}/${paymentDescription}`;
-    console.log('Redirecting to PhonePe:', paymentUrl);
-    res.send({ paymentUrl: paymentUrl }); // Send the payment URL as a response
+
+    const deepLinkUrl = `upi://pay?pa=${sellerPhonePeId}&pn=${encodeURIComponent(sellerName)}&am=${paymentAmount}&tn=${paymentDescription}&cu=INR`;
+    console.log('Generated PhonePe Deep Link:', deepLinkUrl);
+
+    // Redirect to PhonePe with pre-filled details and amount
+    res.redirect(deepLinkUrl);
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
@@ -138,19 +140,18 @@ app.get('/orders', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
-
 // Get an order by ID
 app.get('/orders/:id', async (req, res) => {
   try {
     const id = req.params.id;
     const order = await getOrderById(id);
     if (!order) {
-      return res.status(404).send(`Order with ID ${id} not found`);
+      return res.status(404).json({ message: `Order with ID ${id} not found` });
     }
-    res.send(order);
+    res.json(order);
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
@@ -226,13 +227,9 @@ app.post('/payment-confirmation', async (req, res) => {
 });
 
 // Handle feedback submission
-app.get('/feedback', async (req, res) => {
+app.post('/feedback', async (req, res) => {
   try {
-    const feedback = {
-      id: Date.now(),
-      question1: req.query.question1,
-      question2: req.query.question2,
-    };
+    const feedback = req.body;
     const feedbackJson = JSON.stringify(feedback, null, 2);
     await fs.promises.appendFile('feedback.json', feedbackJson + '\n');
     res.send('Feedback submitted successfully!');
