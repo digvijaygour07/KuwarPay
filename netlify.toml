@@ -1,5 +1,5 @@
 [build]
-  command = "esbuild server.js --bundle --platform=node --outdir=public"
+  command = "npm install esbuild && esbuild server.js --bundle --platform=node --outdir=public"
   publish = "./public"
   timeout = 3600
 
