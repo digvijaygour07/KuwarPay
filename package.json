@@ -23,7 +23,7 @@
     "ws": "^8.18.0"
   },
   "devDependencies": {
-    "esbuild": "^0.18.11",
+    "esbuild": "^0.23.1",
     "nodemon": "^3.1.4"
   }
 }
