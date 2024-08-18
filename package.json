@@ -4,11 +4,9 @@
   "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm install && esbuild netlify/functions/api/api.js --bundle --platform=node --outdir=.netlify/functions",
+    "build": "esbuild netlify/functions/api/api.js --bundle --platform=node --outdir=.netlify/functions --allow-overwrite",
     "dev": "nodemon netlify/functions/api/api.js",
-    "build:lambda": "npm run build",
-    "build:full": "npm run build",
-    "deploy": "netlify deploy --prod --auth nfp_qWwH5fjXdQ9U78LhpDTaoyP5mxJ4aWkC053e"
+    "build:lambda": "esbuild api.js --bundle --platform=node --outdir=./ --allow-overwrite"
   },
   "author": "Your Name or Organization",
   "license": "ISC",
@@ -25,7 +23,7 @@
     "ws": "^8.18.0"
   },
   "devDependencies": {
-    "esbuild": "^0.23.1",
+    "esbuild": "^0.18.11",
     "nodemon": "^3.1.4"
   }
 }
