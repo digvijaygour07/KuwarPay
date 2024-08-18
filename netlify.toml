@@ -1,7 +1,7 @@
 [build]
-  command = "npm install && npm run build:lambda && npm run build:full && esbuild netlify/functions/api/api.js --bundle --platform=node --outdir=.netlify/functions --allow-overwrite"
+  command = "npm run build"
   publish = ".netlify/functions"
-  
+
 [build.environment]
   NODE_ENV = "production"
 
@@ -39,9 +39,4 @@
 [[files]]
   include = "**/*"
   exclude = "node_modules/*"
-
-[scripts]
-  build = "esbuild netlify/functions/api/api.js --bundle --platform=node --outdir=.netlify/functions --allow-overwrite"
-
-  dev = "nodemon netlify/functions/api/api.js"
 
