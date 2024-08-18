@@ -4,7 +4,7 @@
   "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm install && esbuild netlify/functions/api/api.js --bundle --platform=node --outdir=.netlify/functions",
+    "build": "esbuild api.js --bundle --platform=node --outdir=.netlify/functions --log-level=debug",
     "dev": "nodemon netlify/functions/api/api.js",
     "build:lambda": "npm run build",
     "build:full": "npm run build",
