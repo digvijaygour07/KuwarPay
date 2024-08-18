@@ -4,7 +4,7 @@
   "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild netlify/functions/api/api.js --bundle --platform=node --outdir=.netlify/functions --allow-overwrite",
+    "build": "rollup -c ./rollup.config.js",
     "dev": "nodemon netlify/functions/api/api.js",
     "build:lambda": "esbuild api.js --bundle --platform=node --outdir=./ --allow-overwrite",
     "build:full": "npm run build:lambda",
