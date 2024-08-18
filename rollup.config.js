@@ -6,6 +6,7 @@ export default {
   output: {
     dir: '.netlify/functions',
     format: 'cjs',
+    sourcemap: true, // Add this line
   },
   plugins: [
     nodeResolve(),
