@@ -8,7 +8,8 @@
     "dev": "rollup -c rollup.config.js --watch",
     "deploy": "netlify deploy --prod --auth nfp_qWwH5fjXdQ9U78LhpDTaoyP5mxJ4aWkC053e"
   },
-  "author": "Your Actual Name or Organization",
+  "author": "Your Name or Organization",
+  "description": "Brief description of your project",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -30,5 +31,4 @@
     "rollup": "^2.77.2"
   }
 }
-
 
