@@ -4,8 +4,10 @@
   "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c rollup.config.js",
-    "dev": "rollup -c rollup.config.js --watch",
+    "build": "esbuild api.js --bundle --platform=node --outdir=.netlify/functions --log-level=debug",
+    "dev": "nodemon netlify/functions/api/api.js",
+    "build:lambda": "npm run build",
+    "build:full": "npm run build",
     "deploy": "netlify deploy --prod --auth nfp_qWwH5fjXdQ9U78LhpDTaoyP5mxJ4aWkC053e"
   },
   "author": "Your Name or Organization",
@@ -29,3 +31,4 @@
     "rollup": "^2.77.2"
   }
 }
+

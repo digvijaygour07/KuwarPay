@@ -1,5 +1,5 @@
 [build]
-  command = "rollup -c rollup.config.js"
+  command = "npm install && npm run build:lambda && npm run build:full && esbuild netlify/functions/api/api.js --bundle --platform=node --outdir=.netlify/functions --allow-overwrite"
   publish = ".netlify/functions"
 
 [build.environment]
@@ -39,3 +39,9 @@
 [[files]]
   include = "**/*"
   exclude = "node_modules/*"
+
+[scripts]
+  build = "esbuild netlify/functions/api/api.js --bundle --platform=node --outdir=.netlify/functions --allow-overwrite"
+
+  dev = "nodemon netlify/functions/api/api.js"
+
