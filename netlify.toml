@@ -1,12 +1,12 @@
 [build]
-  command = "npm install && npm run build:lambda && npm run build:full && rollup -c rollup.config.js"
+  command = "npm run build"
   publish = ".netlify/functions"
 
 [build.environment]
   NODE_ENV = "production"
 
 [dev]
-  command = "rollup -c rollup.config.js --watch"
+  command = "npm run dev"
   port = 5500
 
 [dev.environment]
