@@ -44,3 +44,4 @@
   build = "esbuild netlify/functions/api/api.js --bundle --platform=node --outdir=.netlify/functions --allow-overwrite"
 
   dev = "nodemon netlify/functions/api/api.js"
+
