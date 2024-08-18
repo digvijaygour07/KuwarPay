@@ -41,5 +41,7 @@
   exclude = "node_modules/*"
 
 [scripts]
-  build = "rollup -c rollup.config.js"
-  dev = "rollup -c rollup.config.js --watch"
+  build = "esbuild netlify/functions/api/api.js --bundle --platform=node --outdir=.netlify/functions --allow-overwrite"
+
+  dev = "nodemon netlify/functions/api/api.js"
+
