@@ -1,5 +1,5 @@
 [build]
-  command = "npm install && npm run build:lambda && npm run build:full && esbuild netlify/functions/api/api.js --bundle --platform=node --outdir=.netlify/functions --allow-overwrite"
+  command = "npm install && npm run build:lambda && npm run build:full && rollup -c rollup.config.js"
   publish = ".netlify/functions"
 
 [build.environment]
@@ -41,7 +41,5 @@
   exclude = "node_modules/*"
 
 [scripts]
-  build = "esbuild netlify/functions/api/api.js --bundle --platform=node --outdir=.netlify/functions --allow-overwrite"
-
-  dev = "nodemon netlify/functions/api/api.js"
-
+  build = "rollup -c rollup.config.js"
+  dev = "rollup -c rollup.config.js --watch"
