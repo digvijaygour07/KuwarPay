@@ -4,9 +4,11 @@
   "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild netlify/functions/api/api.js --bundle --platform=node --outdir=.netlify/functions --allow-overwrite",
+    "build": "npm install && esbuild netlify/functions/api/api.js --bundle --platform=node --outdir=.netlify/functions",
     "dev": "nodemon netlify/functions/api/api.js",
-    "build:lambda": "esbuild api.js --bundle --platform=node --outdir=./ --allow-overwrite"
+    "build:lambda": "npm run build",
+    "build:full": "npm run build",
+    "deploy": "netlify deploy --prod --auth nfp_qWwH5fjXdQ9U78LhpDTaoyP5mxJ4aWkC053e"
   },
   "author": "Your Name or Organization",
   "license": "ISC",
