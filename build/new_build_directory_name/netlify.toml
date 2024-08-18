@@ -1,0 +1,39 @@
+[build]
+  publish = "./new_build_directory_name"
+  command = "npm install && rmdir /s /q new_build_directory_name && mkdir new_build_directory_name && copy /b /y .\\* new_build_directory_name"
+  
+[build.environment]
+  NODE_ENV = "production"
+
+[dev]
+  command = "npm run dev"
+  port = 8080
+
+[dev.environment]
+  NODE_ENV = "development"
+
+[functions]
+  node_bundler = "esbuild"
+
+[site]
+  id = "086500c0-77bb-427e-8aa1-d3d74374a9ac"
+  name = "kuwar-pay"
+
+[deploy]
+  target = "production"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[context.production.environment]
+  NODE_ENV = "production"
+
+[context.development.environment]
+  NODE_ENV = "development"

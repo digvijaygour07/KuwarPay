@@ -1,0 +1,46 @@
+[build]
+  command = "npm install && npm run build:lambda && npm run build:full && npx esbuild"
+  publish = ".netlify/functions"
+  
+[build.environment]
+  NODE_ENV = "production"
+
+[dev]
+  command = "npm run dev"
+  port = 5500
+
+[dev.environment]
+  NODE_ENV = "development"
+
+[functions]
+  directory = ".netlify/functions"
+
+[functions.path]
+  "/api/my-function" = "myFunction.js"
+
+[site]
+  id = "086500c0-77bb-427e-8aa1-d3d74374a9ac"
+  name = "kuwarpay"
+
+[deploy]
+  target = "production"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+[context.production.environment]
+  NODE_ENV = "production"
+
+[context.development.environment]
+  NODE_ENV = "development"
+
+[[files]]
+  include = "**/*"
+  exclude = "node_modules/*"
+
+[scripts]
+  build = "esbuild netlify/functions/api/api.js --bundle --platform=node --outdir=.netlify/functions --allow-overwrite"
+
+  dev = "nodemon netlify/functions/api/api.js"

@@ -1,0 +1,49 @@
+[build]
+  command = "npm install && npm run build"
+  publish = "./"
+
+[build.environment]
+  NODE_ENV = "production"
+
+[dev]
+  command = "npm run dev"
+  port = 8080
+
+[dev.environment]
+  NODE_ENV = "development"
+
+[functions]
+  directory = "netlify/functions-internal"
+  node_bundler = "esbuild"
+
+[site]
+  id = "086500c0-77bb-427e-8aa1-d3d74374a9ac"
+  name = "kuwarpay"
+
+[deploy]
+  target = "production"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+
+[context.production.environment]
+  NODE_ENV = "production"
+
+[context.development.environment]
+  NODE_ENV = "development"
+
+[[files]]
+  include = "**/*"
+  exclude = "node_modules/*"
+
+[functions]
+  directory = "netlify/functions-internal"
+  node_bundler = "esbuild"
+
+[[functions]]
+  path = "/api/my-function"
+  script = "netlify/functions-internal/function.js"
+  runtime = "nodejs14"
