@@ -4,8 +4,8 @@
   "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild api.js --bundle --platform=node --outdir=.netlify/functions --log-level=debug",
-    "dev": "nodemon netlify/functions/api/api.js",
+    "build": "rollup -c rollup.config.js",
+    "dev": "rollup -c rollup.config.js --watch",
     "build:lambda": "npm run build",
     "build:full": "npm run build",
     "deploy": "netlify deploy --prod --auth nfp_qWwH5fjXdQ9U78LhpDTaoyP5mxJ4aWkC053e"
@@ -28,7 +28,9 @@
     "@babel/preset-env": "^7.25.3",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
+    "esbuild": "^0.23.1",
     "rollup": "^2.77.2"
   }
 }
+
 
