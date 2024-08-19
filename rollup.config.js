@@ -9,10 +9,6 @@ export default defineConfig({
       dir: '.netlify/functions',
       format: 'es',
       sourcemap: true,
-    },
-    {
-      file: 'dist/bundle.js',
-      format: 'cjs'
     }
   ],
   plugins: [
