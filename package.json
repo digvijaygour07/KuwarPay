@@ -23,13 +23,13 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "nodemailer": "^6.9.14",
+    "rollup": "^2.79.1",
     "ws": "^8.18.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.25.3",
-    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-node-resolve": "^11.0.0",
-    "esbuild": "^0.23.1",
-    "rollup": "^2.79.1"
+    "esbuild": "^0.23.1"
   }
 }
