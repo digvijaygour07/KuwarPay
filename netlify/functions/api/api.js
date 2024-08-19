@@ -18,6 +18,13 @@ const handler = async (event) => {
 
 module.exports = { handler }
 
+import babel from '@rollup/plugin-babel';
+
+export default {
+  entry: 'netlify/functions/api/api.js',
+  plugins: [babel()],
+  // ... other options
+};
 
 const express = require('express');
 const app = express();
@@ -58,6 +65,9 @@ const loadOrders = async () => {
     }
   }
 };
+
+
+
 
 // Save orders to file
 const saveOrders = async () => {
