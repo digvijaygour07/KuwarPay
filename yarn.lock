@@ -1832,12 +1832,12 @@ resolve@^1.14.2, resolve@^1.19.0:
     path-parse "^1.0.7"
     supports-preserve-symlinks-flag "^1.0.0"
 
-rollup@^1.20.0||^2.0.0, rollup@^2.42.0:
-  version "2.42.0"
-  resolved "https://registry.npmjs.org/rollup/-/rollup-2.42.0.tgz"
-  integrity sha512-P9bJnaZ2P0hawoJo+Jto8YZZqil9URogNVE4KJeyj6wrUSDIbdMvmj7CsyEFwdXu/I5SiWEzB1hfmLeMldH6ww==
+rollup@^1.20.0||^2.0.0, rollup@^2.79.1:
+  version "2.79.1"
+  resolved "https://registry.npmjs.org/rollup/-/rollup-2.79.1.tgz"
+  integrity sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==
   optionalDependencies:
-    fsevents "~2.3.1"
+    fsevents "~2.3.2"
 
 safe-buffer@^5.0.1, safe-buffer@5.2.1:
   version "5.2.1"
