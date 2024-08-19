@@ -129,7 +129,8 @@ const updateOrder = async (id, updatedFormData) => {
     console.error('Error updating order:', error);
     throw error;
   }
-};
+}; 
+
 
 // Delete an order
 const deleteOrder = async (id) => {
