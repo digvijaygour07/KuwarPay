@@ -7,12 +7,15 @@ export default defineConfig({
   output: [
     {
       dir: '.netlify/functions',
-      format: 'es',
+      format: 'esm', // Changed from 'es' to 'esm' for clarity
       sourcemap: true,
-    }
+    },
   ],
   plugins: [
-    nodeResolve(),
+    nodeResolve({
+      // Add this to resolve node modules correctly
+      resolveOnly: ['node_modules'],
+    }),
     babel({
       babelHelpers: 'bundled',
       presets: ['@babel/preset-env'],
