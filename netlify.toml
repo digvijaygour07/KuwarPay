@@ -1,5 +1,5 @@
 [build]
-  command = "rollup -c rollup.config.js"
+  command = "npm install && rollup -c rollup.config.js"
   publish = ".netlify/functions"
 
 [build.environment]
