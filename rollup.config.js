@@ -5,8 +5,8 @@ export default {
   input: 'netlify/functions/api/api.js',
   output: {
     dir: '.netlify/functions',
-    format: 'cjs',
-    sourcemap: true, // Add this line
+    format: 'es', // Change this to "es" from "cjs"
+    sourcemap: true,
   },
   plugins: [
     nodeResolve(),
