@@ -129,7 +129,7 @@ const updateOrder = async (id, updatedFormData) => {
     console.error('Error updating order:', error);
     throw error;
   }
-};
+}; // <--- This closing curly brace was missing
 
 // Delete an order
 const deleteOrder = async (id) => {
