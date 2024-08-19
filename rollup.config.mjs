@@ -11,11 +11,16 @@ export default defineConfig({
   },
   plugins: [
     nodeResolve({
+      // Add this to ensure correct resolution of node_modules
+      mainFields: ['module', 'main'],
       resolveOnly: ['node_modules'],
     }),
     babel({
+      // Add this to ensure correct babel helpers usage
       babelHelpers: 'bundled',
       presets: ['@babel/preset-env'],
+      // Add this to ensure correct source map usage
+      sourceMaps: true,
     }),
   ],
 });
