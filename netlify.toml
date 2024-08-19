@@ -1,5 +1,5 @@
 [build]
-  command = "npm install && rollup -c rollup.config.js"
+  command = "npm install && rollup -c rollup.config.mjs"
   publish = ".netlify/functions"
 
 [build.environment]
@@ -41,5 +41,5 @@
   exclude = "node_modules/*"
 
 [scripts]
-  build = "rollup -c rollup.config.js"
-  dev = "rollup -c rollup.config.js --watch"
+  build = "rollup -c rollup.config.mjs"
+  dev = "rollup -c rollup.config.mjs --watch"
