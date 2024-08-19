@@ -1,8 +1,9 @@
 [build]
-  command = "npm install && rollup -c rollup.config.mjs"
+  command = "npm install && npm run build"
   publish = ".netlify/functions"
 
 [build.environment]
+  NODE_VERSION = "18.20.4"
   NODE_ENV = "production"
 
 [dev]
