@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { rollup } from 'rollup';
 import babel from '@rollup/plugin-babel';
 import nodeResolve from '@rollup/plugin-node-resolve';
@@ -24,3 +25,31 @@ async function build() {
 }
 
 build();
+=======
+import { rollup } from 'rollup';
+import babel from '@rollup/plugin-babel';
+import nodeResolve from '@rollup/plugin-node-resolve';
+
+const inputOptions = {
+  input: 'api.js',
+  plugins: [
+    nodeResolve(),
+    babel({
+      babelHelpers: 'bundled',
+      presets: ['@babel/preset-env'],
+    }),
+  ],
+};
+
+const outputOptions = {
+  file: 'bundle.js',
+  format: 'cjs',
+};
+
+async function build() {
+  const bundle = await rollup(inputOptions);
+  await bundle.write(outputOptions);
+}
+
+build();
+>>>>>>> d0503de8593dd26c2f46b5e66cefb97fde4ef9be

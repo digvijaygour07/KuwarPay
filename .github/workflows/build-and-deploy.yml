@@ -1,0 +1,16 @@
+name: Build and deploy
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
+      - name: Run Rollup
+        run: node build.js
+      - name: Commit output files
+        run: |
+          git add .
+          git commit -m "Build output files"

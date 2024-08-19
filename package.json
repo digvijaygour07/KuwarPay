@@ -1,12 +1,21 @@
 {
   "name": "kuwarpay",
   "version": "1.0.0",
+<<<<<<< HEAD
   "type": "module",
   "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c rollup.config.mjs",
     "dev": "rollup -c rollup.config.mjs --watch",
+=======
+  "type": "module", // Add this line
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c",
+    "dev": "rollup -c rollup.config.js --watch",
+>>>>>>> d0503de8593dd26c2f46b5e66cefb97fde4ef9be
     "deploy": "netlify deploy --prod --auth nfp_qWwH5fjXdQ9U78LhpDTaoyP5mxJ4aWkC053e"
   },
   "author": "Your Name or Organization",
