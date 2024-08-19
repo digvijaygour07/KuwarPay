@@ -1,10 +1,11 @@
 {
   "name": "kuwarpay",
   "version": "1.0.0",
+  "type": "module", // Add this line
   "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./rollup -c ./rollup.config.js",
+    "build": "rollup -c",
     "dev": "rollup -c rollup.config.js --watch",
     "deploy": "netlify deploy --prod --auth nfp_qWwH5fjXdQ9U78LhpDTaoyP5mxJ4aWkC053e"
   },
