@@ -3,16 +3,15 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 
 export default defineConfig({
-  input: 'netlify/functions/api/api.js',
+  input: 'netlify/functions/api/api.js', // Ensure this is the correct path to your input file
   output: {
-    file: 'netlify/functions/api.js', // Removed the dot (.) at the beginning
+    file: 'netlify/functions/api.js', // Ensure this is the correct path for your output file
     format: 'esm',
     sourcemap: true,
   },
   plugins: [
     nodeResolve({
       mainFields: ['module', 'main'],
-      resolveOnly: ['node_modules'],
     }),
     babel({
       babelHelpers: 'bundled',
