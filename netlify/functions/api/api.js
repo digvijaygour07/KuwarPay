@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'url';
 
+
 // Docs on event and context https://docs.netlify.com/functions/build/#code-your-function-2
 const handler = async (event) => {
   try {
@@ -19,11 +20,12 @@ const handler = async (event) => {
 module.exports = { handler }
 
 import babel from '@rollup/plugin-babel';
+import * as pm from 'picomatch';
 
 export default {
   entry: 'netlify/functions/api/api.js',
   plugins: [babel()],
-  // ... other options
+ 
 };
 
 const express = require('express');
