@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c rollup.config.mjs",
     "dev": "rollup -c rollup.config.mjs --watch",
-    "deploy": "netlify deploy --prod --nfp_qWwH5fjXdQ9U78LhpDTaoyP5mxJ4aWkC053e"
+    "deploy": "netlify deploy --prod --token YOUR_NETLIFY_DEPLOY_TOKEN",
+    "postinstall": "patch-package"
   },
   "author": "Your Name or Organization",
   "license": "ISC",
@@ -19,18 +20,23 @@
     "dotenv": "^16.4.5",
     "email-validator": "^2.0.4",
     "express": "^4.19.2",
-    "git": "^0.1.5",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "nodemailer": "^6.9.14",
+    "patch-package": "^8.0.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "tslib": "^2.6.3",
     "ws": "^8.18.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
     "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/pluginutils": "^5.1.0",
-    "picomatch": "^2.2.2",
-    "rollup": "^4.21.0"
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup": "^2.79.1",
+    "rollup-plugin-terser": "^7.0.2" 
   }
 }

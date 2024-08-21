@@ -2501,7 +2501,7 @@ const require$$0 = [
 ];
 
 (function (module) {
-	module.exports = require$$0;
+	export default= require$$0;
 } (binaryExtensions$1));
 
 const path = require$$0$2;

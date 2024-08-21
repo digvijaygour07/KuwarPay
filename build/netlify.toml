@@ -1,6 +1,6 @@
 [build]
-  command = "npm install && npm run build"
-  publish = "./"
+  command = "npx rollup -c rollup.config.mjs"
+  publish = "public"
 
 [build.environment]
   NODE_ENV = "production"
@@ -13,7 +13,7 @@
   NODE_ENV = "development"
 
 [functions]
-  directory = "netlify/functions-internal"
+  directory = ".netlify/functions"
   node_bundler = "esbuild"
 
 [site]
@@ -28,22 +28,13 @@
   [headers.values]
     Access-Control-Allow-Origin = "*"
 
-
 [context.production.environment]
   NODE_ENV = "production"
 
 [context.development.environment]
   NODE_ENV = "development"
 
-[[files]]
-  include = "**/*"
-  exclude = "node_modules/*"
-
-[functions]
-  directory = "netlify/functions-internal"
-  node_bundler = "esbuild"
-
 [[functions]]
   path = "/api/my-function"
-  script = "netlify/functions-internal/function.js"
+  script = "netlify/functions/my-function.js"
   runtime = "nodejs14"

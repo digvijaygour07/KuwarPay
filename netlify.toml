@@ -1,17 +1,12 @@
 [build]
-  command = "npm ci && npm run build"
-  publish = ".netlify/functions"
-
-[build.environment]
-  NODE_VERSION = "18.20.4"
-  NODE_ENV = "production"
+  command = "npx rollup -c rollup.config.mjs"
+  publish = "public"
+  environment = { NODE_VERSION = "18.20.4" }
 
 [dev]
   command = "npm run dev"
   port = 5500
-
-[dev.environment]
-  NODE_ENV = "development"
+  environment = { NODE_ENV = "development" }
 
 [functions]
   directory = ".netlify/functions"
@@ -31,11 +26,12 @@
   [headers.values]
     Access-Control-Allow-Origin = "*"
 
-[context.production.environment]
-  NODE_ENV = "production"
+[context]
+  [context.production]
+    environment = { NODE_ENV = "production" }
 
-[context.development.environment]
-  NODE_ENV = "development"
+  [context.development]
+    environment = { NODE_ENV = "development" }
 
 [[files]]
   include = "**/*"

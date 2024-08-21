@@ -17,15 +17,19 @@ const handler = async (event) => {
   }
 }
 
-module.exports = { handler }
-
 import babel from '@rollup/plugin-babel';
-import * as pm from 'picomatch';
+import { terser } from '@rollup/plugin-terser';
 
 export default {
-  entry: 'netlify/functions/api/api.js',
-  plugins: [babel()],
- 
+  input: 'netlify/functions/api/api.js',
+  output: {
+    file: 'netlify/functions/api.js',
+    format: 'cjs'
+  },
+  plugins: [
+    babel(),
+    terser()
+  ]
 };
 
 const express = require('express');
@@ -36,6 +40,7 @@ const morgan = require('morgan');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const WebSocket = require('ws');
+
 
 // Middlewares
 app.use(cors());
@@ -68,6 +73,25 @@ const loadOrders = async () => {
   }
 };
 
+// .netlify/functions/api.js
+
+const fetch = require('node-fetch');
+
+exports.handler = async function(event, context) {
+  try {
+    const response = await fetch('https://kuwarpay.netlify.app/data');
+    const data = await response.json();
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data),
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Failed to fetch data' }),
+    };
+  }
+};
 
 
 
@@ -167,21 +191,24 @@ const deleteOrder = async (id) => {
   }
 };
 
+// Import Nodemailer
+const nodemailer = require('nodemailer');
+
 // Send email using Nodemailer
 async function sendEmail(to, order) {
   try {
+    // Create transporter object
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
+      service: process.env.EMAIL_SERVICE,
       auth: {
-        user: 'artbaba2007@gmail.com',
-        pass: process.env.EMAIL_PASSWORD, // Use environment variable
-      },
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      }
     });
 
+    // Define mailOptions object
     const mailOptions = {
-      from: 'artbaba2007@gmail.com',
+      from: process.env.EMAIL_USER,
       to: to,
       subject: 'Order Confirmation',
       html: `
@@ -191,28 +218,44 @@ async function sendEmail(to, order) {
       `,
     };
 
-    await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully!');
+    // Asynchronous function to send the email
+    async function sendMail() {
+      try {
+        // Send email using transporter
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent: ' + info.response);
+        return {
+          statusCode: 200,
+          body: JSON.stringify({ message: 'Email sent successfully!' }),
+        };
+      } catch (error) {
+        console.error('Error sending email:', error);
+        return {
+          statusCode: 500,
+          body: JSON.stringify({ message: 'Failed to send email.' }),
+        };
+      }
+    }
+
+    // Call the sendMail function and return its result
+    return sendMail();
   } catch (error) {
     console.error('Error sending email:', error);
-    throw error;
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Failed to send email.' }),
+    };
   }
 }
 
-// Usage
-async function sendEmailWrapper() {
-  try {
-
-    await sendEmail('digvijaygour8@gmail.com', order);
-
-    await sendEmail('recipient@example.com', order);
-
-    // Code after sending mail
-  } catch (error) {
-    console.error('Error sending email:', error);
-  }
-}
-sendEmailWrapper();
+// Handle the request
+exports.handler = async function (event, context) {
+  console.log('Event:', event);
+  console.log('Context:', context);
+  const to = 'recipient@example.com'; // Replace with the recipient's email
+  const order = { id: '12345', details: 'Order details' }; // Replace with the order details
+  return sendEmail(to, order);
+};
 
 // Handle payment confirmation
 app.post('/payment-confirmation', async (req, res) => {

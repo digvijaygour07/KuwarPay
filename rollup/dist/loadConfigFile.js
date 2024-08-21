@@ -23,5 +23,5 @@ require('events');
 
 
 
-module.exports = loadConfigFile_js.loadAndParseConfigFile;
+export default= loadConfigFile_js.loadAndParseConfigFile;
 //# sourceMappingURL=loadConfigFile.js.map

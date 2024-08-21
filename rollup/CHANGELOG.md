@@ -730,7 +730,7 @@ _2021-11-01_
 
 ### Bug Fixes
 
-- Fix an issue with the CommonJS plugin when module.exports has inherited properties (#4256)
+- Fix an issue with the CommonJS plugin when export defaulthas inherited properties (#4256)
 
 ### Pull Requests
 
@@ -760,7 +760,7 @@ _2021-10-25_
 
 ### Bug Fixes
 
-- Fix an issue with the CommonJS plugin when module.exports is falsy (#4247)
+- Fix an issue with the CommonJS plugin when export defaultis falsy (#4247)
 
 ### Pull Requests
 

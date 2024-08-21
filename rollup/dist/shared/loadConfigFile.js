@@ -516,7 +516,7 @@ async function loadAndRegisterPlugin(inputOptions, pluginText) {
             }
         }
     }
-    // some plugins do not use `module.exports` for their entry point,
+    // some plugins do not use `export default` for their entry point,
     // in which case we try the named default export and the plugin name
     if (typeof plugin === 'object') {
         plugin = plugin.default || plugin[getCamelizedPluginBaseName(pluginText)];

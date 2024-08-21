@@ -2125,7 +2125,7 @@ function errPreferNamedExports(facadeModuleId) {
     return {
         code: Errors.PREFER_NAMED_EXPORTS,
         id: facadeModuleId,
-        message: `Entry module "${file}" is implicitly using "default" export mode, which means for CommonJS output that its default export is assigned to "module.exports". For many tools, such CommonJS output will not be interchangeable with the original ES module. If this is intended, explicitly set "output.exports" to either "auto" or "default", otherwise you might want to consider changing the signature of "${file}" to use named exports only.`,
+        message: `Entry module "${file}" is implicitly using "default" export mode, which means for CommonJS output that its default export is assigned to "export default". For many tools, such CommonJS output will not be interchangeable with the original ES module. If this is intended, explicitly set "output.exports" to either "auto" or "default", otherwise you might want to consider changing the signature of "${file}" to use named exports only.`,
         url: `https://rollupjs.org/guide/en/#outputexports`
     };
 }
@@ -4476,7 +4476,7 @@ var picomatch_1 = picomatch;
 
 (function (module) {
 
-	module.exports = picomatch_1;
+	export default= picomatch_1;
 } (picomatch$1));
 
 const pm = /*@__PURE__*/getDefaultExportFromCjs(picomatch$1.exports);
@@ -12375,7 +12375,7 @@ class Module {
                 if (!module.ast) {
                     return null;
                 }
-                return module.exports.has('default') || reexportDescriptions.has('default');
+                return export default.has('default') || reexportDescriptions.has('default');
             },
             get hasModuleSideEffects() {
                 warnDeprecation('Accessing ModuleInfo.hasModuleSideEffects from plugins is deprecated. Please use ModuleInfo.moduleSideEffects instead.', false, options);
@@ -13412,7 +13412,7 @@ function cjs(magicString, { accessedGlobals, dependencies, exports, hasExports, 
     const importBlock = getImportBlock$1(dependencies, snippets, compact);
     const interopBlock = getInteropBlock(dependencies, interop, externalLiveBindings, freeze, namespaceToStringTag, accessedGlobals, t, snippets);
     magicString.prepend(`${useStrict}${intro}${namespaceMarkers}${importBlock}${interopBlock}`);
-    const exportBlock = getExportBlock$1(exports, dependencies, namedExportsMode, interop, snippets, t, externalLiveBindings, `module.exports${_}=${_}`);
+    const exportBlock = getExportBlock$1(exports, dependencies, namedExportsMode, interop, snippets, t, externalLiveBindings, `export default${_}=${_}`);
     return magicString.append(`${exportBlock}${outro}`);
 }
 function getImportBlock$1(dependencies, { _, cnst, n }, compact) {
@@ -13824,7 +13824,7 @@ function umd(magicString, { accessedGlobals, dependencies, exports, hasExports, 
     const amdParams = (completeAmdId ? `'${completeAmdId}',${_}` : ``) +
         (amdDeps.length ? `[${amdDeps.join(`,${_}`)}],${_}` : ``);
     const define = amd.define;
-    const cjsExport = !namedExportsMode && hasExports ? `module.exports${_}=${_}` : ``;
+    const cjsExport = !namedExportsMode && hasExports ? `export default${_}=${_}` : ``;
     const useStrict = strict ? `${_}'use strict';${n}` : ``;
     let iifeExport;
     if (noConflict) {
