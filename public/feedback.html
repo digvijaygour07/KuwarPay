@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,4 +108,115 @@
         });
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KuwarPay</title>
+    <link rel="icon" href="icon.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #008000;
+            text-align: center;
+        }
+        .center-text {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #000000;
+            color: #00ff26;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+            border: none;
+            border-radius: 16px;
+        }
+        button:hover {
+            background-color: #00ff26;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="center-text">
+            <h2>Thank You!</h2>
+            <p>Your payment was successful.</p>
+            <h3>We value your feedback:</h3>
+        </div>
+        <form id="feedback-form" action="" method="post">
+            <label for="question1">1. What did you like most about KuwarPay and buying directly from social media?</label>
+            <textarea id="question1" name="question1"></textarea>
+            <label for="question2">2. What features or improvements would you like to see when buying from social media during social shopping?</label>
+            <textarea id="question2" name="question2"></textarea>
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const feedbackForm = document.getElementById('feedback-form');
+
+            if (feedbackForm) {
+                feedbackForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+
+                    const question1 = document.getElementById('question1').value;
+                    const question2 = document.getElementById('question2').value;
+
+                    try {
+                        const response = await fetch('/feedback', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ question1, question2 }),
+                        });
+
+                        if (response.ok) {
+                            document.getElementById('question1').value = '';
+                            document.getElementById('question2').value = '';
+
+                            alert('Feedback submitted successfully!');
+                            console.log(`Feedback submitted: ${JSON.stringify({ question1, question2 })}`);
+                        } else {
+                            alert('Error submitting feedback. Please try again.');
+                        }
+                    } catch (error) {
+                        alert('Error submitting feedback. Please try again.');
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+>>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
 </html>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body, html {
   height: 124vh;
   margin: 0;
@@ -571,4 +572,579 @@ margin-right: 470px;
   }
 
   
+=======
+body, html {
+  height: 124vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120vh;
+  width: 100%;
+}
+
+
+
+.logo {
+  width: 50px;
+  height: 50px;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.nav-links li {
+  margin-right: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-links a:hover {
+  color: #000;
+}
+
+/* Rest of your CSS code... */
+
+.popup {
+  position: absolute;
+ 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90vw;
+  height: 90vh;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: 5px;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+.popup-content {
+  display: flex;
+  flex-direction:row;
+  
+  width: 100%;
+  height: 100%;
+  flex-wrap: wrap;
+}
+
+.left-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  height: 100%;
+}
+
+.right-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.product-info {
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+  margin-right: 140px;
+}
+
+#product-description {
+  font-size: 1.7rem;
+  font-weight: 600;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+}
+
+#price {
+  font-size: 1.7rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 0;
+  font-weight: 600;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+margin-right: 470px;
+}
+
+.product-image {
+  align-self: flex-start;
+  max-width: 100% ;
+  height: 90%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+#checkout-form {
+  width: 100%;
+  margin-bottom: 25px;
+  height: 300px;
+  max-width: 500px; 
+  margin-right: 40px;
+  
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+#checkout-form h3 {
+  margin-bottom: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+#checkout-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#checkout-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  ;
+  border-radius: 10px;
+  background-color: #f1f1f1;
+  border: #000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+#buy-now, #pay-now {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 15px;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 16px;
+  background-color: #000000;
+  color: rgb(2, 255, 40);
+  cursor: pointer;
+  font-weight: 530;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin-top: 50px;
+}
+
+#buy-now:hover, #pay-now:hover {
+  background-color: #00ff26;
+  color: #000000;
+}
+
+
+.powered-by-logo {
+  width: 50px;
+  height: 20px;
+}
+
+.powered-by-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.powered-by-text {
+  margin-right: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.powered-by-logo {
+  width: 90px;
+  height: 20px;
+}
+
+.checkout-form,
+.product-description {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+  .popup-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .popup {
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+  .product-image {
+    max-height: 40vh;
+    padding-top: 3vw;
+  }
+  #checkout-form{
+    width: 94vw;
+    margin-right: 0;
+  }
+  body, html {
+    height: 100vh;
+}
+#buy-now{
+  width: 80%;
+}
+#product-description {
+  size: 1.4rem;
+}
+.product-info{
+  text-align: center;
+  margin-right: 0;
+}
+#product-description{
+  margin-left: 0;
+}
+.right-container{
+  align-items: center;
+  justify-content: center;
+}
+}
+
+@media only screen and (max-width: 600px) {
+  .popup-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .popup {
+    width: 95vw;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+    align-content: center;
+    justify-content: center;
+  }
+  .product-image {
+    max-height: 50vh;
+    width: 70%;
+    margin-top: 60px
+  }
+  #checkout-form{
+    width: 80%;
+    
+    padding-right: 10px;
+  }
+  body, html {
+    height: 100vh;
+  
+}  #buy-now{
+  width: 90%;
+}
+.product-info{
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0;
+}
+#product-description{
+  margin-left: 0;
+}
+.right-container{
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.price{
+  padding-left: 90px;
+  margin-top: 0;
+}
+}
+
+
+
+
+@media only screen and (max-width: 480px) {
+  .popup-content {
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  }
+  
+  .popup {
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh; /* Set the height to 100% of the viewport height */
+  overflow-y: auto;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  justify-content: center;
+  }
+  .product-description{
+    font-size: 0.8rem;
+    width: 90%;
+  }
+
+  .left-container {
+  width: 100%;
+  padding: 0;
+  height: 40vh; /* Reduced height */
+  }
+  
+  .product-image {
+  max-height: 50vh; /* Reduced max-height */
+  width: 90%;
+  margin-top: 11vw; /* Reduced margin-top */
+  padding-top:2vw ;
+  }
+
+  .price {
+    position: absolute;
+    width: 80%;
+    top: 1vw;
+    font-size: 1.6vw;
+    text-align: right; 
+    justify-content: left;
+    margin-bottom: 1.8vw;
+    margin-right: 0;
+    padding-right: 0;
+    padding-left: 45vw;
+    margin-left: 7vw;
+  }
+
+
+  .product-info {
+  margin-top: vw;
+  text-align: center;
+  justify-content: center;
+  margin-left: 0;
+  padding: 0 3.6vw;
+  margin: 0 0;
+  z-index: 1;
+  justify-content: center;
+  width: 80%;
+  }
+  
+  
+  .right-container {
+    
+  margin-top: 5.5vw;
+  z-index: 1;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+  }
+  
+  #checkout-form {
+  width: 80%;
+  margin-left: 0;
+  padding: 0;
+  }
+  
+  #buy-now {
+  width: 90%;
+  margin: 0 auto;
+  }
+  
+  .price {
+    position: relative;
+    width: 80%;
+    top: 1vw;
+    font-size: 1.6vw;
+    text-align: left; /* Keep text-align left */
+    margin-bottom: 1.8vw;
+    margin-left: 0; /* Change from 30% to 0 */
+    margin-right: auto; /* Add this to keep right margin auto */
+  }
+}
+
+/* ... (rest of your CSS code remains the same) */
+
+@media only screen and (max-width: 380px) {
+  .left-container, .right-container {
+    float: none; /* Remove float */
+    display: inline-block; /* Display as inline-block */
+    vertical-align: top; /* Align vertically */
+    width: 50%; /* Set equal width */
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+  }
+  .popup-content {
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  }
+  
+  .popup {
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  justify-content: center;
+  }
+  .product-description{
+    font-size: 0.8rem;
+    width: 90%;
+    padding-left: 9vw;
+  }
+
+  .left-container {
+  width: 100%;
+  padding: 0;
+  height: 40vh; /* Reduced height */
+  align-items: center;
+  justify-content: center;
+  }
+  
+  .product-image {
+  max-height: 35vh; /* Reduced max-height */
+  width: 70%;
+  margin-top: 17vw; /* Reduced margin-top */
+  padding-top:4vw ;
+  margin-right: 0;
+  margin-left: 12vw;
+  padding-left: 3vw;
+  align-self: center;
+  }
+
+  .price {
+    position: relative;
+    width: 80%;
+    top: 1vw;
+    font-size: 1.6vw;
+    text-align: left; 
+    justify-content: left;
+    
+    margin-bottom: 1.8vw;
+    margin-right: 0;
+    padding-right: 32vw;
+    padding-left: 8vw;
+   margin: 0 0;
+  }
+
+
+  .product-info {
+  margin-top: vw;
+  text-align: center;
+  justify-content: center;
+  align-self: center;
+
+  margin-left: 6vw;
+  padding: 0 8vw;
+  margin: 0 0;
+  z-index: 1;
+  justify-content: center;
+  width: 80%;
+  }
+  
+  .right-container {
+  margin-top: 5.5vw;
+  z-index: 1;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  padding: 0;
+  height: 100%;
+  padding-top: 3vw;
+  }
+  
+  #checkout-form {
+  width: 80%;
+  margin-left: 0;
+  padding: 0;
+  padding-left: 8vw;
+  }
+  
+  #buy-now {
+  width: 90%;
+  margin: 0 auto;
+  }
+  
+  .price {
+    position: relative;
+    width: 80%;
+    top: 1vw;
+    font-size: 1.6vw;
+    text-align: left; /* Keep text-align left */
+    margin-bottom: 1.8vw;
+    margin-left: 0; /* Change from 30% to 0 */
+    margin-right: auto; /* Add this to keep right margin auto */
+  }
+}
+
+
+@media only screen and (max-width: 390px)
+{
+  pr
+  .product-description{
+    margin-top: 4vw;
+    padding-top: 6vw;
+  }
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 20vh; /* Set a height to center vertically */
+    text-align: center;
+  }
+  .right-container{
+    padding-top: 4vw;
+  }
+}
+
+
+
+.popup-content {
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+
+@media only screen and (max-width: 1080px) {
+  body {
+    height: 100vh;
+  }
+
+  .product-image {
+    border-radius: 10px;
+  }
+
+  .popup {
+    height: 100vh;
+    flex-direction: column;
+    display: flex;
+    width: 100vw;
+    padding: 0;
+    justify-content: center;
+  }
+
+  
+>>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
 }

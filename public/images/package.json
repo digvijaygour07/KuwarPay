@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "kuwarpay",
   "version": "1.0.0",
@@ -30,4 +31,38 @@
     "esbuild": "^0.17.5",
     "nodemon": "^2.0.20"
   }
+=======
+{
+  "name": "kuwarpay",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "build": "node_modules/.bin/esbuild server.js --bundle --platform=node --format=esm --outdir=build",
+    "build:lambda": "esbuild server.js --bundle --platform=node --format=esm --outfile=build.js --allow-overwrite",
+    "deploy": "netlify deploy --prod --auth nfp_Y6EW4AudqidLNzgfps5zUMY8KqtymSaQ5a2a",
+    "dev": "netlify dev",
+    "build:netlify": "netlify build",
+    "start:netlify": "netlify start"
+  },
+  "author": "Your Name or Organization",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.5",
+    "email-validator": "^2.0.4",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.9.14",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.17.5",
+    "nodemon": "^2.0.20"
+  }
+>>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
 }

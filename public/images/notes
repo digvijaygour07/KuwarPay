@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*@media(max-width: 600px){#gradient-canvas{  width: 100%;
 
 }
@@ -956,3 +957,963 @@ form button:hover {
 
 
 
+=======
+/*@media(max-width: 600px){#gradient-canvas{  width: 100%;
+
+}
+h1{
+    width: 100%;
+    
+} #frontfirst{
+    width: 60%;
+}
+
+} 
+
+
+/* In your styles.css or <style> tag */
+body {
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+  
+  /* styles.css */
+#gradient-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 500px;
+    margin: 0;
+    padding: 0;
+    z-index: -1;
+    clip-path: polygon(0 0, 100% 0, 100% 15%, 0 70%);
+}
+
+nav {
+    position: absolute;
+    top: -5px;
+    left: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px; /* Adjust as needed */
+    z-index: 1; /* Ensure the logo is in front of the gradient */
+    height: 20px;
+
+    
+}
+
+img {
+        width: 130px;
+        height: auto;
+        margin-right: 15px;
+        display: flex;
+   ;
+    cursor:pointer ;
+    margin-left: 30px;
+    
+    }
+    
+    h1 {
+        width: 160px;
+        height: 100px;
+        margin-right: 15px;
+        display: flex;
+        align-items: center;
+        color: rgb(0, 0, 0);
+        margin-top: 260px;
+        margin-left: 60px;
+        font-size: 4.5rem; /* Adjust the font size as needed */
+    }
+    
+    /* In your styles.css or <style> tag */
+body {
+    font-family: 'Agrandir', sans-serif; /* Use the actual font name or a similar font */
+}
+
+#frontfirst {
+    width: 300px;
+    height: auto;
+    position: absolute;
+    top: 400px;
+    right: 0;
+    z-index: -1;
+    max-width: 100%;
+    margin-right: 50px
+    ;
+}
+
+#frontfirst {
+    transform: scale(4.5); /* Adjust the scale factor as needed */
+}
+
+
+
+/*<h1>Shop 
+    Socially, 
+    Pay Seamlessly!</h1>
+    /* Add any additional styling for the paragraph here */
+    font-size: 1.2rem; /* Example: Adjust font size */
+    color: #000000; /* Example: Adjust text color */
+    margin-top: 10px; /* Example: Adjust spacing */
+    z-index: 1;
+    display: flex;
+    align-items:center ;
+    margin: 70px ;
+    margin-right: 15px;
+    text-indent: 50px;
+
+
+    
+.signup{height: 30vw;
+    width: 100%;
+    max-width: 350px;
+    top: 6vw;
+    position: relative;
+    top: 30%;
+    left: 8vw;
+    background-color: rgb(70, 69, 69);
+    padding: 50px 60px 70px;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Align input boxes vertically */
+    justify-content: center;
+    
+}
+
+
+
+form{
+    height: 90%;
+    width: 100%;
+    
+    margin: 15px 10px;
+    border-radius: 3px;
+    align-items: center;
+   
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <title>KuwarPay - The Social Commerce Payments platform</title>
+</head>
+<body>
+    <header class="HERO">
+        <div class="container">
+          
+        </div>
+    </header>
+    <div> 
+        <nav><div class="logo">
+			<img src="logowhite2.png" alt="KuwarPay logo" >
+		</div></nav>
+        
+   <div class="page1"> 
+   
+	<div class="left">
+		<h1 style="font-size: 6vw;">
+			Shop Socially, Pay Seamlessly!
+		</h1>
+		<p>Imagine shopping integrated into your social media experience. With KuwarPay, discover and purchase products directly from posts and feeds effortlessly.
+	 </p>
+	<button>Sign Up Now </button>
+	
+   </div>
+   <div class="right"><img src="frontfirst.jpg" alt="front"></div>
+</div>
+   
+   <div id="container">
+</script>
+
+<div class="page2">
+	<h2><span class="highlight">Simplifying </span>online shopping</h2>
+<div class="content"><div class="shopper"><img src="user.jpg" alt="user">
+<h3>Browse.Click.Buy</h3>
+<p>Whether you're on a websites, on social networks, or ecommerce store, KuwarPay let you shop where you scroll</p>
+</div>
+<div class="page2para">
+	<h3>Don't just like it,<span class="parabuyit">buy it.</span> Instantly.</h3>
+	<p>KuwarPay makes shopping on social media, websites, and platforms easier. Revolutionizing the way we buy online. See something you love? Buy it instantly with a tap, right from your social feed, website, or e-commerce store. There is no need to switch between apps or fill out lengthy forms.
+		 It's a convenient way to treat yourself or grab the latest trends.</p>
+		 <img src="backgroundimg1.png" alt="">
+</div>
+</div>
+	
+
+</div>
+
+
+</div>
+<div class="page3">
+	
+	<h1><span>Empowering</span> businesses</h1>
+	<div class="content2"><div class="seller"><img src="seller.png" alt="user">
+		<h3>Social selling made easy.</h3>
+		<p>Convert customers in a click, whether they're using Google Free Product Listings, social media, email, sites, or shopping live.</p>
+		</div>
+		<div class="page3para">
+			<h3>Turn likes into sales. <span>Effortlessly.</span></h3>
+			<p>Imagine a world where every social media like and comment could lead to a sale. KuwarPay simplifies social commerce by enabling one-tap checkout directly from your posts. This eliminates the need for customers to leave the platform, boosting engagement and increasing conversion rates by up to 40%. KuwarPay empowers businesses of all sizes to turn social media interest into instant sales and scale their online presence.</p>
+			<div class="page3container">
+				
+		
+
+				Social commerce lets people buy products directly through social media platforms. Imagine seeing a friend's post about a cool new shirt and buying it right there, without ever leaving the app.  For businesses, it's a new way to reach customers where they already are. The challenge? Many shoppers add items to their carts but never buy them (77%!), costing businesses sales. KuwarPay helps by making social media purchases super easy with one-tap checkout. No need to switch apps or fill out forms, so customers are more likely to complete their purchases. This can be a game-changer for businesses looking to boost sales through social media.</div>
+		</div>
+		
+		
+</div>
+
+
+
+
+</div>
+<div class="page4">
+	<h1>The future of payments is here.</h1>
+	<p>More convenient, more secure, pay social</p>
+	<img class="page4bg" src="page4.png" alt="">
+	
+</div>
+<footer>
+	<div class="content3">
+		 
+		<div class="logoside">
+			<img class="logocolor" src="logocolor.png" alt="">
+
+			</div>
+
+			<div class="signupside">
+				<div  class="signup"><form>
+					<h1>Sign Up</h1>
+					<p>Sign Up Now</p>
+					<hr>
+					<label for="name"><b>name</b></label>
+					<input type="text" placeholder="Enter Name" name="nsme" required>
+				
+					<label for="email"><b>Email</b></label>
+					<input type="text" placeholder="Enter Email" name="email" required>
+				
+					<label for="psw"><b>Password</b></label>
+					<input type="password" placeholder="Enter Password" name="psw" required>
+	
+				
+					<label>
+					  <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+					</label>
+				
+					<p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+				
+					<div class="clearfix">
+					  <button type="button" class="cancelbtn">Cancel</button>
+					  <button type="submit" class="signupbtn">Sign Up</button>
+				  </form></div>
+					
+		
+
+				
+		</div>
+	
+	
+  </footer>
+  
+    
+</body>
+<script src="main.js"></script>
+</html>
+
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+    overflow-x: hidden; /* Hide horizontal scrollbar */ 
+}
+
+  
+  /* styles.css */
+#gradient-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 500px;
+    margin: 0;
+    justify-content: center;
+    padding: 0;
+    z-index: -1;
+    clip-path: polygon(0 0, 100% 0, 100% 60%, 0 99%);
+
+
+}
+
+nav {
+    display: flex;
+    top: -5px;
+    display: flex;
+    width: 100%;
+    padding: 0; /* Adjust as needed */
+    z-index: 1; /* Ensure the logo is in front of the gradient */
+    height: 6vw;
+    justify-content:flex-start ;
+    padding: 0 4vw;
+}
+
+.logo img{ 
+    height:6vw;
+    width: 20vw;
+    padding: 2vw 4vw 0;
+    
+}
+
+.page1{
+   
+    display: flex;
+    position: relative;
+}
+
+.left{
+   height: calc(100% - 100px);
+   width: 50%;
+    padding: 3vw 4vw;
+    background-color: none;
+    color: none;
+    flex: 1;
+    
+}
+.left p{
+    font-size: 1.5vw;
+     font-weight: 400;
+     color: #666;
+     width: 90%;
+     margin-top: 6vw;
+     margin-bottom: 2vw;
+     padding: 7vw 4vw 0;
+     top: 25vw;
+}
+
+
+button{
+    font-size: 1.5vw;
+    padding: 1.1vw 2.1vw;
+    background-color: #00FF15;
+    color: #000000;
+    border: none;
+    border-radius: 50px;
+    font-weight: 700;
+    font-family: 'Agrandir', sans-serif;
+}
+
+.right{
+    flex:1;
+    height: calc(100% - 100px);
+   width: 45%;
+    
+}
+
+.right img{
+    height: 100%;
+    width: 100%;
+    margin-top: 26vw;
+    transform: scale(1);
+}
+
+span {
+    margin-right: .5rem; /* Adjust the value as needed */
+}
+
+.left button{margin: 1.6vw 4vw 0;
+
+}
+
+
+
+.left h1 {
+    width: 160px;
+    height: 100px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    color: rgb(0, 0, 0);
+    margin-top: 9vw;
+    padding: 5vw 4vw 0;
+    font-size: 5.2vw;
+  
+    
+}
+
+
+
+    
+    /* In your styles.css or <style> tag */
+body {
+    font-family: 'Agrandir', sans-serif; /* Use the actual font name or a similar font */
+}
+
+
+   
+
+.left p {
+    font-family: 'Agrandir', sans-serif; /* Use the actual font name or a similar font */
+}
+
+
+
+.page2{
+   min-height: 150vh; 
+    width: 100%;
+    background-color: rgb(17, 25, 12);
+    padding:0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+
+.content{
+    min-height: 150vh; 
+    width: 100%;
+   
+    display: flex;
+    position: relative;
+    object-fit: cover;
+   
+
+
+}
+
+ .shopper{
+    height: 100%;
+    width: 50%;
+   display: flex;
+  
+  object-fit: cover;
+justify-content: center;
+position: relative;
+ }
+
+
+
+ .shopper img{
+    border-radius: 20px;
+    height: 25vw;
+    width: 90%;
+    top: 16vw;
+    position: absolute;
+  
+ }
+ 
+ .shopper h3{
+
+    color: rgb(253, 253, 253);
+    display: flex;
+    width: 100%;
+    font-size:2.5vw;
+    z-index: 2;
+    top: 44vw;
+    position: absolute;
+    right: 11vw;
+    font-family: 'Agrandir', sans-serif; 
+    left: 22px;
+    height: 3vw;
+    padding: 0 ;
+    margin: 0;
+    left: 2.3vw;
+   
+    
+ }
+
+ .shopper p{
+    justify-content: center;
+    color: rgb(255, 255, 255);
+    width: 100%;
+    height: 5vw;
+    font-size:1.5vw;
+    justify-content: center;
+    right: 17vw;
+    left: 2.3vw;
+    text-align: left;
+    top: 48vw;
+    position: absolute;
+    font-family: 'Agrandir', sans-serif;
+    padding: 0;
+    margin: 0;
+ }
+
+ .page2para{
+
+    object-fit: cover;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    object-fit: cover;
+    justify-content: center;
+    position: relative;
+
+     }
+    
+
+
+ 
+ .page2para h3{
+
+    color: rgb(255, 255, 255);
+   
+    width: 100%;
+    font-size:2.9vw;
+    z-index: 1;
+    top: 14vw;
+    height: 6vw;
+    position: relative;
+    right: 13vw;
+    font-family: 'Agrandir', sans-serif; 
+    left: 30px;
+    height: 3vw;
+   
+   
+ }
+
+ .parabuyit{
+    color: #00FF15;
+ }
+
+ .page2para p{
+    justify-content: center;
+    color: rgb(231, 230, 230);
+    width: 90%;
+    height: 5vw;
+    font-size:1.5vw;
+    justify-content: center;
+    right: 17vw;
+    left: 2.3vw;
+    text-align: left;
+    top: 25vw;
+    position: absolute;
+    font-family: 'Agrandir', sans-serif;
+    padding: 0;
+    margin: 0;
+ }
+
+ .page2para img{ border-radius: 20px;
+    height: 17vw;
+    width: 90%;
+    top: 47.2vw;
+    position: relative;
+    
+    color: #00FF15;
+    left: .2vw;
+
+    
+
+ }
+
+h2{
+    margin-top: 40px;
+    padding: 30px;
+    color: rgb(255, 255, 255);
+    display: flex;
+    width: 100%;
+    font-size:4vw;
+    justify-content: center;
+    z-index: 1;
+    height: 8vw;
+    position: absolute;
+    font-family: 'Agrandir', sans-serif;
+}
+
+
+.highlight {
+    color: rgb(0, 255, 21);
+}
+
+
+
+
+h2 {
+    font-family: 'Agrandir', sans-serif; /* Use the actual font name or a similar font */
+}
+
+
+
+.page3{
+    min-height: 150vh; 
+     width: 100%;
+     background-color:  rgb(0, 255, 21);;
+     padding:0;
+     margin: 0;
+     display: flex;
+     justify-content: center;
+ }
+
+ .page3 h1{
+    margin-top: 40px;
+    padding: 30px;
+    color: rgb(67, 67, 67);
+    display: flex;
+    width: 100%;
+    font-size:4vw;
+    font-family: 'Agrandir', sans-serif; /* Use the actual font name or a similar font */
+    position: absolute;
+    justify-content: center;
+ }
+.page3 h1 span{
+    color: #000000;
+}
+
+
+
+.content2{
+    min-height: 150vh; 
+    width: 100%;
+   
+    display: flex;
+    position: relative;
+    object-fit: cover;
+   
+
+
+}
+
+ .seller{
+    height: 100%;
+    width: 50%;
+   display: flex;
+  
+  object-fit: cover;
+justify-content: center;
+position: relative;
+ }
+
+
+
+ .seller img{
+    border-radius: 20px;
+    height: 25vw;
+    width: 90%;
+    top: 16vw;
+    position: absolute;
+  
+ }
+ 
+ .seller h3{
+
+    color: rgb(0, 0, 0);
+    display: flex;
+    width: 100%;
+    font-size:2.5vw;
+    z-index: 2;
+    top: 44vw;
+    position: absolute;
+    right: 11vw;
+    font-family: 'Agrandir', sans-serif; 
+    left: 22px;
+    height: 3vw;
+    padding: 0 ;
+    margin: 0;
+    left: 2.3vw;
+   
+    
+ }
+
+ .seller p{
+    justify-content: center;
+    color: rgb(44, 44, 44);
+    width: 100%;
+    height: 5vw;
+    font-size:1.5vw;
+    justify-content: center;
+    right: 17vw;
+    left: 2.3vw;
+    text-align: left;
+    top: 48vw;
+    position: absolute;
+    font-family: 'Agrandir', sans-serif;
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+ }
+
+ 
+ .page3para{
+
+    object-fit: cover;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    object-fit: cover;
+    justify-content: center;
+    position: relative;
+
+     }
+    
+
+ 
+ .page3para h3{
+
+    color: rgb(65, 65, 65);
+   
+    width: 100%;
+    font-size:2.9vw;
+    z-index: 2;
+    top: 14vw;
+    height: 7vw;
+    position: absolute;
+    right: 13vw;
+    font-family: 'Agrandir', sans-serif; 
+    left: 30px;
+    height: 3vw;
+    
+  
+   
+   
+ }
+ 
+ .page3para span{
+    color: #000000;
+ }
+
+
+
+ .page3para p{
+    justify-content: center;
+    color: rgb(0, 0, 0);
+    width: 90%;
+    height: 5vw;
+    font-size:1.5vw;
+    font-weight: 500;
+    justify-content: center;
+    right: 17vw;
+    left: 2.3vw;
+    text-align: left;
+    top: 21vw;
+    position: absolute;
+    font-family: 'Agrandir', sans-serif;
+    padding: 0;
+    margin: 0;
+ }
+
+
+
+
+ .page3container{
+    width: 30vw;
+    background-color: #000000;
+    color: #00FF15;
+    height: 22vw;
+    display: flex;
+   top: 37vw;
+   z-index: 1;
+   padding: 20px 20px;
+   margin: 0;
+   position: relative;
+   justify-content: center;
+   border-radius: 10px;
+   text-align: left;
+   left: 2vw;
+   font-family: 'Agrandir', sans-serif;
+   font-weight: 500;
+ }
+
+
+ .page4{
+    min-height: 100vh; 
+     width: 100%;
+     background-color: #bbcebe;
+     padding:0;
+     margin: 0;
+     display: flex;
+     justify-content: center;
+     object-fit: cover;
+     position: relative;
+ }
+
+
+.page4bg{ 
+    min-height: 100vh; 
+    width: 100%;
+}
+
+.page4 h1{
+    width: 50%;
+    height: 7vw;
+    color: #000000;
+    justify-content: center;
+    position: absolute;
+    top: 25vw;
+    font-size: 3vw;
+    font-weight: 600;
+    font-family: 'Agrandir',sans-serif;
+}
+
+
+.page4 p {width: 70%;
+    height: 2vw;
+    color: #272727;
+    justify-content: center;
+    position: absolute;
+    top: 29vw;
+    font-size: 1.6vw;
+    font-family: 'Agrandir',sans-serif;
+    right: 15px;
+}
+
+footer{
+    top: -20px;
+    min-height: 140vh;
+    width: 100%;
+    background-color: #000000;
+    padding:0;
+    position: relative;
+}
+
+
+.content3{
+    min-height: 140vh; 
+    width: 100%;
+    display: flex;
+    position: absolute;
+    object-fit: cover;
+}
+
+
+
+.logoside{
+   
+    height: 140vh;
+   width: 50%;
+}
+
+
+
+.signupside{
+ 
+    height: calc(100% - 100px);
+   width: 40%;
+   justify-content: center;
+}
+
+* {box-sizing: border-box} 
+
+/* Full-width input fields */
+  input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #cbcbcb;
+  color: #ffff;
+}
+
+input text{
+color: #ffffff;
+
+}
+
+
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #cdcdcd;
+  outline: none;
+  color: rgb(255, 255, 255);
+  font-family: 'Agrandir',sans-serif;
+}
+
+form hr {
+  border: 1px solid #ffffff;
+  margin-bottom: 25px;
+}
+
+/* Set a style for all buttons */
+form button {
+  background-color: #00ff15;
+  color: rgb(0, 0, 0);
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  font-family: 'Agrandir',sans-serif;
+}
+
+form button:hover {
+  opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #4d4d4d;
+  font-family: 'Agrandir',sans-serif;
+  color: #ffffff;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add padding to container elements */
+.form container {
+  padding: 16px;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+ form p{
+    color: rgb(255, 255, 255);
+    font-family: 'Agrandir',sans-serif;
+ }
+
+
+ .logocolor{ 
+    height:5vw;
+    width: 20vw;
+    padding: 2vw 4vw 0;
+    
+}
+
+
+
+
+
+
+
+@media (max-width: 600px) {
+    /* Styles for small screens */
+  
+      
+     #gradient-canvas{
+        width: 100%;
+        
+    
+      }
+      nav{
+        margin: 0;
+        padding: 0 7vw;
+
+    
+      }
+    }
+  
+
+
+
+>>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a

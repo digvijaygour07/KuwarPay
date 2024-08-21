@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [build]
   command = "npm install && npm install esbuild && esbuild server.js --bundle --platform=node --outdir=./build --allow-overwrite"
   publish = "build"
@@ -46,4 +47,54 @@
 [[forms]]
   from = "/orders"
   to = "/payment-confirmation"
+=======
+[build]
+  command = "npm install && npm install esbuild && esbuild server.js --bundle --platform=node --outdir=./build --allow-overwrite"
+  publish = "build"
+  timeout = 3600
+
+[dev]
+  command = "node server.js"
+  port = 5500
+
+[functions]
+  node_bundler = "esbuild"
+
+[site]
+  id = "digvijaygour07"
+
+[deploy]
+  target = "production"
+
+[[redirects]]
+  from = "/orders"
+  to = "/payment-confirmation"
+  status = 302
+
+[[redirects]]
+  from = "/payment-confirmation"
+  to = "/feedback"
+  status = 302
+
+[[headers]]
+  for = "/feedback"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self' feedback.js;"
+
+[[hooks]]
+  from = "/payment-confirmation"
+  to = "/send-email"
+  type = "async"
+  include = ["POST"]
+
+[[hooks]]
+  from = "/feedback"
+  to = "/save-feedback"
+  type = "async"
+  include = ["POST"]
+
+[[forms]]
+  from = "/orders"
+  to = "/payment-confirmation"
+>>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   method = "POST"
