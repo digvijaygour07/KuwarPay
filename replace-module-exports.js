@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import fs from 'fs';
 import path from 'path';
 
@@ -25,7 +25,7 @@ function replaceModuleExports(dir) {
 
 // Replace './src' with the correct directory path
 replaceModuleExports('./netlify/functions/api'); // Adjust the path as needed
-=======
+
 import fs from 'fs';
 import path from 'path';
 
@@ -52,4 +52,4 @@ function replaceModuleExports(dir) {
 
 // Replace './src' with the correct directory path
 replaceModuleExports('./netlify/functions/api'); // Adjust the path as needed
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
+
