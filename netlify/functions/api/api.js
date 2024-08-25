@@ -37,7 +37,7 @@ const app = express();
 const port = 5500;
 const cors = require('cors');
 const morgan = require('morgan');
-const nodemailer = require('nodemailer');
+
 const fs = require('fs');
 const WebSocket = require('ws');
 
