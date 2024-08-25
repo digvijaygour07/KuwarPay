@@ -18,14 +18,14 @@ export default defineConfig({
     json(),
     nodeResolve({
       extensions: ['.js', '.ts', '.jsx', '.tsx'],
-      // Added resolveOnly to avoid issues with nodeResolve
-      resolveOnly: ['api.js'],
+      resolveOnly: ['api.js'], // Ensure this is necessary for your setup
     }),
     typescript(), // Process TypeScript before commonjs
     commonjs(),
     babel({
       babelHelpers: 'bundled',
       exclude: 'node_modules/**',
+      presets: ['@babel/preset-env'], // Include necessary presets if needed
     }),
     {
       name: 'ignore-unused-imports',
@@ -36,6 +36,6 @@ export default defineConfig({
         return code;
       },
     },
-    minify(), // Enabled minification
+    minify(), // Enabled minification, check for compatibility
   ],
 });
