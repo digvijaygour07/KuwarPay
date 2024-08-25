@@ -10,19 +10,32 @@ export default defineConfig({
   input: './netlify/functions/api/api.js',
   output: {
     file: '../netlify/functions/api.js',
-    format: 'cjs',
+    format: 'es', // Change to 'es' or 'system' to support top-level await
     exports: 'auto',
     sourcemap: 'inline',
   },
   plugins: [
     json(),
-    nodeResolve(),
+    nodeResolve({
+      extensions: ['.js', '.ts', '.jsx', '.tsx'],
+      // Added resolveOnly to avoid issues with nodeResolve
+      resolveOnly: ['api.js'],
+    }),
     typescript(), // Process TypeScript before commonjs
     commonjs(),
     babel({
       babelHelpers: 'bundled',
       exclude: 'node_modules/**',
     }),
+    {
+      name: 'ignore-unused-imports',
+      transform(code, id) {
+        if (id.includes('url')) {
+          return code.replace('fileURLToPath', '').replace('url', '');
+        }
+        return code;
+      },
+    },
     minify(), // Enabled minification
   ],
 });

@@ -1,9 +1,9 @@
 import { rollup } from 'rollup';
 import babel from '@rollup/plugin-babel';
-import nodeResolve from '@rollup/plugin-node-resolve';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 const inputOptions = {
-  input: 'api.js',
+  input: './netlify/functions/api/api.js',
   plugins: [
     nodeResolve(),
     babel({
