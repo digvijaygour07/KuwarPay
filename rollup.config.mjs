@@ -4,25 +4,25 @@ import nodeResolve from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 import json from '@rollup/plugin-json';
 import typescript from '@rollup/plugin-typescript';
-import minify from 'rollup-plugin-babel-minify';
+import minify from 'rollup-plugin-minify';
 
 export default defineConfig({
-  input: 'netlify/functions/api/api.js',
+  input: './netlify/functions/api/api.js',
   output: {
-    file: 'netlify/functions/api.js',
-    format: 'es',
+    file: '../netlify/functions/api.js',
+    format: 'cjs',
     exports: 'auto',
     sourcemap: 'inline',
   },
   plugins: [
     json(),
     nodeResolve(),
+    typescript(), // Process TypeScript before commonjs
     commonjs(),
-    typescript(),
     babel({
       babelHelpers: 'bundled',
       exclude: 'node_modules/**',
     }),
-    minify(), // Use the new minifier plugin
+    minify(), // Enabled minification
   ],
 });
