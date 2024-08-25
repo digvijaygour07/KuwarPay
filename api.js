@@ -18,17 +18,20 @@ const handler = async (event) => {
 }
 
 import babel from '@rollup/plugin-babel';
-import { terser } from '@rollup/plugin-terser';
+import minify from 'rollup-plugin-minify';
 
 export default {
   input: 'netlify/functions/api/api.js',
   output: {
     file: 'netlify/functions/api.js',
-    format: 'cjs'
+    format: 'cjs',
+    sourcemap: 'inline' // Added sourcemap
   },
   plugins: [
-    babel(),
-    terser()
+    babel({
+      babelHelpers: 'bundled' // Added babelHelpers
+    }),
+    minify()
   ]
 };
 
