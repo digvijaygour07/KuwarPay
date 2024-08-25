@@ -5,12 +5,14 @@ import babel from '@rollup/plugin-babel';
 import json from '@rollup/plugin-json';
 import typescript from '@rollup/plugin-typescript';
 import minify from 'rollup-plugin-minify';
+import resolve from '@rollup/plugin-node-resolve';
+import picomatch from 'picomatch';
 
 export default defineConfig({
   input: './netlify/functions/api/api.js',
   output: {
     file: '../netlify/functions/api.js',
-    format: 'es', // Change to 'es' or 'system' to support top-level await
+    format: 'es',
     exports: 'auto',
     sourcemap: 'inline',
   },
@@ -18,14 +20,14 @@ export default defineConfig({
     json(),
     nodeResolve({
       extensions: ['.js', '.ts', '.jsx', '.tsx'],
-      resolveOnly: ['api.js'], // Ensure this is necessary for your setup
     }),
-    typescript(), // Process TypeScript before commonjs
+    resolve(), // Add this line
+    typescript(),
     commonjs(),
     babel({
       babelHelpers: 'bundled',
       exclude: 'node_modules/**',
-      presets: ['@babel/preset-env'], // Include necessary presets if needed
+      presets: ['@babel/preset-env'],
     }),
     {
       name: 'ignore-unused-imports',
@@ -36,6 +38,6 @@ export default defineConfig({
         return code;
       },
     },
-    minify(), // Enabled minification, check for compatibility
+    minify(),
   ],
 });
