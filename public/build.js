@@ -3,7 +3,7 @@ import babel from '@rollup/plugin-babel';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 const inputOptions = {
-  input: './netlify/functions/api/api.js',
+  input: './netlify/functions/api/api.mjs',
   plugins: [
     nodeResolve(),
     babel({
