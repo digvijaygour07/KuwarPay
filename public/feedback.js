@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 window.addEventListener('DOMContentLoaded', () => {
 
   const feedbackForm = document.getElementById('feedback-form');
@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-=======
+
 window.addEventListener('DOMContentLoaded', () => {
 
   const feedbackForm = document.getElementById('feedback-form');
@@ -88,5 +88,6 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
+
+});
 });

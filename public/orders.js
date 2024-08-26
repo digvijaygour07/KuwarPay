@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 const fs = require('fs');
 const nodemailer = require('nodemailer');
 const express = require('express');
@@ -214,7 +214,7 @@ app.get('/orders/:id', async (req, res) => {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`);
-=======
+
 const fs = require('fs');
 const nodemailer = require('nodemailer');
 const express = require('express');
@@ -430,5 +430,6 @@ app.get('/orders/:id', async (req, res) => {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`);
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
+
     });
+  });

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 const nodemailer = require('nodemailer');
 
 // Create a transporter object
@@ -39,7 +39,7 @@ const sendEmail = async (to, formData) => {
 
 // Export the sendEmail function
 export default= sendEmail;
-=======
+
 const nodemailer = require('nodemailer');
 
 // Create a transporter object
@@ -80,4 +80,3 @@ const sendEmail = async (to, formData) => {
 
 // Export the sendEmail function
 module.exports = sendEmail;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a

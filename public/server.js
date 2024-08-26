@@ -14,11 +14,7 @@ var __commonJS = (cb, mod) => function __require2() {
 var require_depd = __commonJS({
   "node_modules/depd/index.js"(exports, module) {
     var relative = __require("path").relative;
-<<<<<<< HEAD
     export default= depd;
-=======
-    module.exports = depd;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
     var basePath = process.cwd();
     function containsNamespace(str, namespace) {
       var vals = str.split(/[ ,]+/);
@@ -16596,11 +16592,7 @@ var require_stringify = __commonJS({
         strictNullHandling: typeof opts.strictNullHandling === "boolean" ? opts.strictNullHandling : defaults.strictNullHandling
       };
     };
-<<<<<<< HEAD
     export default= function(object, opts) {
-=======
-    module.exports = function(object, opts) {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       var obj = object;
       var options = normalizeStringifyOptions(opts);
       var objKeys;
@@ -16855,11 +16847,7 @@ var require_parse = __commonJS({
         strictNullHandling: typeof opts.strictNullHandling === "boolean" ? opts.strictNullHandling : defaults.strictNullHandling
       };
     };
-<<<<<<< HEAD
-    export default= function(str, opts) {
-=======
     module.exports = function(str, opts) {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       var options = normalizeParseOptions(opts);
       if (str === "" || str === null || typeof str === "undefined") {
         return options.plainObjects ? /* @__PURE__ */ Object.create(null) : {};
@@ -16887,11 +16875,8 @@ var require_lib2 = __commonJS({
     var stringify = require_stringify();
     var parse = require_parse();
     var formats = require_formats();
-<<<<<<< HEAD
     export default= {
-=======
     module.exports = {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       formats,
       parse,
       stringify
