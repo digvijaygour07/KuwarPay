@@ -9,9 +9,9 @@ import resolve from '@rollup/plugin-node-resolve';
 import picomatch from 'picomatch';
 
 export default defineConfig({
-  input: './netlify/functions/api/api.js',
+  input: './netlify/functions/api/api.mjs',
   output: {
-    file: '../netlify/functions/api.js',
+    file: '../netlify/functions/api.mjs',
     format: 'es',
     exports: 'auto',
     sourcemap: 'inline',
