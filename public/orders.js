@@ -1,7 +1,7 @@
 
 const fs = require('fs');
 const nodemailer = require('nodemailer');
-const express = require('express');
+import express from 'express';
 const app = express();
 const cors = require('cors');
 const morgan = require('morgan');

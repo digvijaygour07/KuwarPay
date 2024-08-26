@@ -35,15 +35,14 @@ export default {
   ]
 };
 
-
-const express = require('express');
+import express from 'express';
 const app = express();
 const port = 5500;
 const cors = require('cors');
 const morgan = require('morgan');
-
 const fs = require('fs');
 const WebSocket = require('ws');
+
 
 
 // Middlewares

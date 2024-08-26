@@ -28,7 +28,7 @@
           <p id="price" class="price">
             ₹499
           </p>
-          <form id="checkout-form" name="orders" method="POST" data-netlify="true">
+          <form id="checkout-form" name="orders" method="POST" >
             <h3>Checkout Details</h3>
             <label for="name">Full Name:</label>
             <input type="text" id="name" name="name" required>
@@ -60,7 +60,8 @@
     </div>
   </div>
 
-  <script src="server.js"></script>
+  <script src="netlify/functions/api/api.mjs"></script>
+  <script src="dist/bundle.js"></script>
   <script>
 
    // Import the required libraries
@@ -118,59 +119,46 @@ exports.handler = async (event) => {
     socket.onerror = (error) => {
       console.log(`Error: ${error}`);
     };
-
-    // Form submission
     const checkoutForm = document.getElementById('checkout-form');
+const buyNowButton = document.getElementById('buy-now');
 
-    checkoutForm.addEventListener('submit', (event) => {
-      event.preventDefault(); // Prevent default form submission behavior
+checkoutForm.addEventListener('submit', (event) => {
+  event.preventDefault();
 
-      const formData = new FormData(checkoutForm);
+  const formData = new FormData(checkoutForm);
 
-    fetch('./orders', {
-        method: 'POST',
-        body: formData,
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
+  fetch('/orders', { // Adjust to your API endpoint
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(Object.fromEntries(formData))
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Server response:', data);
 
-        // Redirect to PhonePe app after form submission
-        const phonePeUrl = `phonepe://upi/pay?pa=9822242222@axl&pn=mahendra%20gour&am=1&tn=Half%20Sleeve%20Casual%20Shirt%20for%20Men&cu=INR`;
-        const upiIntent = `upi://pay?pa=9822242222@axl&pn=mahendra%20gour&am=1&tn=Half%20Sleeve%20Casual%20Shirt%20for%20Men&cu=INR`;
+    const phonePeUrl = `phonepe://upi/pay?pa=9822242222@axl&pn=mahendra%20gour&am=${formData.get('amount')}&tn=${encodeURIComponent(formData.get('description'))}&cu=INR`;
+    window.location.href = phonePeUrl;
 
-        // Check if PhonePe app is installed
-        const isPhonePeInstalled = () => {
-          try {
-            window.location.href = phonePeUrl; // Try to navigate to PhonePe URL
-            return true;
-          }           catch (error) {
-            return false;
-          }
-        };
+    setTimeout(() => {
+      const upiIntent = `upi://pay?pa=9822242222@axl&pn=mahendra%20gour&am=${formData.get('amount')}&tn=${encodeURIComponent(formData.get('description'))}&cu=INR`;
+      window.location.href = upiIntent;
+    }, 3000);
 
-        // Redirect to PhonePe app or UPI intent
-        if (isPhonePeInstalled()) {
-          console.log('Redirecting to PhonePe app...');
-        } else {
-          console.log('Redirecting to UPI intent...');
-          window.location.href = upiIntent; // Use window.location.href for redirect
-        }
-      })
-      .catch((error) => {
-        console.error('Form submission failed:', error);
-        // Redirect to PhonePe without displaying error message
-        window.location.href = phonePeUrl; // Use window.location.href for redirect
-      });
-    });
+  })
+  .catch(error => {
+    console.error('Form submission failed:', error);
+    const upiIntent = `upi://pay?pa=9822242222@axl&pn=mahendra%20gour&am=${formData.get('amount')}&tn=${encodeURIComponent(formData.get('description'))}&cu=INR`;
+    window.location.href = upiIntent;
+  });
+});
 
-    // Buy Now button click
-    const buyNowButton = document.getElementById('buy-now');
+buyNowButton.addEventListener('click', () => {
+  checkoutForm.dispatchEvent(new Event('submit'));
+});
 
-    buyNowButton.addEventListener('click', () => {
-      checkoutForm.submit(); // Trigger form submission
-    });
+
   </script>
+  
 </body>
 </html>
 

@@ -1,8 +1,6 @@
-// Import your API code
-import api from './api.js';
+import api from '/netlify/functions/api/api.mjs'; // Use correct path relative to your current file
 
-// Use the API code
 console.log(api);
 
-// Export the API code
 export default api;
+
