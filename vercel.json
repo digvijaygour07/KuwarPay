@@ -2,26 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "api.mjs",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "app.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "server.js",
+      "src": "netlify/functions/api/api.mjs",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api.mjs"
+      "dest": "netlify/functions/api/api.mjs"
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "index.html"
     }
   ]
 }
