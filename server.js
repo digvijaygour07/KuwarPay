@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 5500;
+const port = 5502;
 const cors = require('cors');
 const morgan = require('morgan');
 const nodemailer = require('nodemailer');

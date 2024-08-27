@@ -34,6 +34,38 @@
     {
       "src": "/failure",
       "dest": "netlify/functions/api/api.mjs"
+    },
+    {
+      "src": "/api/create-order",
+      "dest": "netlify/functions/api/api.mjs"
+    },
+    {
+      "src": "/api/get-orders",
+      "dest": "netlify/functions/api/api.mjs"
+    },
+    {
+      "src": "/api/get-order/:id",
+      "dest": "netlify/functions/api/api.mjs"
+    },
+    {
+      "src": "/api/update-order/:id",
+      "dest": "netlify/functions/api/api.mjs"
+    },
+    {
+      "src": "/api/delete-order/:id",
+      "dest": "netlify/functions/api/api.mjs"
+    },
+    {
+      "src": "/api/orders",
+      "dest": "netlify/functions/api/api.mjs"
+    },
+    {
+      "src": "/api/payment-confirmation",
+      "dest": "netlify/functions/api/api.mjs"
+    },
+    {
+      "src": "/api/feedback",
+      "dest": "netlify/functions/api/api.mjs"
     }
   ]
 }
