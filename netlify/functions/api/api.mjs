@@ -21,20 +21,15 @@ import babel from '@rollup/plugin-babel';
 import minify from 'rollup-plugin-minify';
 
 
-export default {
-  input: 'netlify/functions/api/api.js',
-  output: {
-    file: 'netlify/functions/api.js',
-    format: 'cjs',
-    sourcemap: 'inline' // Added sourcemap
-  },
-  plugins: [
-    babel({
-      babelHelpers: 'bundled' // Added babelHelpers
-    }),
-    minify()
-  ]
-};
+export default async function (req, res) {
+  try {
+    // Your serverless function code here
+    return res.status(200).json({ message: 'Hello from Vercel!' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+}
 
 import express from 'express';
 import cors from 'cors';
@@ -42,6 +37,11 @@ import morgan from 'morgan';
 import fs from 'fs';
 import WebSocket from 'ws';
 import nodemailer from 'nodemailer';
+import { fileURLToPath } from 'url';
+import fs from 'fs/promises';
+
+// Path to the orders file
+const ordersFile = fileURLToPath(new URL('orders.json', import.meta.url));
 
 const app = express();
 const port = 5502;
@@ -225,22 +225,31 @@ export async function sendEmail(to, order) {
   }
 }
    
-    module.exports = async function handler(req, res) {
-      try {
-        switch (req.method) {
-          case 'POST':
-            // Handle POST requests
-            const data = req.body;
-            const response = await sendEmail(data.to, data.order);
-            return res.status(200).json(response);
-          default:
-            return res.status(405).json({ error: 'Method Not Allowed' });
-        }
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'Internal Server Error' });
-      }
-      }
+export default async function handler(event) {
+  try {
+    switch (event.httpMethod) {
+      case 'POST':
+        // Handle POST requests
+        const data = JSON.parse(event.body);
+        const response = await sendEmail(data.to, data.order);
+        return {
+          statusCode: 200,
+          body: JSON.stringify(response),
+        };
+      default:
+        return {
+          statusCode: 405,
+          body: JSON.stringify({ error: 'Method Not Allowed' }),
+        };
+    }
+  } catch (error) {
+    console.error(error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Internal Server Error' }),
+    };
+  }
+}
 
 
   // Call the sendEmail function and return its result

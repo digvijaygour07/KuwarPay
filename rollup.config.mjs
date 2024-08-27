@@ -5,7 +5,6 @@ import babel from '@rollup/plugin-babel';
 import json from '@rollup/plugin-json';
 import typescript from '@rollup/plugin-typescript';
 import minify from 'rollup-plugin-minify';
-import resolve from '@rollup/plugin-node-resolve';
 import picomatch from 'picomatch';
 
 export default defineConfig({
@@ -21,7 +20,6 @@ export default defineConfig({
     nodeResolve({
       extensions: ['.js', '.ts', '.jsx', '.tsx'],
     }),
-    resolve(), // Add this line
     typescript(),
     commonjs(),
     babel({
@@ -29,15 +27,15 @@ export default defineConfig({
       exclude: 'node_modules/**',
       presets: ['@babel/preset-env'],
     }),
+    minify(),
     {
       name: 'ignore-unused-imports',
       transform(code, id) {
         if (id.includes('url')) {
-          return code.replace('fileURLToPath', '').replace('url', '');
+          return code.replace(/fileURLToPath|url/g, '');
         }
         return code;
       },
     },
-    minify(),
   ],
 });
