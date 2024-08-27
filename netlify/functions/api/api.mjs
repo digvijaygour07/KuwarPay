@@ -20,6 +20,7 @@ const handler = async (event) => {
 import babel from '@rollup/plugin-babel';
 import minify from 'rollup-plugin-minify';
 
+
 export default {
   input: 'netlify/functions/api/api.js',
   output: {
@@ -41,6 +42,7 @@ import morgan from 'morgan';
 import fs from 'fs';
 import WebSocket from 'ws';
 import nodemailer from 'nodemailer';
+import { sendEmail } from './emailService';
 
 const app = express();
 const port = 5502;
@@ -266,32 +268,23 @@ async function sendEmail(to, order) {
         };
       }
     }
-
-// Define the API endpoint
- async function handler(event) {
-  try {
-  // Handle POST requests
-  if (event.request.method === 'POST') {
-  // Process the request body
-  const data = await event.request.json();
-  // Send an email using the sendEmail function
-  const response = await sendEmail(data.to, data.order);
-  return response;
-  } else {
-  // Return a 405 error for non-POST requests
-  return {
-  status: 405,
-  body: JSON.stringify({ error: 'Method Not Allowed' }),
-  };
-  }
-  } catch (error) {
-  console.error(error);
-  return {
-  status: 500,
-  body: JSON.stringify({ message: 'Internal Server Error' }),
-  };
-  }
-  }
+   
+    module.exports = async function handler(req, res) {
+      try {
+        switch (req.method) {
+          case 'POST':
+            // Handle POST requests
+            const data = req.body;
+            const response = await sendEmail(data.to, data.order);
+            return res.status(200).json(response);
+          default:
+            return res.status(405).json({ error: 'Method Not Allowed' });
+        }
+      } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Internal Server Error' });
+      }
+    }
 
 
     // Call the sendMail function and return its result
