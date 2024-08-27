@@ -1,6 +1,3 @@
-import { fileURLToPath } from 'url';
-
-
 // Docs on event and context https://docs.netlify.com/functions/build/#code-your-function-2
 const handler = async (event) => {
   try {
@@ -31,14 +28,13 @@ export default async function (req, res) {
   }
 }
 
+import { fileURLToPath } from 'url';
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import fs from 'fs';
+import fs from 'fs/promises';
 import WebSocket from 'ws';
 import nodemailer from 'nodemailer';
-import { fileURLToPath } from 'url';
-import fs from 'fs/promises';
 
 // Path to the orders file
 const ordersFile = fileURLToPath(new URL('orders.json', import.meta.url));
