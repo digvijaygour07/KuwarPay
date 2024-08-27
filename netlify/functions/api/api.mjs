@@ -42,7 +42,6 @@ import morgan from 'morgan';
 import fs from 'fs';
 import WebSocket from 'ws';
 import nodemailer from 'nodemailer';
-import { sendEmail } from './emailService';
 
 const app = express();
 const port = 5502;
@@ -58,7 +57,7 @@ let orders = [];
 let isOrdersLoaded = false;
 
 // Load orders initially
-const loadOrders = async () => {
+async function loadOrders() {
   try {
     const data = await fs.promises.readFile('orders.json', 'utf8');
     try {
@@ -76,8 +75,16 @@ const loadOrders = async () => {
       throw err;
     }
   }
-};
+}
 
+// Save orders to file
+async function saveOrders(orders) {
+  try {
+    await fs.promises.writeFile('orders.json', JSON.stringify(orders, null, 2));
+  } catch (err) {
+    console.error('Error saving orders:', err);
+  }
+}
 
 // Handle form submission and save to order.json
 export async function handleBuyNow(event) {
@@ -100,31 +107,6 @@ export async function handleBuyNow(event) {
   }
 }
 
-// Load orders from file
-async function loadOrders() {
-  try {
-    const data = await fs.promises.readFile('orders.json', 'utf8');
-    return JSON.parse(data);
-  } catch (err) {
-    if (err.code === 'ENOENT') {
-      return [];
-    } else {
-      throw err;
-    }
-  }
-}
-
-// Save orders to file
-async function saveOrders(orders) {
-  try {
-    await fs.promises.writeFile('orders.json', JSON.stringify(orders, null, 2));
-  } catch (err) {
-    console.error('Error saving orders:', err);
-  }
-}
-
-
-
 // Create a new order
 const createOrder = async (req, res) => {
   try {
@@ -133,7 +115,7 @@ const createOrder = async (req, res) => {
     }
     const newOrder = { id: orders.length + 1, ...req.body };
     orders.push(newOrder);
-    await saveOrders();
+    await saveOrders(orders);
     res.status(201).json(newOrder);
   } catch (error) {
     console.error('Error creating order:', error);
@@ -155,7 +137,7 @@ const getOrderById = async (req, res) => {
     await loadOrders();
   }
   const orderId = parseInt(req.params.id, 10);
-  if (isNaN(orderId)) {
+  if (isNaN(orderId) || orderId <= 0) {
     res.status(400).json({ message: 'Invalid order ID' });
     return;
   }
@@ -167,6 +149,7 @@ const getOrderById = async (req, res) => {
   res.json(order);
 };
 
+
 // Update an order
 const updateOrder = async (req, res) => {
   try {
@@ -174,7 +157,7 @@ const updateOrder = async (req, res) => {
       await loadOrders();
     }
     const orderId = parseInt(req.params.id, 10);
-    if (isNaN(orderId)) {
+    if (isNaN(orderId) || orderId <= 0) {
       res.status(400).json({ message: 'Invalid order ID' });
       return;
     }
@@ -184,7 +167,7 @@ const updateOrder = async (req, res) => {
       return;
     }
     orders[index] = { id: orderId, ...req.body };
-    await saveOrders();
+    await saveOrders(orders);
     res.json(orders[index]);
   } catch (error) {
     console.error('Error updating order:', error);
@@ -199,7 +182,7 @@ const deleteOrder = async (req, res) => {
       await loadOrders();
     }
     const orderId = parseInt(req.params.id, 10);
-    if (isNaN(orderId)) {
+    if (isNaN(orderId) || orderId <= 0) {
       res.status(400).json({ message: 'Invalid order ID' });
       return;
     }
@@ -209,7 +192,7 @@ const deleteOrder = async (req, res) => {
       return;
     }
     orders.splice(index, 1);
-    await saveOrders();
+    await saveOrders(orders);
     res.status(204).json({ message: 'Order deleted successfully' });
   } catch (error) {
     console.error('Error deleting order:', error);
@@ -224,10 +207,8 @@ app.get('/api/get-order/:id', getOrderById);
 app.put('/api/update-order/:id', updateOrder);
 app.delete('/api/delete-order/:id', deleteOrder);
 
-
-
 // Send email using Nodemailer
-async function sendEmail(to, order) {
+export async function sendEmail(to, order) {
   try {
     // Create transporter object
     const transporter = nodemailer.createTransport({
@@ -268,6 +249,15 @@ async function sendEmail(to, order) {
         };
       }
     }
+    return await sendMail();
+  } catch (error) {
+    console.error('Error sending email:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Failed to send email.' }),
+    };
+  }
+}
    
     module.exports = async function handler(req, res) {
       try {
@@ -284,19 +274,21 @@ async function sendEmail(to, order) {
         console.error(error);
         return res.status(500).json({ message: 'Internal Server Error' });
       }
-    }
+      }
 
 
-    // Call the sendMail function and return its result
-    return sendMail();
+  // Call the sendEmail function and return its result
+async function handler(req, res) {
+  try {
+    const result = await sendEmail(req.body.to, req.body.order);
+    return res.status(result.statusCode).json(JSON.parse(result.body));
   } catch (error) {
     console.error('Error sending email:', error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ message: 'Failed to send email.' }),
-    };
+    return res.status(500).json({ message: 'Failed to send email.' });
   }
 }
+
+module.exports = handler;
 
 // Handle the request
 exports.handler = async function (event, context) {
