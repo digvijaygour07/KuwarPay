@@ -1,65 +1,55 @@
-import { fileURLToPath } from 'url';
-
-
+// @ts-ignore
 // Docs on event and context https://docs.netlify.com/functions/build/#code-your-function-2
 const handler = async (event) => {
   try {
-    const subject = event.queryStringParameters.name || 'World'
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: `Hello ${subject}` }),
-      // // more keys you can return:
-      // headers: { "headerName": "headerValue", ... },
-      // isBase64Encoded: true,
-    }
-  } catch (error) {
-    return { statusCode: 500, body: error.toString() }
+  const subject = event.queryStringParameters.name || 'World'
+  return {
+  statusCode: 200,
+  body: JSON.stringify({ message: `Hello ${subject}` }),
+  // // more keys you can return:
+  // headers: { "headerName": "headerValue", ... },
+  // isBase64Encoded: true,
   }
-}
-
-import babel from '@rollup/plugin-babel';
-import minify from 'rollup-plugin-minify';
-
-
-export default async function (req, res) {
+  } catch (error) {
+  return { statusCode: 500, body: error.toString() }
+  }
+  }
+  
+  import babel from '@rollup/plugin-babel';
+  import minify from 'rollup-plugin-minify';
+  
+  
+  export default async function (req, res) {
   try {
-    // Your serverless function code here
-    return res.status(200).json({ message: 'Hello from Vercel!' });
+  // Your serverless function code here
+  return res.status(200).json({ message: 'Hello from Vercel!' });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Internal Server Error' });
+  console.error(error);
+  return res.status(500).json({ message: 'Internal Server Error' });
   }
-}
+  }
 
-import express from 'express';
-import cors from 'cors';
-import morgan from 'morgan';
-import fs from 'fs';
-import WebSocket from 'ws';
-import nodemailer from 'nodemailer';
-import { fileURLToPath } from 'url';
-import fs from 'fs/promises';
 
-// Path to the orders file
-const ordersFile = fileURLToPath(new URL('orders.json', import.meta.url));
+  import { fileURLToPath } from 'url';
+  import express from 'express';
+  import cors from 'cors';
+  import morgan from 'morgan';
+  import fs from 'fs/promises';
+  import WebSocket from 'ws';
+  import nodemailer from 'nodemailer';
+  import NextApiRequest from 'next';
+  import NextApiResponse from 'next';
 
-const app = express();
-const port = 5502;
-
-// Middlewares
-app.use(cors());
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+  // Path to the orders file
+const ordersFile = 'orders.json';
 
 // Load orders from file
 let orders = [];
 let isOrdersLoaded = false;
 
-// Load orders initially
 async function loadOrders() {
   try {
-    const data = await fs.promises.readFile('orders.json', 'utf8');
+    const data = await fs.readFile(ordersFile, 'utf8');
     try {
       orders = JSON.parse(data);
     } catch (err) {
@@ -69,7 +59,7 @@ async function loadOrders() {
     isOrdersLoaded = true;
   } catch (err) {
     if (err.code === 'ENOENT') {
-      await fs.promises.writeFile('orders.json', JSON.stringify([]));
+      await fs.writeFile(ordersFile, JSON.stringify([]));
       isOrdersLoaded = true;
     } else {
       throw err;
@@ -80,99 +70,87 @@ async function loadOrders() {
 // Save orders to file
 async function saveOrders(orders) {
   try {
-    await fs.promises.writeFile('orders.json', JSON.stringify(orders, null, 2));
+    await fs.writeFile(ordersFile, JSON.stringify(orders, null, 2));
   } catch (err) {
     console.error('Error saving orders:', err);
   }
 }
 
-// API Endpoints
-app.post('/api/create-order', async (req, res) => {
+export default async function apiHandler(req, res) {
   try {
-    if (!isOrdersLoaded) {
-      await loadOrders();
+    // Handle POST requests
+    if (req.method === 'POST' && req.url === '/api/create-order') {
+      if (!isOrdersLoaded) {
+        await loadOrders();
+      }
+      const newOrder = { id: orders.length + 1, ...req.body };
+      orders.push(newOrder);
+      await saveOrders(orders);
+      return res.status(201).json(newOrder);
     }
-    const newOrder = { id: orders.length + 1, ...req.body };
-    orders.push(newOrder);
-    await saveOrders(orders);
-    res.status(201).json(newOrder);
+    // Handle GET requests
+    else if (req.method === 'GET' && req.url === '/api/get-orders') {
+      if (!isOrdersLoaded) {
+        await loadOrders();
+      }
+      return res.json(orders);
+    }
+    // Handle GET requests with ID
+    else if (req.method === 'GET' && req.url.startsWith('/api/get-order/')) {
+      if (!isOrdersLoaded) {
+        await loadOrders();
+      }
+      const orderId = parseInt(req.url.split('/').pop(), 10);
+      if (isNaN(orderId) || orderId <= 0) {
+        return res.status(400).json({ message: 'Invalid order ID' });
+      }
+      const order = orders.find((order) => order.id === orderId);
+      if (!order) {
+        return res.status(404).json({ message: 'Order not found' });
+      }
+      return res.json(order);
+    }
+    // Handle PUT requests
+    else if (req.method === 'PUT' && req.url.startsWith('/api/update-order/')) {
+      if (!isOrdersLoaded) {
+        await loadOrders();
+      }
+      const orderId = parseInt(req.url.split('/').pop(), 10);
+      if (isNaN(orderId) || orderId <= 0) {
+        return res.status(400).json({ message: 'Invalid order ID' });
+      }
+      const index = orders.findIndex((order) => order.id === orderId);
+      if (index === -1) {
+        return res.status(404).json({ message: 'Order not found' });
+      }
+      orders[index] = { id: orderId, ...req.body };
+      await saveOrders(orders);
+      return res.json(orders[index]);
+    }
+    // Handle DELETE requests
+    else if (req.method === 'DELETE' && req.url.startsWith('/api/delete-order/')) {
+      if (!isOrdersLoaded) {
+        await loadOrders();
+      }
+      const orderId = parseInt(req.url.split('/').pop(), 10);
+      if (isNaN(orderId) || orderId <= 0) {
+        return res.status(400).json({ message: 'Invalid order ID' });
+      }
+      const index = orders.findIndex((order) => order.id === orderId);
+      if (index === -1) {
+        return res.status(404).json({ message: 'Order not found' });
+      }
+      orders.splice(index, 1);
+      await saveOrders(orders);
+      return res.status(204).json({ message: 'Order deleted successfully' });
+    } else {
+      return res.status(405).json({ message: 'Method not allowed' });
+    }
   } catch (error) {
-    console.error('Error creating order:', error);
-    res.status(500).json({ message: 'Error creating order' });
+    console.error(error);
+    return res.status(500).json({ message: 'Internal Server Error' });
   }
-});
-
-app.get('/api/get-orders', async (req, res) => {
-  if (!isOrdersLoaded) {
-    await loadOrders();
-  }
-  res.json(orders);
-});
-
-app.get('/api/get-order/:id', async (req, res) => {
-  if (!isOrdersLoaded) {
-    await loadOrders();
-  }
-  const orderId = parseInt(req.params.id, 10);
-  if (isNaN(orderId) || orderId <= 0) {
-    res.status(400).json({ message: 'Invalid order ID' });
-    return;
-  }
-  const order = orders.find((order) => order.id === orderId);
-  if (!order) {
-    res.status(404).json({ message: 'Order not found' });
-    return;
-  }
-  res.json(order);
-});
-app.put('/api/update-order/:id', async (req, res) => {
-  try {
-    if (!isOrdersLoaded) {
-      await loadOrders();
-    }
-    const orderId = parseInt(req.params.id, 10);
-    if (isNaN(orderId) || orderId <= 0) {
-      res.status(400).json({ message: 'Invalid order ID' });
-      return;
-    }
-    const index = orders.findIndex((order) => order.id === orderId);
-    if (index === -1) {
-      res.status(404).json({ message: 'Order not found' });
-      return;
-    }
-    orders[index] = { id: orderId, ...req.body };
-    await saveOrders(orders);
-    res.json(orders[index]);
-  } catch (error) {
-    console.error('Error updating order:', error);
-    res.status(500).json({ message: 'Error updating order' });
-  }
-});
-
-app.delete('/api/delete-order/:id', async (req, res) => {
-  try {
-    if (!isOrdersLoaded) {
-      await loadOrders();
-    }
-    const orderId = parseInt(req.params.id, 10);
-    if (isNaN(orderId) || orderId <= 0) {
-      res.status(400).json({ message: 'Invalid order ID' });
-      return;
-    }
-    const index = orders.findIndex((order) => order.id === orderId);
-    if (index === -1) {
-      res.status(404).json({ message: 'Order not found' });
-      return;
-    }
-    orders.splice(index, 1);
-    await saveOrders(orders);
-    res.status(204).json({ message: 'Order deleted successfully' });
-  } catch (error) {
-    console.error('Error deleting order:', error);
-    res.status(500).json({ message: 'Error deleting order' });
-  }
-});
-
+}
 // Send email using Nodemailer
 export async function sendEmail(to, order) {
   try {
@@ -181,8 +159,8 @@ export async function sendEmail(to, order) {
       service: process.env.EMAIL_SERVICE,
       auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      }
+        pass: process.env.EMAIL_PASS,
+      },
     });
 
     // Define mailOptions object

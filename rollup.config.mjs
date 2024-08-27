@@ -31,10 +31,19 @@ export default defineConfig({
     {
       name: 'ignore-unused-imports',
       transform(code, id) {
+        // Check if the file contains the 'fileURLToPath' declaration
         if (id.includes('url')) {
-          return code.replace(/fileURLToPath|url/g, '');
+          // Remove the import statement and usage of 'fileURLToPath'
+          return {
+            code: code.replace(/import\s+{[^}]*fileURLToPath[^}]*}\s+from\s+['"]url['"];/g, '')
+                      .replace(/fileURLToPath\([^)]*\);?/g, ''),
+            map: null,
+          };
         }
-        return code;
+        return {
+          code,
+          map: null,
+        };
       },
     },
   ],
