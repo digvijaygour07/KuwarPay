@@ -86,29 +86,8 @@ async function saveOrders(orders) {
   }
 }
 
-// Handle form submission and save to order.json
-export async function handleBuyNow(event) {
-  try {
-    const formData = JSON.parse(event.body);
-    if (!formData || Object.keys(formData).length === 0) {
-      return { statusCode: 400, body: 'No form data received' };
-    }
-
-    // Save form data to order.json
-    const orders = await loadOrders();
-    orders.push(formData);
-    await saveOrders(orders);
-
-    // Return success response
-    return { statusCode: 200, body: 'Form submitted successfully!' };
-  } catch (error) {
-    console.error(error);
-    return { statusCode: 500, body: 'Internal Server Error' };
-  }
-}
-
-// Create a new order
-const createOrder = async (req, res) => {
+// API Endpoints
+app.post('/api/create-order', async (req, res) => {
   try {
     if (!isOrdersLoaded) {
       await loadOrders();
@@ -121,18 +100,16 @@ const createOrder = async (req, res) => {
     console.error('Error creating order:', error);
     res.status(500).json({ message: 'Error creating order' });
   }
-};
+});
 
-// Get all orders
-const getOrders = async (req, res) => {
+app.get('/api/get-orders', async (req, res) => {
   if (!isOrdersLoaded) {
     await loadOrders();
   }
   res.json(orders);
-};
+});
 
-// Get an order by ID
-const getOrderById = async (req, res) => {
+app.get('/api/get-order/:id', async (req, res) => {
   if (!isOrdersLoaded) {
     await loadOrders();
   }
@@ -147,11 +124,8 @@ const getOrderById = async (req, res) => {
     return;
   }
   res.json(order);
-};
-
-
-// Update an order
-const updateOrder = async (req, res) => {
+});
+app.put('/api/update-order/:id', async (req, res) => {
   try {
     if (!isOrdersLoaded) {
       await loadOrders();
@@ -173,10 +147,9 @@ const updateOrder = async (req, res) => {
     console.error('Error updating order:', error);
     res.status(500).json({ message: 'Error updating order' });
   }
-};
+});
 
-// Delete an order
-const deleteOrder = async (req, res) => {
+app.delete('/api/delete-order/:id', async (req, res) => {
   try {
     if (!isOrdersLoaded) {
       await loadOrders();
@@ -198,14 +171,7 @@ const deleteOrder = async (req, res) => {
     console.error('Error deleting order:', error);
     res.status(500).json({ message: 'Error deleting order' });
   }
-};
-
-// API Endpoints
-app.post('/api/create-order', createOrder);
-app.get('/api/get-orders', getOrders);
-app.get('/api/get-order/:id', getOrderById);
-app.put('/api/update-order/:id', updateOrder);
-app.delete('/api/delete-order/:id', deleteOrder);
+});
 
 // Send email using Nodemailer
 export async function sendEmail(to, order) {
