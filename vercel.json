@@ -8,12 +8,32 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/netlify/functions/api/api.mjs"
+      "src": "/",
+      "dest": "netlify/functions/api/api.mjs"
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "src": "/orders",
+      "dest": "netlify/functions/api/api.mjs"
+    },
+    {
+      "src": "/orders/:id",
+      "dest": "netlify/functions/api/api.mjs"
+    },
+    {
+      "src": "/payment-confirmation",
+      "dest": "netlify/functions/api/api.mjs"
+    },
+    {
+      "src": "/feedback",
+      "dest": "netlify/functions/api/api.mjs"
+    },
+    {
+      "src": "/success",
+      "dest": "netlify/functions/api/api.mjs"
+    },
+    {
+      "src": "/failure",
+      "dest": "netlify/functions/api/api.mjs"
     }
   ]
 }

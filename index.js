@@ -2,7 +2,7 @@ import express from 'express';
 const app = express();
 const port = 5500;
 const fs = require('fs');
-const orders = require('./orders');
+const orders = require('./netlify/functions/api/orders');
 
 app.use(express.json());
 

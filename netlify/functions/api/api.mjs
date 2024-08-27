@@ -35,16 +35,15 @@ export default {
   ]
 };
 
-
 import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import fs from 'fs';
+import WebSocket from 'ws';
+import nodemailer from 'nodemailer';
+
 const app = express();
-const port = 5500;
-const cors = require('cors');
-const morgan = require('morgan');
-const fs = require('fs');
-const WebSocket = require('ws');
-
-
+const port = 5502;
 
 // Middlewares
 app.use(cors());
@@ -77,126 +76,153 @@ const loadOrders = async () => {
   }
 };
 
-// .netlify/functions/api.js
 
-const fetch = require('node-fetch');
-
-exports.handler = async function(event, context) {
+// Handle form submission and save to order.json
+export async function handleBuyNow(event) {
   try {
-    const response = await fetch('https://kuwarpay.netlify.app/data');
-    const data = await response.json();
-    return {
-      statusCode: 200,
-      body: JSON.stringify(data),
-    };
+    const formData = JSON.parse(event.body);
+    if (!formData || Object.keys(formData).length === 0) {
+      return { statusCode: 400, body: 'No form data received' };
+    }
+
+    // Save form data to order.json
+    const orders = await loadOrders();
+    orders.push(formData);
+    await saveOrders(orders);
+
+    // Return success response
+    return { statusCode: 200, body: 'Form submitted successfully!' };
   } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Failed to fetch data' }),
-    };
+    console.error(error);
+    return { statusCode: 500, body: 'Internal Server Error' };
   }
-};
+}
 
-
+// Load orders from file
+async function loadOrders() {
+  try {
+    const data = await fs.promises.readFile('orders.json', 'utf8');
+    return JSON.parse(data);
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      return [];
+    } else {
+      throw err;
+    }
+  }
+}
 
 // Save orders to file
-const saveOrders = async () => {
+async function saveOrders(orders) {
   try {
     await fs.promises.writeFile('orders.json', JSON.stringify(orders, null, 2));
-    console.log('Orders saved to orders.json');
   } catch (err) {
     console.error('Error saving orders:', err);
   }
-};
+}
+
+
 
 // Create a new order
-const createOrder = async (formData) => {
+const createOrder = async (req, res) => {
   try {
     if (!isOrdersLoaded) {
       await loadOrders();
     }
-    const newOrder = { id: orders.length + 1, ...formData };
+    const newOrder = { id: orders.length + 1, ...req.body };
     orders.push(newOrder);
     await saveOrders();
-    console.log('New order created:', newOrder);
-    console.log('Orders:', orders);
-    return newOrder;
+    res.status(201).json(newOrder);
   } catch (error) {
     console.error('Error creating order:', error);
-    throw error;
+    res.status(500).json({ message: 'Error creating order' });
   }
 };
 
 // Get all orders
-const getOrders = () => {
+const getOrders = async (req, res) => {
   if (!isOrdersLoaded) {
-    throw new Error('Orders not loaded yet');
+    await loadOrders();
   }
-  return orders;
+  res.json(orders);
 };
 
 // Get an order by ID
-const getOrderById = (id) => {
+const getOrderById = async (req, res) => {
   if (!isOrdersLoaded) {
-    throw new Error('Orders not loaded yet');
+    await loadOrders();
   }
-  const orderId = parseInt(id, 10);
+  const orderId = parseInt(req.params.id, 10);
   if (isNaN(orderId)) {
-    throw new Error(`Invalid order ID: ${id}`);
+    res.status(400).json({ message: 'Invalid order ID' });
+    return;
   }
-  return orders.find((order) => order.id === orderId);
+  const order = orders.find((order) => order.id === orderId);
+  if (!order) {
+    res.status(404).json({ message: 'Order not found' });
+    return;
+  }
+  res.json(order);
 };
 
 // Update an order
-const updateOrder = async (id, updatedFormData) => {
+const updateOrder = async (req, res) => {
   try {
     if (!isOrdersLoaded) {
       await loadOrders();
     }
-    const orderId = parseInt(id, 10);
+    const orderId = parseInt(req.params.id, 10);
     if (isNaN(orderId)) {
-      throw new Error(`Invalid order ID: ${id}`);
+      res.status(400).json({ message: 'Invalid order ID' });
+      return;
     }
     const index = orders.findIndex((order) => order.id === orderId);
-    if (index !== -1) {
-      orders[index] = { id: orderId, ...updatedFormData };
-      await saveOrders();
-      return orders[index];
-    } else {
-      throw new Error(`Order with ID ${id} not found`);
+    if (index === -1) {
+      res.status(404).json({ message: 'Order not found' });
+      return;
     }
+    orders[index] = { id: orderId, ...req.body };
+    await saveOrders();
+    res.json(orders[index]);
   } catch (error) {
     console.error('Error updating order:', error);
-    throw error;
+    res.status(500).json({ message: 'Error updating order' });
   }
 };
 
 // Delete an order
-const deleteOrder = async (id) => {
+const deleteOrder = async (req, res) => {
   try {
     if (!isOrdersLoaded) {
       await loadOrders();
     }
-    const orderId = parseInt(id, 10);
+    const orderId = parseInt(req.params.id, 10);
     if (isNaN(orderId)) {
-      throw new Error(`Invalid order ID: ${id}`);
+      res.status(400).json({ message: 'Invalid order ID' });
+      return;
     }
     const index = orders.findIndex((order) => order.id === orderId);
-    if (index !== -1) {
-      orders.splice(index, 1);
-      await saveOrders();
-      return `Order with ID ${id} deleted successfully`;
-    } else {
-      throw new Error(`Order with ID ${id} not found`);
+    if (index === -1) {
+      res.status(404).json({ message: 'Order not found' });
+      return;
     }
+    orders.splice(index, 1);
+    await saveOrders();
+    res.status(204).json({ message: 'Order deleted successfully' });
   } catch (error) {
     console.error('Error deleting order:', error);
-    throw error;
+    res.status(500).json({ message: 'Error deleting order' });
   }
 };
 
-// Import Nodemailer
-const nodemailer = require('nodemailer');
+// API Endpoints
+app.post('/api/create-order', createOrder);
+app.get('/api/get-orders', getOrders);
+app.get('/api/get-order/:id', getOrderById);
+app.put('/api/update-order/:id', updateOrder);
+app.delete('/api/delete-order/:id', deleteOrder);
+
+
 
 // Send email using Nodemailer
 async function sendEmail(to, order) {
@@ -240,6 +266,33 @@ async function sendEmail(to, order) {
         };
       }
     }
+
+// Define the API endpoint
+ async function handler(event) {
+  try {
+  // Handle POST requests
+  if (event.request.method === 'POST') {
+  // Process the request body
+  const data = await event.request.json();
+  // Send an email using the sendEmail function
+  const response = await sendEmail(data.to, data.order);
+  return response;
+  } else {
+  // Return a 405 error for non-POST requests
+  return {
+  status: 405,
+  body: JSON.stringify({ error: 'Method Not Allowed' }),
+  };
+  }
+  } catch (error) {
+  console.error(error);
+  return {
+  status: 500,
+  body: JSON.stringify({ message: 'Internal Server Error' }),
+  };
+  }
+  }
+
 
     // Call the sendMail function and return its result
     return sendMail();

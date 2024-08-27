@@ -1,9 +1,11 @@
-const fs = require('fs');
-const nodemailer = require('nodemailer');
 import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import fs from 'fs';
+import nodemailer from 'nodemailer';
+
 const app = express();
-const cors = require('cors');
-const morgan = require('morgan');
+const port = 5502;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -156,7 +158,7 @@ const sendEmail = async (to, order) => {
 
 loadOrders();
 
-app.post('/orders', async (req, res) => {
+app.post('/api/order', async (req, res) => {
   try {
     const newOrder = await createOrder(req.body);
     await sendEmail(req.body.email, newOrder);
@@ -167,7 +169,7 @@ app.post('/orders', async (req, res) => {
   }
 });
 
-app.get('/orders', async (req, res) => {
+app.get('/api/orders', async (req, res) => {
   try {
     const ordersList = await getOrders();
     res.json(ordersList);
@@ -177,7 +179,7 @@ app.get('/orders', async (req, res) => {
   }
 });
 
-app.get('/orders/:id', async (req, res) => {
+app.get('/api/orders/:id', async (req, res) => {
   try {
     const order = await getOrderById(req.params.id);
     if (!order) {
@@ -189,28 +191,30 @@ app.get('/orders/:id', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
-    
-    app.put('/orders/:id', async (req, res) => {
-      try {
-        const updatedOrder = await updateOrder(req.params.id, req.body);
-        res.json(updatedOrder);
-      } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-      }
-    });
-    
-    app.delete('/orders/:id', async (req, res) => {
-      try {
-        const message = await deleteOrder(req.params.id);
-        res.send(message);
-      } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-      }
-    });
-    
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => {
-      console.log(`Server listening on port ${PORT}`);
-    });
+
+app.put('/api/orders/:id', async (req, res) => {
+  try {
+    const updatedOrder = await updateOrder(req.params.id, req.body);
+    res.json(updatedOrder);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.delete('/api/orders/:id', async (req, res) => {
+  try {
+    const message = await deleteOrder(req.params.id);
+    res.send(message);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+const PORT = process.env.PORT || 5502;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
+
+export default app;
