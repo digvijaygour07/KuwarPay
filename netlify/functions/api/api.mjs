@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // @ts-ignore
+=======
+>>>>>>> 6a3698c7f244283028249d609df90e993e9c2c43
 // Docs on event and context https://docs.netlify.com/functions/build/#code-your-function-2
 const handler = async (event) => {
   try {
@@ -29,6 +32,16 @@ const handler = async (event) => {
   }
   }
 
+<<<<<<< HEAD
+=======
+import { fileURLToPath } from 'url';
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import fs from 'fs/promises';
+import WebSocket from 'ws';
+import nodemailer from 'nodemailer';
+>>>>>>> 6a3698c7f244283028249d609df90e993e9c2c43
 
   import { fileURLToPath } from 'url';
   import express from 'express';
