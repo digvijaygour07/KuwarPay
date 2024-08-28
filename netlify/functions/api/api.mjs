@@ -33,7 +33,7 @@ const handler = async (event) => {
 
  
 
-<<<<<<< HEAD
+
   import cors from 'cors';
   import morgan from 'morgan';
   import fs from 'fs/promises';
@@ -48,23 +48,7 @@ const handler = async (event) => {
   app.use(morgan('dev'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-=======
-import cors from 'cors';
-import morgan from 'morgan';
-import fs from 'fs/promises';
-import WebSocket from 'ws';
-import nodemailer from 'nodemailer';
 
-
-const express = require('express');
-const app = express();
-const port = 5502;
-
-app.use(cors());
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
->>>>>>> 15507612da6e27ec9b0666b8b6bf7d9b72f27870
 
 
 // Added route for root URL
@@ -195,10 +179,9 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-  // Send email using Nodemailer
+// Send email using Nodemailer
 export async function sendEmail(to, order) {
   try {
-    // Use the already declared transporter object
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: to,
@@ -224,6 +207,7 @@ export async function sendEmail(to, order) {
     };
   }
 }
+
 // Handler function for API requests
 exports.handler = async (event) => {
   try {
@@ -238,54 +222,6 @@ exports.handler = async (event) => {
     };
   }
 };
-
-    // Asynchronous function to send the email
-async function sendMail() {
-  try {
-    // Send email using transporter
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent: ' + info.response);
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: 'Email sent successfully!' }),
-    };
-  } catch (error) {
-    console.error('Error sending email:', error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ message: 'Failed to send email.' }),
-    };
-  }
-}
-
-// Call the sendMail function
-try {
-  const result = await sendMail();
-  return result;
-} catch (error) {
-  console.error('Error sending email:', error);
-  return {
-    statusCode: 500,
-    body: JSON.stringify({ message: 'Failed to send email.' }),
-  };
-}
-   
-// Extracted function to handle email sending
-async function handleEmailSending(to, order) {
-  try {
-    const response = await sendEmail(to, order);
-    return {
-      statusCode: 200,
-      body: JSON.stringify(response),
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ message: 'Internal Server Error' }),
-    };
-  }
-}
 
 // Combine all functions and variables into a single object
 const apiFunctions = {
