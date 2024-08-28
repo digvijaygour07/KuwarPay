@@ -1,0 +1,10 @@
+{
+    "presets": ["@babel/preset-env"],
+    "plugins": [
+      "@babel/plugin-syntax-import-meta",
+      "@babel/plugin-proposal-import-namespace-from",
+      "@babel/plugin-transform-modules-commonjs"
+    ],
+    "sourceMaps": true,
+    "outDir": "lib"
+  }
