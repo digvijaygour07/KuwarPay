@@ -33,6 +33,7 @@ const handler = async (event) => {
 
  
 
+<<<<<<< HEAD
   import cors from 'cors';
   import morgan from 'morgan';
   import fs from 'fs/promises';
@@ -47,6 +48,23 @@ const handler = async (event) => {
   app.use(morgan('dev'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+=======
+import cors from 'cors';
+import morgan from 'morgan';
+import fs from 'fs/promises';
+import WebSocket from 'ws';
+import nodemailer from 'nodemailer';
+
+
+const express = require('express');
+const app = express();
+const port = 5502;
+
+app.use(cors());
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+>>>>>>> 15507612da6e27ec9b0666b8b6bf7d9b72f27870
 
 
 // Added route for root URL
