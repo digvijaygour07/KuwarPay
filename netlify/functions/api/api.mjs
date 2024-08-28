@@ -33,22 +33,20 @@ const handler = async (event) => {
 
  
 
-import express from 'express';
-import cors from 'cors';
-import morgan from 'morgan';
-import fs from 'fs/promises';
-import WebSocket from 'ws';
-import nodemailer from 'nodemailer';
-
-
-const express = require('express');
-const app = express();
-const port = 5502;
-
-app.use(cors());
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+  import cors from 'cors';
+  import morgan from 'morgan';
+  import fs from 'fs/promises';
+  import WebSocket from 'ws';
+  import nodemailer from 'nodemailer';
+  
+  const express = require('express');
+  const app = express();
+  const port = 5502;
+  
+  app.use(cors());
+  app.use(morgan('dev'));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
 
 // Added route for root URL
@@ -220,19 +218,32 @@ export async function sendEmail(to, order) {
   }
 }
    
+// Extracted function to handle email sending
+async function handleEmailSending(to, order) {
+  try {
+    const response = await sendEmail(to, order);
+    return {
+      statusCode: 200,
+      body: JSON.stringify(response),
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Internal Server Error' }),
+    };
+  }
+}
+
 // Combine all functions and variables into a single object
 const apiFunctions = {
   apiHandler: async (req, res) => {
     try {
-      switch (event.httpMethod) {
+      switch (req.httpMethod) {
         case 'POST':
           // Handle POST requests
-          const data = JSON.parse(event.body);
-          const response = await sendEmail(data.to, data.order);
-          return {
-            statusCode: 200,
-            body: JSON.stringify(response),
-          };
+          const data = JSON.parse(req.body);
+          return handleEmailSending(data.to, data.order);
         default:
           return {
             statusCode: 405,
@@ -247,8 +258,20 @@ const apiFunctions = {
       };
     }
   },
-  // Add other functions and variables here
+  emailHandler: async (req, res) => {
+    try {
+      const result = await handleEmailSending(req.body.to, req.body.order);
+      return res.status(result.statusCode).json(JSON.parse(result.body));
+    } catch (error) {
+      console.error('Error sending email:', error);
+      return res.status(500).json({ message: 'Failed to send email.' });
+    }
+  },
 };
+
+// Export the corrected handler function
+module.exports = apiFunctions.emailHandler;
+
 
 // Call the sendEmail function and return its result
 async function handler(req, res) {
