@@ -31,7 +31,7 @@ const handler = async (event) => {
   }
   }
 
-
+ 
 
 import express from 'express';
 import cors from 'cors';
@@ -41,15 +41,20 @@ import WebSocket from 'ws';
 import nodemailer from 'nodemailer';
 
 
-  import { fileURLToPath } from 'url';
-  import express from 'express';
-  import cors from 'cors';
-  import morgan from 'morgan';
-  import fs from 'fs/promises';
-  import WebSocket from 'ws';
-  import nodemailer from 'nodemailer';
-  import NextApiRequest from 'next';
-  import NextApiResponse from 'next';
+const express = require('express');
+const app = express();
+const port = 5502;
+
+app.use(cors());
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
+// Added route for root URL
+app.get('/', (req, res) => {
+  res.send('Welcome to the server!');
+});
 
   // Path to the orders file
 const ordersFile = 'orders.json';
@@ -86,9 +91,10 @@ async function saveOrders(orders) {
     console.error('Error saving orders:', err);
   }
 }
-
-export default async function apiHandler(req, res) {
-  try {
+// Combine all functions and variables into a single object
+const api = {
+  apiHandler: async (req, res) => {
+    try {
     // Handle POST requests
     if (req.method === 'POST' && req.url === '/api/create-order') {
       if (!isOrdersLoaded) {
@@ -161,7 +167,7 @@ export default async function apiHandler(req, res) {
     console.error(error);
     return res.status(500).json({ message: 'Internal Server Error' });
   }
-}
+}}
 // Send email using Nodemailer
 export async function sendEmail(to, order) {
   try {
@@ -214,34 +220,37 @@ export async function sendEmail(to, order) {
   }
 }
    
-export default async function handler(event) {
-  try {
-    switch (event.httpMethod) {
-      case 'POST':
-        // Handle POST requests
-        const data = JSON.parse(event.body);
-        const response = await sendEmail(data.to, data.order);
-        return {
-          statusCode: 200,
-          body: JSON.stringify(response),
-        };
-      default:
-        return {
-          statusCode: 405,
-          body: JSON.stringify({ error: 'Method Not Allowed' }),
-        };
+// Combine all functions and variables into a single object
+const apiFunctions = {
+  apiHandler: async (req, res) => {
+    try {
+      switch (event.httpMethod) {
+        case 'POST':
+          // Handle POST requests
+          const data = JSON.parse(event.body);
+          const response = await sendEmail(data.to, data.order);
+          return {
+            statusCode: 200,
+            body: JSON.stringify(response),
+          };
+        default:
+          return {
+            statusCode: 405,
+            body: JSON.stringify({ error: 'Method Not Allowed' }),
+          };
+      }
+    } catch (error) {
+      console.error(error);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ message: 'Internal Server Error' }),
+      };
     }
-  } catch (error) {
-    console.error(error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ message: 'Internal Server Error' }),
-    };
-  }
-}
+  },
+  // Add other functions and variables here
+};
 
-
-  // Call the sendEmail function and return its result
+// Call the sendEmail function and return its result
 async function handler(req, res) {
   try {
     const result = await sendEmail(req.body.to, req.body.order);
@@ -512,9 +521,15 @@ app.post('/payment-confirmation', async (req, res) => {
     }
   });
   
- app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
-});
-
+ 
+  export const apiHandler = apiFunctions.apiHandler;
+  export const handler = apiFunctions.handler;
+  
+  app.listen(port, () => {
+    console.log(`Server started on port ${port}`);
+  });
+  
+  
+  
 
   

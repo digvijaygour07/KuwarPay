@@ -8,7 +8,7 @@
     "build": "rollup -c rollup.config.mjs",
     "build:babel": "babel src --out-dir lib",
     "build:node": "node public/build.js",
-    "start": "vercel dev",
+    "start": "node api.mjs",
     "deploy": "vercel --prod",
     "postinstall": "patch-package"
   },
