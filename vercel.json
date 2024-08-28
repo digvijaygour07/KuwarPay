@@ -3,68 +3,15 @@
   "builds": [
     {
       "src": "netlify/functions/api/api.mjs",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "runtime": "node"
+      }
     }
   ],
   "routes": [
     {
-      "src": "/",
-      "dest": "netlify/functions/api/api.mjs"
-    },
-    {
-      "src": "/orders",
-      "dest": "netlify/functions/api/api.mjs"
-    },
-    {
-      "src": "/orders/:id",
-      "dest": "netlify/functions/api/api.mjs"
-    },
-    {
-      "src": "/payment-confirmation",
-      "dest": "netlify/functions/api/api.mjs"
-    },
-    {
-      "src": "/feedback",
-      "dest": "netlify/functions/api/api.mjs"
-    },
-    {
-      "src": "/success",
-      "dest": "netlify/functions/api/api.mjs"
-    },
-    {
-      "src": "/failure",
-      "dest": "netlify/functions/api/api.mjs"
-    },
-    {
-      "src": "/api/create-order",
-      "dest": "netlify/functions/api/api.mjs"
-    },
-    {
-      "src": "/api/get-orders",
-      "dest": "netlify/functions/api/api.mjs"
-    },
-    {
-      "src": "/api/get-order/:id",
-      "dest": "netlify/functions/api/api.mjs"
-    },
-    {
-      "src": "/api/update-order/:id",
-      "dest": "netlify/functions/api/api.mjs"
-    },
-    {
-      "src": "/api/delete-order/:id",
-      "dest": "netlify/functions/api/api.mjs"
-    },
-    {
-      "src": "/api/orders",
-      "dest": "netlify/functions/api/api.mjs"
-    },
-    {
-      "src": "/api/payment-confirmation",
-      "dest": "netlify/functions/api/api.mjs"
-    },
-    {
-      "src": "/api/feedback",
+      "src": "/(.*)",
       "dest": "netlify/functions/api/api.mjs"
     }
   ]

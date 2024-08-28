@@ -31,12 +31,14 @@ const handler = async (event) => {
   }
   }
 
- 
+
 import cors from 'cors';
 import morgan from 'morgan';
 import fs from 'fs/promises';
 import WebSocket from 'ws';
 import nodemailer from 'nodemailer';
+import { sendEmail } from './email'
+import { NextApiRequest, NextApiResponse } from 'next';
 
 
 const express = require('express');
@@ -55,14 +57,13 @@ app.get('/', (req, res) => {
   res.send('Welcome to the server!');
 });
 
-  // Path to the orders file
-const ordersFile = 'orders.json';
 
-// Load orders from file
+
+const ordersFile = 'orders.json';
 let orders = [];
 let isOrdersLoaded = false;
 
-async function loadOrders() {
+const loadOrders = async () => {
   try {
     const data = await fs.readFile(ordersFile, 'utf8');
     try {
@@ -80,16 +81,16 @@ async function loadOrders() {
       throw err;
     }
   }
-}
+};
 
-// Save orders to file
-async function saveOrders(orders) {
+const saveOrders = async (orders) => {
   try {
     await fs.writeFile(ordersFile, JSON.stringify(orders, null, 2));
   } catch (err) {
     console.error('Error saving orders:', err);
   }
-}
+};
+
 // Combine all functions and variables into a single object
 const api = {
   apiHandler: async (req, res) => {
@@ -167,19 +168,22 @@ const api = {
     return res.status(500).json({ message: 'Internal Server Error' });
   }
 }}
-// Send email using Nodemailer
+
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false, // or 'STARTTLS',
+  service: process.env.EMAIL_SERVICE,
+  auth: {
+    user: process.env.EMAIL_USER || 'artbaba2007@gmail.com',
+    pass: process.env.EMAIL_PASS || process.env.EMAIL_PASSWORD
+  }
+});
+
+  // Send email using Nodemailer
 export async function sendEmail(to, order) {
   try {
-    // Create transporter object
-    const transporter = nodemailer.createTransport({
-      service: process.env.EMAIL_SERVICE,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    // Define mailOptions object
+    // Use the already declared transporter object
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: to,
@@ -191,25 +195,12 @@ export async function sendEmail(to, order) {
       `,
     };
 
-    // Asynchronous function to send the email
-    async function sendMail() {
-      try {
-        // Send email using transporter
-        const info = await transporter.sendMail(mailOptions);
-        console.log('Email sent: ' + info.response);
-        return {
-          statusCode: 200,
-          body: JSON.stringify({ message: 'Email sent successfully!' }),
-        };
-      } catch (error) {
-        console.error('Error sending email:', error);
-        return {
-          statusCode: 500,
-          body: JSON.stringify({ message: 'Failed to send email.' }),
-        };
-      }
-    }
-    return await sendMail();
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent: ' + info.response);
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: 'Email sent successfully!' }),
+    };
   } catch (error) {
     console.error('Error sending email:', error);
     return {
@@ -217,6 +208,51 @@ export async function sendEmail(to, order) {
       body: JSON.stringify({ message: 'Failed to send email.' }),
     };
   }
+}
+// Handler function for API requests
+exports.handler = async (event) => {
+  try {
+    const { to, order } = JSON.parse(event.body);
+    const result = await sendEmail(to, order);
+    return result;
+  } catch (error) {
+    console.error(error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Internal Server Error' }),
+    };
+  }
+};
+
+    // Asynchronous function to send the email
+async function sendMail() {
+  try {
+    // Send email using transporter
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent: ' + info.response);
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: 'Email sent successfully!' }),
+    };
+  } catch (error) {
+    console.error('Error sending email:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Failed to send email.' }),
+    };
+  }
+}
+
+// Call the sendMail function
+try {
+  const result = await sendMail();
+  return result;
+} catch (error) {
+  console.error('Error sending email:', error);
+  return {
+    statusCode: 500,
+    body: JSON.stringify({ message: 'Failed to send email.' }),
+  };
 }
    
 // Extracted function to handle email sending
@@ -291,7 +327,7 @@ module.exports = handler;
 exports.handler = async function (event, context) {
   console.log('Event:', event);
   console.log('Context:', context);
-  const to = 'recipient@example.com'; // Replace with the recipient's email
+  const to = 'digvijaygour8@gmail.com'; // Replace with the recipient's email
   const order = { id: '12345', details: 'Order details' }; // Replace with the order details
   return sendEmail(to, order);
 };
@@ -361,19 +397,11 @@ wss.on('connection', (ws) => {
   });
 });
 
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // or 'STARTTLS'
-    auth: {
-      user: 'artbaba2007@gmail.com',
-      pass: process.env.EMAIL_PASSWORD, // Use environment variable
-    },
-  });
+
 
   const mailOptions = {
     from: 'artbaba2007@gmail.com',
-    to: to,
+    to: 'digvijaygour8@gmail.com',
     subject: 'Order Confirmation',
     html: `
       <h2>Order Confirmation</h2>
