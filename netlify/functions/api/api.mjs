@@ -44,9 +44,13 @@ const handler = async (event) => {
   const express = require('express');
   const app = express();
   const port = 5502;
-  const cors = require ('cors');
-  
-  app.use(cors());
+  const corsConfig = require('cors');
+  const corsInstance = corsConfig({
+    origin: "*",
+    credentials: true,
+  });
+  app.options("", cors(corsConfig));
+  app.use(cors(corsConfig));
   app.use(morgan('dev'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
@@ -299,7 +303,7 @@ module.exports = apiFunctions.emailHandler;
 
 
 // Call the sendEmail function and return its result
-async function handler(req, res) {
+async function emailHandler(req, res) {
   try {
     const result = await sendEmail(req.body.to, req.body.order);
     return res.status(result.statusCode).json(JSON.parse(result.body));
@@ -309,7 +313,7 @@ async function handler(req, res) {
   }
 }
 
-module.exports = handler;
+module.exports = emailHandler;
 
 // Handle the request
 exports.handler = async function (event, context) {
@@ -562,8 +566,7 @@ app.post('/payment-confirmation', async (req, res) => {
   });
   
  
-  export const apiHandler = apiFunctions.apiHandler;
-  export const handler = apiFunctions.handler;
+ 
   
   app.listen(port, () => {
     console.log(`Server started on port ${port}`);

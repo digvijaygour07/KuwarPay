@@ -51,7 +51,22 @@
   },
   "description": "",
   "keywords": [],
-  "vercel": {
-    "version": 2
+"vercel": {
+    "version": 2,
+    "builds": [
+      {
+        "src": "netlify/functions/api/api.mjs",
+        "use": "@vercel/node",
+        "config": {
+          "runtime": "nodejs14"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "netlify/functions/api/api.mjs"
+      }
+    ]
   }
 }
