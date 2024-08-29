@@ -44,13 +44,49 @@ const handler = async (event) => {
   const express = require('express');
   const app = express();
   const port = 5502;
+  const cors = require ('cors');
   
   app.use(cors());
   app.use(morgan('dev'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-
+ // Import the required libraries
+ const { MongoClient } = require('mongodb');
+ const fetch = require('node-fetch');
+ 
+ // Define the MongoDB connection URL
+ const MONGODB_URI = 'mongodb+srv://digvijaygour8:<password>@kuwarpay1.r5aqmdk.mongodb.net/?retryWrites=true&w=majority&appName=KuwarPay1';
+ 
+ // Define the MongoDB client
+ const client = new MongoClient(MONGODB_URI);
+ 
+ // Define the database and collection
+ const db = client.db();
+ const collection = db.collection('orders');
+ 
+ // Define the serverless function to handle form submissions
+ exports.handler = async (event) => {
+   try {
+     // Parse the form data from the event object
+     const formData = JSON.parse(event.body);
+ 
+     // Insert the form data into the MongoDB collection
+     const result = await collection.insertOne(formData);
+ 
+     // Return a success response
+     return {
+       statusCode: 201,
+       body: JSON.stringify({ message: 'Order created successfully' }),
+     };
+   } catch (error) {
+     // Return an error response
+     return {
+       statusCode: 500,
+       body: JSON.stringify({ message: 'Error creating order' }),
+     };
+   }
+ };
 
 // Added route for root URL
 app.get('/', (req, res) => {
