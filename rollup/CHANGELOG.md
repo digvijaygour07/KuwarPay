@@ -730,7 +730,7 @@ _2021-11-01_
 
 ### Bug Fixes
 
-- Fix an issue with the CommonJS plugin when export defaulthas inherited properties (#4256)
+- Fix an issue with the CommonJS plugin when module.exportshas inherited properties (#4256)
 
 ### Pull Requests
 
@@ -760,7 +760,7 @@ _2021-10-25_
 
 ### Bug Fixes
 
-- Fix an issue with the CommonJS plugin when export defaultis falsy (#4247)
+- Fix an issue with the CommonJS plugin when module.exportsis falsy (#4247)
 
 ### Pull Requests
 
@@ -4013,7 +4013,7 @@ _2019-06-21_
 
 - Generate proper namespace objects when dynamically importing external dependencies for AMD or CJS formats (#2954)
 - Fix dynamically imported variables not being resolved correctly when importing from an entry chunk with only a default export (#2954)
-- Do not reexport default when reexporting a namespace (#2954)
+- Do not remodule.exports when reexporting a namespace (#2954)
 
 ### Pull Requests
 
@@ -5911,7 +5911,7 @@ _2017-08-27_
 
 ## 0.40.1
 
-- Allow missing space between `export default` and declaration ([#1218](https://github.com/rollup/rollup/pull/1218))
+- Allow missing space between `module.exports` and declaration ([#1218](https://github.com/rollup/rollup/pull/1218))
 
 ## 0.40.0
 
@@ -6652,7 +6652,7 @@ _2017-08-27_
 
 ## 0.7.6
 
-- Better placement of `export default` statements ([#21](https://github.com/rollup/rollup/issues/21))
+- Better placement of `module.exports` statements ([#21](https://github.com/rollup/rollup/issues/21))
 - Prevent function calls and property assignments from being treated as rebinding for sake of unbound default exports
 - Add `--external foo,bar,baz` option to CLI (equivalent to `external: ['foo', 'bar', 'baz']`)
 - Add CLI tests
@@ -6663,7 +6663,7 @@ _2017-08-27_
 
 ## 0.7.4
 
-- More precise statement re-ordering to satisfy `export default` constraint (fixes bug introduced in 0.7.3)
+- More precise statement re-ordering to satisfy `module.exports` constraint (fixes bug introduced in 0.7.3)
 
 ## 0.7.3
 

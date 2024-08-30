@@ -22,7 +22,7 @@ const handler = async (event) => {
   import minify from 'rollup-plugin-minify';
   
   
-  export default async function (req, res) {
+  module.exports async function (req, res) {
   try {
   // Your serverless function code here
   return res.status(200).json({ message: 'Hello from Vercel!' });

@@ -465,7 +465,7 @@ function errPreferNamedExports(facadeModuleId) {
     return {
         code: Errors.PREFER_NAMED_EXPORTS,
         id: facadeModuleId,
-        message: `Entry module "${file}" is implicitly using "default" export mode, which means for CommonJS output that its default export is assigned to "export default". For many tools, such CommonJS output will not be interchangeable with the original ES module. If this is intended, explicitly set "output.exports" to either "auto" or "default", otherwise you might want to consider changing the signature of "${file}" to use named exports only.`,
+        message: `Entry module "${file}" is implicitly using "default" export mode, which means for CommonJS output that its default export is assigned to "module.exports". For many tools, such CommonJS output will not be interchangeable with the original ES module. If this is intended, explicitly set "output.exports" to either "auto" or "default", otherwise you might want to consider changing the signature of "${file}" to use named exports only.`,
         url: `https://rollupjs.org/guide/en/#outputexports`
     };
 }
@@ -4607,7 +4607,7 @@ var picomatch_1 = picomatch;
 
 (function (module) {
 
-	export default= picomatch_1;
+	module.exports= picomatch_1;
 } (picomatch$1));
 
 const pm = /*@__PURE__*/getDefaultExportFromCjs(picomatch$1.exports);
@@ -9763,7 +9763,7 @@ class ExportDefaultDeclaration extends NodeBase {
     renderNamedDeclaration(code, declarationStart, declarationKeyword, endMarker, needsId, options) {
         const { exportNamesByVariable, format, snippets: { getPropertyAccess } } = options;
         const name = this.variable.getName(getPropertyAccess);
-        // Remove `export default`
+        // Remove `module.exports`
         code.remove(this.start, declarationStart);
         if (needsId) {
             code.appendLeft(getIdInsertPosition(code.original, declarationKeyword, endMarker, declarationStart), ` ${name}`);
@@ -12506,7 +12506,7 @@ class Module {
                 if (!module.ast) {
                     return null;
                 }
-                return export default.has('default') || reexportDescriptions.has('default');
+                return module.exports.has('default') || reexportDescriptions.has('default');
             },
             get hasModuleSideEffects() {
                 warnDeprecation('Accessing ModuleInfo.hasModuleSideEffects from plugins is deprecated. Please use ModuleInfo.moduleSideEffects instead.', false, options);
@@ -12970,7 +12970,7 @@ class Module {
     }
     addExport(node) {
         if (node instanceof ExportDefaultDeclaration) {
-            // export default foo;
+            // module.exports foo;
             this.exports.set('default', {
                 identifier: node.variable.getAssignedVariableName(),
                 localName: 'default'
@@ -13543,7 +13543,7 @@ function cjs(magicString, { accessedGlobals, dependencies, exports, hasExports, 
     const importBlock = getImportBlock$1(dependencies, snippets, compact);
     const interopBlock = getInteropBlock(dependencies, interop, externalLiveBindings, freeze, namespaceToStringTag, accessedGlobals, t, snippets);
     magicString.prepend(`${useStrict}${intro}${namespaceMarkers}${importBlock}${interopBlock}`);
-    const exportBlock = getExportBlock$1(exports, dependencies, namedExportsMode, interop, snippets, t, externalLiveBindings, `export default${_}=${_}`);
+    const exportBlock = getExportBlock$1(exports, dependencies, namedExportsMode, interop, snippets, t, externalLiveBindings, `module.exports${_}=${_}`);
     return magicString.append(`${exportBlock}${outro}`);
 }
 function getImportBlock$1(dependencies, { _, cnst, n }, compact) {
@@ -13955,7 +13955,7 @@ function umd(magicString, { accessedGlobals, dependencies, exports, hasExports, 
     const amdParams = (completeAmdId ? `'${completeAmdId}',${_}` : ``) +
         (amdDeps.length ? `[${amdDeps.join(`,${_}`)}],${_}` : ``);
     const define = amd.define;
-    const cjsExport = !namedExportsMode && hasExports ? `export default${_}=${_}` : ``;
+    const cjsExport = !namedExportsMode && hasExports ? `module.exports${_}=${_}` : ``;
     const useStrict = strict ? `${_}'use strict';${n}` : ``;
     let iifeExport;
     if (noConflict) {
@@ -17744,7 +17744,7 @@ pp$8.parseExport = function(node, exports) {
     this.semicolon();
     return this.finishNode(node, "ExportAllDeclaration")
   }
-  if (this.eat(types$1._default)) { // export default ...
+  if (this.eat(types$1._default)) { // module.exports ...
     this.checkExport(exports, "default", this.lastTokStart);
     var isAsync;
     if (this.type === types$1._function || (isAsync = this.isAsyncFunction())) {
@@ -23919,7 +23919,7 @@ async function writeOutputFile(outputFile, outputOptions) {
 }
 /**
  * Auxiliary function for defining rollup configuration
- * Mainly to facilitate IDE code prompts, after all, export default does not prompt, even if you add @type annotations, it is not accurate
+ * Mainly to facilitate IDE code prompts, after all, module.exports does not prompt, even if you add @type annotations, it is not accurate
  * @param options
  */
 function defineConfig(options) {

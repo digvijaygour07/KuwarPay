@@ -2,5 +2,5 @@ import api from '/netlify/functions/api/api.mjs'; // Use correct path relative t
 
 console.log(api);
 
-export default api;
+module.exports api;
 

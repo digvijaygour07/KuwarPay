@@ -7,7 +7,7 @@ import typescript from '@rollup/plugin-typescript';
 import minify from 'rollup-plugin-minify';
 import picomatch from 'picomatch';
 
-export default defineConfig({
+module.exports defineConfig({
   input: './netlify/functions/api/api.mjs',
   output: {
     file: '../netlify/functions/api.mjs',

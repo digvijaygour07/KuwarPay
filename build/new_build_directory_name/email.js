@@ -37,4 +37,4 @@ const sendEmail = async (to, formData) => {
 };
 
 // Export the sendEmail function
-export default= sendEmail;
+module.exports= sendEmail;

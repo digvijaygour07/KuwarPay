@@ -98,7 +98,7 @@ function requireSignals () {
 		// artificially, inherently leave the process in a
 		// state from which it is not safe to try and enter JS
 		// listeners.
-		export default= [
+		module.exports= [
 		  'SIGABRT',
 		  'SIGALRM',
 		  'SIGHUP',
@@ -107,7 +107,7 @@ function requireSignals () {
 		];
 
 		if (process.platform !== 'win32') {
-		  export default.push(
+		  module.exports.push(
 		    'SIGVTALRM',
 		    'SIGXCPU',
 		    'SIGXFSZ',
@@ -123,7 +123,7 @@ function requireSignals () {
 		}
 
 		if (process.platform === 'linux') {
-		  export default.push(
+		  module.exports.push(
 		    'SIGIO',
 		    'SIGPOLL',
 		    'SIGPWR',

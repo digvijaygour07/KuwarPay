@@ -20,7 +20,7 @@ const handler = async (event) => {
 import babel from '@rollup/plugin-babel';
 import minify from 'rollup-plugin-minify';
 
-export default {
+module.exports {
   input: 'netlify/functions/api/api.js',
   output: {
     file: 'netlify/functions/api.js',
@@ -73,7 +73,7 @@ async function saveOrders(orders) {
 }
 
 // API Endpoints
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+module.exports async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST' && req.url === '/api/create-order') {
     try {
       if (!isOrdersLoaded) {
@@ -249,7 +249,7 @@ async function handler(event) {
   }
 }
 
-export default handler;
+module.exports handler;
 // Handle the request
 exports.handler = async function (event, context) {
   try {
