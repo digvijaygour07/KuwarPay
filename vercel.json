@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "netlify/functions/api/api.mjs",
+      "src": "/netlify/functions/api/api.mjs",
       "use": "@vercel/node"
     },
     {
@@ -14,14 +14,14 @@
       "use": "@vercel/static"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "netlify/functions/api/api.mjs"
+      "source": "/api/(.*)",
+      "destination": "/netlify/functions/api/api.mjs"
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
