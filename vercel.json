@@ -20,6 +20,10 @@
       "destination": "/netlify/functions/api/api.mjs"
     },
     {
+      "source": "/styles.css",
+      "destination": "/public/styles.css"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
