@@ -20,6 +20,10 @@
       "dest": "netlify/functions/api/api.mjs"
     },
     {
+      "src": "/styles.css",
+      "dest": "public/styles.css"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
