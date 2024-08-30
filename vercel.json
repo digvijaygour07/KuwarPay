@@ -6,10 +6,6 @@
       "use": "@vercel/node"
     },
     {
-      "src": "public/styles.css",
-      "use": "@vercel/static"
-    },
-    {
       "src": "index.html",
       "use": "@vercel/static"
     }
@@ -20,12 +16,18 @@
       "dest": "netlify/functions/api/api.mjs"
     },
     {
-      "src": "/styles.css",
-      "dest": "public/styles.css"
-    },
-    {
       "src": "/(.*)",
       "dest": "/index.html"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "netlify/functions/api/api.mjs"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
