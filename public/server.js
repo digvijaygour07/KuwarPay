@@ -4628,11 +4628,10 @@ var require_extend_node = __commonJS({
   "node_modules/iconv-lite/lib/extend-node.js"(exports, module) {
     "use strict";
     var Buffer2 = __require("buffer").Buffer;
-<<<<<<< HEAD
-    module.exports= function(iconv) {
-=======
+
+    
     module.exports = function(iconv) {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
+
       var original = void 0;
       iconv.supportsNodeEncodingsExtension = !(Buffer2.from || new Buffer2(0) instanceof Uint8Array);
       iconv.extendNodeEncodings = function extendNodeEncodings() {
@@ -4802,11 +4801,9 @@ var require_lib = __commonJS({
     "use strict";
     var Buffer2 = require_safer().Buffer;
     var bomHandling = require_bom_handling();
-<<<<<<< HEAD
+
     var iconv = module.exports;
-=======
-    var iconv = module.exports;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
+
     iconv.encodings = null;
     iconv.defaultCharUnicode = "\uFFFD";
     iconv.defaultCharSingleByte = "?";
@@ -16761,7 +16758,7 @@ var require_lib2 = __commonJS({
     var parse = require_parse();
     var formats = require_formats();
     module.exports= {
-    module.exports = {
+   
       formats,
       parse,
       stringify
