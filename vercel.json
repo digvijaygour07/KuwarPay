@@ -1,31 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "/netlify/functions/api/api.mjs",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "index.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "/public/styles.css",
-      "use": "@vercel/static"
-    }
-  ],
   "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/netlify/functions/api/api.mjs"
-    },
-    {
-      "source": "/styles.css",
-      "destination": "/public/styles.css"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/api/(.*)", "destination": "netlify/functions/api/api.mjs" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

@@ -22,8 +22,8 @@ const handler = async (event) => {
   import minify from 'rollup-plugin-minify';
   
   
-  module.exports async function (req, res) {
-  try {
+  module.exports = async function (req, res) {
+    try {
   // Your serverless function code here
   return res.status(200).json({ message: 'Hello from Vercel!' });
   } catch (error) {
@@ -54,6 +54,7 @@ const handler = async (event) => {
   app.use(morgan('dev'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+  app.use(express.static(__dirname + "/public/"));
 
  // Import the required libraries
  const { MongoClient } = require('mongodb');

@@ -10,7 +10,8 @@
     "build:node": "node public/build.js",
     "start": "node api.mjs",
     "deploy": "vercel --prod",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "build:all": "npm run build && npm run build:babel && npm run build:node"
   },
   "author": "Your Name or Organization",
   "license": "ISC",
@@ -39,6 +40,11 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "@rollup/pluginutils": "^5.0.3",
     "@types/next": "^8.0.7",
+    "eslint": "^9.9.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-react": "^7.35.0",
+    "globals": "^15.9.0",
     "minify": "6.0.1",
     "mkdirp": "^3.0.1",
     "picomatch": "^4.0.2",
@@ -51,7 +57,7 @@
   },
   "description": "",
   "keywords": [],
-"vercel": {
+  "vercel": {
     "version": 2,
     "builds": [
       {
