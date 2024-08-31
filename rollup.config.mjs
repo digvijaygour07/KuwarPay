@@ -7,7 +7,7 @@ import typescript from '@rollup/plugin-typescript';
 import minify from 'rollup-plugin-minify';
 import picomatch from 'picomatch';
 
-module.exports = defineConfig({
+export default defineConfig({
   input: './netlify/functions/api/api.mjs',
   output: {
     file: '../netlify/functions/api.mjs',
@@ -27,25 +27,24 @@ module.exports = defineConfig({
       exclude: 'node_modules/**',
       presets: ['@babel/preset-env'],
     }),
-    minify(),
+    minify({
+      compress: {
+        drop_console: true,
+      },
+    }),
     {
       name: 'ignore-unused-imports',
       transform(code, id) {
-        // Check if the file contains the 'fileURLToPath' declaration
         if (id.includes('url')) {
-          // Remove the import statement and usage of 'fileURLToPath'
           return {
-            code: code.replace(/import\s+{[^}]*fileURLToPath[^}]*}\s+from\s+['"]url['"];/g, '')
-                      .replace(/fileURLToPath\([^)]*\);?/g, ''),
+            code: code
+              .replace(/import\s+{[^}]*fileURLToPath[^}]*}\s+from\s+['"]url['"];/g, '')
+              .replace(/fileURLToPath\([^)]*\);?/g, ''),
             map: null,
           };
         }
-        return {
-          code,
-          map: null,
-        };
+        return { code, map: null };
       },
     },
   ],
 });
-

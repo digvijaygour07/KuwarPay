@@ -20840,13 +20840,8 @@ var require_encoding = __commonJS({
 var require_language = __commonJS({
   "node_modules/negotiator/lib/language.js"(exports, module) {
     "use strict";
-<<<<<<< HEAD
-    module.exports= preferredLanguages;
-    module.exports.preferredLanguages = preferredLanguages;
-=======
     module.exports = preferredLanguages;
     module.exports.preferredLanguages = preferredLanguages;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
     var simpleLanguageRegExp = /^\s*([^\s\-;]+)(?:-([^\s;]+))?\s*(?:;(.*))?$/;
     function parseAcceptLanguage(accept) {
       var accepts = accept.split(",");
@@ -23426,22 +23421,14 @@ var require_cookies = __commonJS({
         return path;
       }
     };
-<<<<<<< HEAD
-    module.exports= Cookies;
-=======
     module.exports = Cookies;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
 // node_modules/nodemailer/package.json
 var require_package = __commonJS({
   "node_modules/nodemailer/package.json"(exports, module) {
-<<<<<<< HEAD
-    module.exports= {
-=======
     module.exports = {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       name: "nodemailer",
       version: "6.9.14",
       description: "Easy as cake e-mail sending from your Node.js applications",
@@ -23500,17 +23487,10 @@ var require_fetch = __commonJS({
     var packageData = require_package();
     var net = __require("net");
     var MAX_REDIRECTS = 5;
-<<<<<<< HEAD
-    module.exports= function(url, options) {
-      return nmfetch(url, options);
-    };
-    module.exports.Cookies = Cookies;
-=======
     module.exports = function(url, options) {
       return nmfetch(url, options);
     };
     module.exports.Cookies = Cookies;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
     function nmfetch(url, options) {
       options = options || {};
       options.fetchRes = options.fetchRes || new PassThrough();
@@ -23750,15 +23730,9 @@ var require_shared = __commonJS({
       networkInterfaces = os.networkInterfaces();
     } catch (err) {
     }
-<<<<<<< HEAD
     module.exports.networkInterfaces = networkInterfaces;
     var isFamilySupported = (family, allowInternal) => {
       let networkInterfaces2 = module.exports.networkInterfaces;
-=======
-    module.exports.networkInterfaces = networkInterfaces;
-    var isFamilySupported = (family, allowInternal) => {
-      let networkInterfaces2 = module.exports.networkInterfaces;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       if (!networkInterfaces2) {
         return true;
       }
@@ -23792,11 +23766,7 @@ var require_shared = __commonJS({
         return callback(null, Array.isArray(addresses) ? addresses : [].concat(addresses || []));
       });
     };
-<<<<<<< HEAD
     var dnsCache = module.exports.dnsCache = /* @__PURE__ */ new Map();
-=======
-    var dnsCache = module.exports.dnsCache = /* @__PURE__ */ new Map();
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
     var formatDNSValue = (value, extra) => {
       if (!value) {
         return Object.assign({}, extra || {});
@@ -23809,11 +23779,7 @@ var require_shared = __commonJS({
         extra || {}
       );
     };
-<<<<<<< HEAD
     module.exports.resolveHostname = (options, callback) => {
-=======
-    module.exports.resolveHostname = (options, callback) => {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       options = options || {};
       if (!options.host && options.servername) {
         options.host = options.servername;
@@ -23956,11 +23922,7 @@ var require_shared = __commonJS({
         });
       });
     };
-<<<<<<< HEAD
     module.exports.parseConnectionUrl = (str) => {
-=======
-    module.exports.parseConnectionUrl = (str) => {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       str = str || "";
       let options = {};
       [urllib.parse(str, true)].forEach((url) => {
@@ -24021,11 +23983,7 @@ var require_shared = __commonJS({
       });
       return options;
     };
-<<<<<<< HEAD
     module.exports._logFunc = (logger, level, defaults, data, message, ...args) => {
-=======
-    module.exports._logFunc = (logger, level, defaults, data, message, ...args) => {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       let entry = {};
       Object.keys(defaults || {}).forEach((key) => {
         if (key !== "level") {
@@ -24039,11 +23997,7 @@ var require_shared = __commonJS({
       });
       logger[level](entry, message, ...args);
     };
-<<<<<<< HEAD
     module.exports.getLogger = (options, defaults) => {
-=======
-    module.exports.getLogger = (options, defaults) => {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       options = options || {};
       let response = {};
       let levels = ["trace", "debug", "info", "warn", "error", "fatal"];
@@ -24059,20 +24013,12 @@ var require_shared = __commonJS({
       }
       levels.forEach((level) => {
         response[level] = (data, message, ...args) => {
-<<<<<<< HEAD
           module.exports._logFunc(logger, level, defaults, data, message, ...args);
-=======
-          module.exports._logFunc(logger, level, defaults, data, message, ...args);
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
         };
       });
       return response;
     };
-<<<<<<< HEAD
     module.exports.callbackPromise = (resolve, reject) => function() {
-=======
-    module.exports.callbackPromise = (resolve, reject) => function() {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       let args = Array.from(arguments);
       let err = args.shift();
       if (err) {
@@ -24081,11 +24027,7 @@ var require_shared = __commonJS({
         resolve(...args);
       }
     };
-<<<<<<< HEAD
     module.exports.parseDataURI = (uri) => {
-=======
-    module.exports.parseDataURI = (uri) => {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       let input = uri;
       let commaPos = input.indexOf(",");
       if (!commaPos) {
@@ -24127,19 +24069,11 @@ var require_shared = __commonJS({
       }
       return { data, encoding, contentType, params };
     };
-<<<<<<< HEAD
     module.exports.resolveContent = (data, key, callback) => {
       let promise;
       if (!callback) {
         promise = new Promise((resolve, reject) => {
           callback = module.exports.callbackPromise(resolve, reject);
-=======
-    module.exports.resolveContent = (data, key, callback) => {
-      let promise;
-      if (!callback) {
-        promise = new Promise((resolve, reject) => {
-          callback = module.exports.callbackPromise(resolve, reject);
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
         });
       }
       let content = data && data[key] && data[key].content || data[key];
@@ -24165,11 +24099,7 @@ var require_shared = __commonJS({
           contentStream = nmfetch(content.path || content.href);
           return resolveStream(contentStream, callback);
         } else if (/^data:/i.test(content.path || content.href)) {
-<<<<<<< HEAD
           let parsedDataUri = module.exports.parseDataURI(content.path || content.href);
-=======
-          let parsedDataUri = module.exports.parseDataURI(content.path || content.href);
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
           if (!parsedDataUri || !parsedDataUri.data) {
             return callback(null, Buffer.from(0));
           }
@@ -24184,11 +24114,7 @@ var require_shared = __commonJS({
       setImmediate(() => callback(null, content));
       return promise;
     };
-<<<<<<< HEAD
     module.exports.assign = function() {
-=======
-    module.exports.assign = function() {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       let args = Array.from(arguments);
       let target = args.shift() || {};
       args.forEach((source) => {
@@ -24207,11 +24133,7 @@ var require_shared = __commonJS({
       });
       return target;
     };
-<<<<<<< HEAD
     module.exports.encodeXText = (str) => {
-=======
-    module.exports.encodeXText = (str) => {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       if (!/[^\x21-\x2A\x2C-\x3C\x3E-\x7E]/.test(str)) {
         return str;
       }
@@ -26358,11 +26280,7 @@ var require_mime_types2 = __commonJS({
       ["zoo", "application/octet-stream"],
       ["zsh", "text/x-script.zsh"]
     ]);
-<<<<<<< HEAD
-    module.exports= {
-=======
     module.exports = {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       detectMimeType(filename) {
         if (!filename) {
           return defaultMimeType;
@@ -26641,11 +26559,7 @@ var require_punycode = __commonJS({
       toASCII,
       toUnicode
     };
-<<<<<<< HEAD
-    module.exports= punycode;
-=======
     module.exports = punycode;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -26739,11 +26653,7 @@ var require_base64 = __commonJS({
         done();
       }
     };
-<<<<<<< HEAD
-    module.exports= {
-=======
     module.exports = {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       encode,
       wrap,
       Encoder
@@ -26905,11 +26815,7 @@ var require_qp = __commonJS({
         done();
       }
     };
-<<<<<<< HEAD
-    module.exports= {
-=======
     module.exports = {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       encode,
       wrap,
       Encoder
@@ -26924,11 +26830,7 @@ var require_mime_funcs = __commonJS({
     var base64 = require_base64();
     var qp = require_qp();
     var mimeTypes = require_mime_types2();
-<<<<<<< HEAD
-    module.exports= {
-=======
     module.exports = {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       /**
        * Checks if a value is plaintext string (uses only printable 7bit chars)
        *
@@ -27653,11 +27555,7 @@ var require_addressparser = __commonJS({
       }
       return parsedAddresses;
     }
-<<<<<<< HEAD
-    module.exports= addressparser;
-=======
     module.exports = addressparser;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -27690,11 +27588,7 @@ var require_last_newline = __commonJS({
         return done();
       }
     };
-<<<<<<< HEAD
-    module.exports= LastNewline;
-=======
     module.exports = LastNewline;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -27738,11 +27632,7 @@ var require_le_windows = __commonJS({
         done();
       }
     };
-<<<<<<< HEAD
-    module.exports= LeWindows;
-=======
     module.exports = LeWindows;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -27779,11 +27669,7 @@ var require_le_unix = __commonJS({
         done();
       }
     };
-<<<<<<< HEAD
-    module.exports= LeWindows;
-=======
     module.exports = LeWindows;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -28754,11 +28640,7 @@ var require_mime_node = __commonJS({
         (this.getEnvelope().from || this.hostname || "localhost").split("@").pop() + ">";
       }
     };
-<<<<<<< HEAD
-    module.exports= MimeNode;
-=======
     module.exports = MimeNode;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -29204,11 +29086,7 @@ var require_mail_composer = __commonJS({
         return element;
       }
     };
-<<<<<<< HEAD
-    module.exports= MailComposer;
-=======
     module.exports = MailComposer;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -29339,11 +29217,7 @@ var require_message_parser = __commonJS({
         }));
       }
     };
-<<<<<<< HEAD
-    module.exports= MessageParser;
-=======
     module.exports = MessageParser;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -29452,11 +29326,7 @@ var require_relaxed_body = __commonJS({
         callback();
       }
     };
-<<<<<<< HEAD
-    module.exports= RelaxedBody;
-=======
     module.exports = RelaxedBody;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -29467,11 +29337,7 @@ var require_sign = __commonJS({
     var punycode = require_punycode();
     var mimeFuncs = require_mime_funcs();
     var crypto = __require("crypto");
-<<<<<<< HEAD
-    module.exports= (headers, hashAlgo, bodyHash, options) => {
-=======
     module.exports = (headers, hashAlgo, bodyHash, options) => {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       options = options || {};
       let defaultFieldNames = "From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive";
       let fieldNames = options.headerFieldNames || defaultFieldNames;
@@ -29488,11 +29354,7 @@ var require_sign = __commonJS({
       }
       return dkimHeader + signature.replace(/(^.{73}|.{75}(?!\r?\n|\r))/g, "$&\r\n ").trim();
     };
-<<<<<<< HEAD
     module.exports.relaxedHeaders = relaxedHeaders;
-=======
-    module.exports.relaxedHeaders = relaxedHeaders;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
     function generateDKIMHeader(domainName, keySelector, fieldNames, hashAlgo, bodyHash) {
       let dkim = [
         "v=1",
@@ -29740,11 +29602,7 @@ var require_dkim = __commonJS({
         return output;
       }
     };
-<<<<<<< HEAD
-    module.exports= DKIM;
-=======
     module.exports = DKIM;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -29840,11 +29698,7 @@ var require_http_proxy_client = __commonJS({
       socket.on("timeout", timeoutErr);
       socket.once("error", tempSocketErr);
     }
-<<<<<<< HEAD
-    module.exports= httpProxyClient;
-=======
     module.exports = httpProxyClient;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -30108,11 +29962,7 @@ var require_mail_message = __commonJS({
         return "<http://" + url + ">";
       }
     };
-<<<<<<< HEAD
-    module.exports= MailMessage;
-=======
     module.exports = MailMessage;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -30480,11 +30330,7 @@ var require_mailer = __commonJS({
         return this.meta.get(key);
       }
     };
-<<<<<<< HEAD
-    module.exports= Mail;
-=======
     module.exports = Mail;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -30573,11 +30419,7 @@ var require_data_stream = __commonJS({
         done();
       }
     };
-<<<<<<< HEAD
-    module.exports= DataStream;
-=======
     module.exports = DataStream;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -31987,11 +31829,7 @@ var require_smtp_connection = __commonJS({
         return defaultHostname;
       }
     };
-<<<<<<< HEAD
-    module.exports= SMTPConnection;
-=======
     module.exports = SMTPConnection;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -32296,11 +32134,7 @@ var require_xoauth2 = __commonJS({
         return payload + "." + this.toBase64URL(signature);
       }
     };
-<<<<<<< HEAD
-    module.exports= XOAuth2;
-=======
     module.exports = XOAuth2;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -32521,22 +32355,14 @@ var require_pool_resource = __commonJS({
         this.emit("close");
       }
     };
-<<<<<<< HEAD
-    module.exports= PoolResource;
-=======
     module.exports = PoolResource;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
 // node_modules/nodemailer/lib/well-known/services.json
 var require_services = __commonJS({
   "node_modules/nodemailer/lib/well-known/services.json"(exports, module) {
-<<<<<<< HEAD
-    module.exports= {
-=======
     module.exports = {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       "1und1": {
         host: "smtp.1und1.de",
         port: 465,
@@ -32866,11 +32692,7 @@ var require_well_known = __commonJS({
       });
       return response;
     }
-<<<<<<< HEAD
-    module.exports= function(key) {
-=======
     module.exports = function(key) {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       key = normalizeKey(key.split("@").pop());
       return normalized[key] || false;
     };
@@ -33418,11 +33240,7 @@ var require_smtp_pool = __commonJS({
         return promise;
       }
     };
-<<<<<<< HEAD
-    module.exports= SMTPPool;
-=======
     module.exports = SMTPPool;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -33780,11 +33598,7 @@ var require_smtp_transport = __commonJS({
         this.emit("close");
       }
     };
-<<<<<<< HEAD
-    module.exports= SMTPTransport;
-=======
     module.exports = SMTPTransport;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -33959,11 +33773,7 @@ var require_sendmail_transport = __commonJS({
         }
       }
     };
-<<<<<<< HEAD
-    module.exports= SendmailTransport;
-=======
     module.exports = SendmailTransport;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -34077,11 +33887,7 @@ var require_stream_transport = __commonJS({
         });
       }
     };
-<<<<<<< HEAD
-    module.exports= StreamTransport;
-=======
     module.exports = StreamTransport;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -34150,11 +33956,7 @@ var require_json_transport = __commonJS({
         });
       }
     };
-<<<<<<< HEAD
-    module.exports= JSONTransport;
-=======
     module.exports = JSONTransport;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -34435,11 +34237,7 @@ var require_ses_transport = __commonJS({
         return promise;
       }
     };
-<<<<<<< HEAD
-    module.exports= SESTransport;
-=======
     module.exports = SESTransport;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -34462,11 +34260,7 @@ var require_nodemailer = __commonJS({
     var ETHEREAL_API_KEY = (process.env.ETHEREAL_API_KEY || "").replace(/\s*/g, "") || null;
     var ETHEREAL_CACHE = ["true", "yes", "y", "1"].includes((process.env.ETHEREAL_CACHE || "yes").toString().trim().toLowerCase());
     var testAccount = false;
-<<<<<<< HEAD
     module.exports.createTransport = function(transporter2, defaults) {
-=======
-    module.exports.createTransport = function(transporter2, defaults) {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       let urlConfig;
       let options;
       let mailer;
@@ -34497,11 +34291,7 @@ var require_nodemailer = __commonJS({
       mailer = new Mailer(transporter2, options, defaults);
       return mailer;
     };
-<<<<<<< HEAD
     module.exports.createTestAccount = function(apiUrl, callback) {
-=======
-    module.exports.createTestAccount = function(apiUrl, callback) {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       let promise;
       if (!callback && typeof apiUrl === "function") {
         callback = apiUrl;
@@ -34562,11 +34352,7 @@ var require_nodemailer = __commonJS({
       });
       return promise;
     };
-<<<<<<< HEAD
     module.exports.getTestMessageUrl = function(info) {
-=======
-    module.exports.getTestMessageUrl = function(info) {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       if (!info || !info.response) {
         return false;
       }
@@ -34592,11 +34378,7 @@ var require_constants = __commonJS({
     var hasBlob = typeof Blob !== "undefined";
     if (hasBlob)
       BINARY_TYPES.push("blob");
-<<<<<<< HEAD
-    module.exports= {
-=======
     module.exports = {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       BINARY_TYPES,
       EMPTY_BUFFER: Buffer.alloc(0),
       GUID: "258EAFA5-E914-47DA-95CA-C5AB0DC85B11",
@@ -34665,11 +34447,7 @@ var require_buffer_util = __commonJS({
       }
       return buf;
     }
-<<<<<<< HEAD
-    module.exports= {
-=======
     module.exports = {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       concat,
       mask: _mask,
       toArrayBuffer,
@@ -34679,21 +34457,13 @@ var require_buffer_util = __commonJS({
     if (!process.env.WS_NO_BUFFER_UTIL) {
       try {
         const bufferUtil = __require("bufferutil");
-<<<<<<< HEAD
         module.exports.mask = function(source, mask, output, offset, length) {
-=======
-        module.exports.mask = function(source, mask, output, offset, length) {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
           if (length < 48)
             _mask(source, mask, output, offset, length);
           else
             bufferUtil.mask(source, mask, output, offset, length);
         };
-<<<<<<< HEAD
         module.exports.unmask = function(buffer, mask) {
-=======
-        module.exports.unmask = function(buffer, mask) {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
           if (buffer.length < 32)
             _unmask(buffer, mask);
           else
@@ -34752,11 +34522,7 @@ var require_limiter = __commonJS({
         }
       }
     };
-<<<<<<< HEAD
-    module.exports= Limiter;
-=======
     module.exports = Limiter;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -35115,11 +34881,7 @@ var require_permessage_deflate = __commonJS({
         });
       }
     };
-<<<<<<< HEAD
-    module.exports= PerMessageDeflate;
-=======
     module.exports = PerMessageDeflate;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
     function deflateOnData(chunk) {
       this[kBuffers].push(chunk);
       this[kTotalLength] += chunk.length;
@@ -35323,32 +35085,20 @@ var require_validation = __commonJS({
     function isBlob(value) {
       return hasBlob && typeof value === "object" && typeof value.arrayBuffer === "function" && typeof value.type === "string" && typeof value.stream === "function" && (value[Symbol.toStringTag] === "Blob" || value[Symbol.toStringTag] === "File");
     }
-<<<<<<< HEAD
-    module.exports= {
-=======
     module.exports = {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       isBlob,
       isValidStatusCode,
       isValidUTF8: _isValidUTF8,
       tokenChars
     };
     if (isUtf8) {
-<<<<<<< HEAD
       module.exports.isValidUTF8 = function(buf) {
-=======
-      module.exports.isValidUTF8 = function(buf) {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
         return buf.length < 24 ? _isValidUTF8(buf) : isUtf8(buf);
       };
     } else if (!process.env.WS_NO_UTF_8_VALIDATE) {
       try {
         const isValidUTF8 = __require("utf-8-validate");
-<<<<<<< HEAD
         module.exports.isValidUTF8 = function(buf) {
-=======
-        module.exports.isValidUTF8 = function(buf) {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
           return buf.length < 32 ? _isValidUTF8(buf) : isValidUTF8(buf);
         };
       } catch (e) {
@@ -35956,11 +35706,7 @@ var require_receiver = __commonJS({
         return err;
       }
     };
-<<<<<<< HEAD
-    module.exports= Receiver;
-=======
     module.exports = Receiver;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -36440,11 +36186,7 @@ var require_sender = __commonJS({
         }
       }
     };
-<<<<<<< HEAD
-    module.exports= Sender;
-=======
     module.exports = Sender;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
     function callCallbacks(sender, err, cb) {
       if (typeof cb === "function")
         cb(err);
@@ -36674,11 +36416,7 @@ var require_event_target = __commonJS({
         }
       }
     };
-<<<<<<< HEAD
-    module.exports= {
-=======
     module.exports = {
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
       CloseEvent,
       ErrorEvent,
       Event,
@@ -36861,11 +36599,7 @@ var require_extension = __commonJS({
         }).join(", ");
       }).join(", ");
     }
-<<<<<<< HEAD
-    module.exports= { format, parse };
-=======
     module.exports = { format, parse };
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -37359,11 +37093,7 @@ var require_websocket = __commonJS({
     });
     WebSocket2.prototype.addEventListener = addEventListener;
     WebSocket2.prototype.removeEventListener = removeEventListener;
-<<<<<<< HEAD
-    module.exports= WebSocket2;
-=======
     module.exports = WebSocket2;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
     function initAsClient(websocket, address, protocols, options) {
       const opts = {
         allowSynchronousEvents: true,
@@ -37886,11 +37616,7 @@ var require_stream = __commonJS({
       duplex.on("error", duplexOnError);
       return duplex;
     }
-<<<<<<< HEAD
-    module.exports= createWebSocketStream;
-=======
     module.exports = createWebSocketStream;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -37938,11 +37664,7 @@ var require_subprotocol = __commonJS({
       protocols.add(protocol);
       return protocols;
     }
-<<<<<<< HEAD
-    module.exports= { parse };
-=======
     module.exports = { parse };
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
@@ -38299,11 +38021,7 @@ var require_websocket_server = __commonJS({
         cb(ws, req);
       }
     };
-<<<<<<< HEAD
-    module.exports= WebSocketServer;
-=======
     module.exports = WebSocketServer;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
     function addListeners(server, map) {
       for (const event of Object.keys(map))
         server.on(event, map[event]);
@@ -38357,11 +38075,7 @@ var require_ws = __commonJS({
     WebSocket2.Sender = require_sender();
     WebSocket2.WebSocket = WebSocket2;
     WebSocket2.WebSocketServer = WebSocket2.Server;
-<<<<<<< HEAD
-    module.exports= WebSocket2;
-=======
     module.exports = WebSocket2;
->>>>>>> 1b220174af62cf759b3f1921eff70dc1acdf327a
   }
 });
 
