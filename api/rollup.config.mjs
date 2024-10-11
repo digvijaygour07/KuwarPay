@@ -5,13 +5,12 @@ import babel from '@rollup/plugin-babel';
 import json from '@rollup/plugin-json';
 import typescript from '@rollup/plugin-typescript';
 import minify from 'rollup-plugin-minify';
-import picomatch from 'picomatch';
 
 export default defineConfig({
-  input: './netlify/functions/api/api.mjs',
+  input: './src/index.js', // Changed from './api.mjs' to './src/index.js'
   output: {
-    file: '../netlify/functions/api.mjs',
-    format: 'es',
+    file: 'dist/bundle.js',
+    format: 'cjs', // Changed from 'es' to 'cjs'
     exports: 'auto',
     sourcemap: 'inline',
   },
@@ -32,19 +31,5 @@ export default defineConfig({
         drop_console: true,
       },
     }),
-    {
-      name: 'ignore-unused-imports',
-      transform(code, id) {
-        if (id.includes('url')) {
-          return {
-            code: code
-              .replace(/import\s+{[^}]*fileURLToPath[^}]*}\s+from\s+['"]url['"];/g, '')
-              .replace(/fileURLToPath\([^)]*\);?/g, ''),
-            map: null,
-          };
-        }
-        return { code, map: null };
-      },
-    },
   ],
 });

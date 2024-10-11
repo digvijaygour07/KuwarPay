@@ -12,7 +12,7 @@
 Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 
 const require$$0 = require('path');
-const process = require('process');
+import process from 'process';
 const rollup = require('./rollup.js');
 const mergeOptions = require('./mergeOptions.js');
 const require$$2 = require('os');

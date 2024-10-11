@@ -19,7 +19,7 @@ const rollup = require('./rollup.js');
 const require$$0 = require('assert');
 const require$$0$1 = require('events');
 const loadConfigFile_js = require('./loadConfigFile.js');
-const child_process = require('child_process');
+import child_process from 'child_process';
 require('util');
 require('stream');
 require('path');
@@ -98,7 +98,7 @@ function requireSignals () {
 		// artificially, inherently leave the process in a
 		// state from which it is not safe to try and enter JS
 		// listeners.
-		module.exports= [
+		export default = [
 		  'SIGABRT',
 		  'SIGALRM',
 		  'SIGHUP',
@@ -107,7 +107,7 @@ function requireSignals () {
 		];
 
 		if (process.platform !== 'win32') {
-		  module.exports.push(
+		  export default .push(
 		    'SIGVTALRM',
 		    'SIGXCPU',
 		    'SIGXFSZ',
@@ -123,7 +123,7 @@ function requireSignals () {
 		}
 
 		if (process.platform === 'linux') {
-		  module.exports.push(
+		  export default .push(
 		    'SIGIO',
 		    'SIGPOLL',
 		    'SIGPWR',

@@ -2077,7 +2077,7 @@ const parse = parse_1;
  * Expand the given pattern or create a regex-compatible string.
  *
  * ```js
- * const braces = require('braces');
+ * import braces from 'braces';
  * console.log(braces('{a,b,c}', { compile: true })); //=> ['(a|b|c)']
  * console.log(braces('{a,b,c}')); //=> ['a', 'b', 'c']
  * ```
@@ -2129,7 +2129,7 @@ braces$1.parse = (input, options = {}) => parse(input, options);
  * Creates a braces string from an AST, or an AST node.
  *
  * ```js
- * const braces = require('braces');
+ * import braces from 'braces';
  * let ast = braces.parse('foo/{a,b}/bar');
  * console.log(stringify(ast.nodes[2])); //=> '{a,b}'
  * ```
@@ -2151,7 +2151,7 @@ braces$1.stringify = (input, options = {}) => {
  * This method is called by the main [braces](#braces) function by default.
  *
  * ```js
- * const braces = require('braces');
+ * import braces from 'braces';
  * console.log(braces.compile('a/{b,c}/d'));
  * //=> ['a/(b|c)/d']
  * ```
@@ -2175,7 +2175,7 @@ braces$1.compile = (input, options = {}) => {
  * and advantages of using [.compile](#compile) instead.
  *
  * ```js
- * const braces = require('braces');
+ * import braces from 'braces';
  * console.log(braces.expand('a/{b,c}/d'));
  * //=> ['a/b/d', 'a/c/d'];
  * ```
@@ -2211,7 +2211,7 @@ braces$1.expand = (input, options = {}) => {
  * This method is called by the main [braces](#braces) function.
  *
  * ```js
- * const braces = require('braces');
+ * import braces from 'braces';
  * console.log(braces.create('user-{200..300}/project-{a,b,c}-{1..10}'))
  * //=> 'user-(20[0-9]|2[1-9][0-9]|300)/project-(a|b|c)-([1-9]|10)'
  * ```
@@ -2501,7 +2501,7 @@ const require$$0 = [
 ];
 
 (function (module) {
-	module.exports= require$$0;
+	export default = require$$0;
 } (binaryExtensions$1));
 
 const path = require$$0$2;

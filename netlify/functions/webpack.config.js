@@ -1,10 +1,10 @@
-const path = require('path');
+import path from 'path';
 
-module.exports = {
-  entry: path.resolve(__dirname, 'netlify/functions/api/api.mjs'), // Your entry point
+export default  = {
+  entry: path.resolve(dirname(fileURLToPath(import.meta.url)), 'netlify/functions/api/api.mjs'), // Your entry point
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(dirname(fileURLToPath(import.meta.url)), 'dist'),
   },
   module: {
     rules: [

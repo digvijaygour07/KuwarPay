@@ -2,13 +2,13 @@
   "name": "kuwarpay",
   "version": "1.0.0",
   "type": "module",
-  "main": "netlify/functions/api/api.mjs",
+  "main": "./api.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c rollup.config.mjs",
     "build:babel": "babel src --out-dir lib",
     "build:node": "node public/build.js",
-    "start": "node api.mjs",
+    "start": "nodemon api/api.mjs",
     "deploy": "vercel --prod",
     "postinstall": "patch-package",
     "build:all": "npm run build && npm run build:babel && npm run build:node"
@@ -16,19 +16,24 @@
   "author": "Your Name or Organization",
   "license": "ISC",
   "dependencies": {
+    "@rollup/pluginutils": "^5.1.0",
     "add": "^2.0.6",
-    "body-parser": "^1.20.2",
+    "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
     "dotenv": "^16.4.5",
     "email-validator": "^2.0.4",
-    "express": "^4.19.2",
+    "express": "^4.21.0",
     "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.6.1",
+    "moongose": "^1.0.0",
     "morgan": "^1.10.0",
-    "nodemailer": "^6.9.14",
+    "node-fetch": "^3.3.2",
     "patch-package": "^8.0.0",
     "tslib": "^2.6.3",
-    "ws": "^8.18.0"
+    "ws": "^8.18.0",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -38,22 +43,28 @@
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@rollup/pluginutils": "^5.0.3",
     "@types/next": "^8.0.7",
+    "axios": "^1.7.7",
     "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsx-a11y": "^6.9.0",
     "eslint-plugin-react": "^7.35.0",
     "globals": "^15.9.0",
-    "minify": "6.0.1",
+    "joi": "^17.13.3",
+    "minify": "^6.0.1",
     "mkdirp": "^3.0.1",
+    "nodemailer": "^6.9.15",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "nodemon": "^3.1.5",
     "picomatch": "^4.0.2",
     "rimraf": "^6.0.1",
     "rollup": "^4.18.0",
     "rollup-plugin-minify": "^1.0.3",
     "typescript": "^5.5.4",
+    "uniqid": "^5.4.0",
     "webpack": "^5.94.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "winston": "^3.15.0"
   },
   "description": "",
   "keywords": [],
@@ -61,7 +72,7 @@
     "version": 2,
     "builds": [
       {
-        "src": "netlify/functions/api/api.mjs",
+        "src": "./api.mjs",
         "use": "@vercel/node",
         "config": {
           "runtime": "nodejs14"
@@ -71,7 +82,7 @@
     "routes": [
       {
         "src": "/api/(.*)",
-        "dest": "netlify/functions/api/api.mjs"
+        "dest": "./api.mjs"
       }
     ]
   }

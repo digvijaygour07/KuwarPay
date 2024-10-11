@@ -1,11 +1,11 @@
-const express = require('express');
+import express from 'express';
 const app = express();
 const port = 5502;
-const cors = require('cors');
-const morgan = require('morgan');
-const nodemailer = require('nodemailer');
-const fs = require('fs');
-const WebSocket = require('ws');
+import cors from 'cors';
+import morgan from 'morgan';
+import nodemailer from 'nodemailer';
+import fs from 'fs';
+import WebSocket from 'ws';
 
 // Middlewares
 app.use(cors());

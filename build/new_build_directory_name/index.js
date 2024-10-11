@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const app = express();
 const port = 5500;
-const fs = require('fs');
+import fs from 'fs';
 const orders = require('./orders');
 
 app.use(express.json());
@@ -71,7 +71,7 @@ app.delete('/orders/:id', async (req, res) => {
   }
 });
 
-const WebSocket = require('ws');
+import WebSocket from 'ws';
 const wss = new WebSocket.Server({ port: 8080 });
 
 wss.on('connection', (ws) => {

@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
 // Create a transporter object
 const transporter = nodemailer.createTransport({
@@ -37,4 +37,4 @@ const sendEmail = async (to, formData) => {
 };
 
 // Export the sendEmail function
-module.exports= sendEmail;
+export default = sendEmail;

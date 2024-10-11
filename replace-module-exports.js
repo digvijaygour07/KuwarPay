@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-// Function to replace `module.exports` with `module.exports`
+// Function to replace `export default ` with `export default `
 function replaceModuleExports(dir) {
   const files = fs.readdirSync(dir);
 
@@ -13,8 +13,8 @@ function replaceModuleExports(dir) {
       replaceModuleExports(filePath); // Recursively process directories
     } else if (stat.isFile() && filePath.endsWith('.js')) {
       let content = fs.readFileSync(filePath, 'utf8');
-      if (content.includes('module.exports')) {
-        content = content.replace(/module\.exports\s*=\s*/g, 'module.exports ');
+      if (content.includes('export default ')) {
+        content = content.replace(/module\.exports\s*=\s*/g, 'export default  ');
         fs.writeFileSync(filePath, content, 'utf8');
         console.log(`Replaced in ${filePath}`);
       }
@@ -23,5 +23,5 @@ function replaceModuleExports(dir) {
 }
 
 // Replace './src' with the correct directory path
-replaceModuleExports('./netlify/functions/api'); // Adjust the path as needed
+replaceModuleExports('./api.mjs'); // Adjust the path as needed
 

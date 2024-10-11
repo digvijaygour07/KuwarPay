@@ -11,8 +11,8 @@
 
 const require$$0 = require('path');
 const process$1 = require('process');
-const perf_hooks = require('perf_hooks');
-const crypto = require('crypto');
+import perf_hooks from 'perf_hooks';
+import crypto from 'crypto';
 const require$$0$1 = require('fs');
 const require$$0$2 = require('events');
 
@@ -465,7 +465,7 @@ function errPreferNamedExports(facadeModuleId) {
     return {
         code: Errors.PREFER_NAMED_EXPORTS,
         id: facadeModuleId,
-        message: `Entry module "${file}" is implicitly using "default" export mode, which means for CommonJS output that its default export is assigned to "module.exports". For many tools, such CommonJS output will not be interchangeable with the original ES module. If this is intended, explicitly set "output.exports" to either "auto" or "default", otherwise you might want to consider changing the signature of "${file}" to use named exports only.`,
+        message: `Entry module "${file}" is implicitly using "default" export mode, which means for CommonJS output that its default export is assigned to "export default ". For many tools, such CommonJS output will not be interchangeable with the original ES module. If this is intended, explicitly set "output.exports" to either "auto" or "default", otherwise you might want to consider changing the signature of "${file}" to use named exports only.`,
         url: `https://rollupjs.org/guide/en/#outputexports`
     };
 }
@@ -2827,7 +2827,7 @@ const depth = token => {
  * with `!(`) and `negatedExtglob` (true if the path starts with `!(`).
  *
  * ```js
- * const pm = require('picomatch');
+ * import pm from 'picomatch';
  * console.log(pm.scan('foo/bar/*.js'));
  * { isGlob: true, input: 'foo/bar/*.js', base: 'foo/bar', glob: '*.js' }
  * ```
@@ -4279,7 +4279,7 @@ const isObject = val => val && typeof val === 'object' && !Array.isArray(val);
  * returns an object with additional information.
  *
  * ```js
- * const picomatch = require('picomatch');
+ * import picomatch from 'picomatch';
  * // picomatch(glob[, options]);
  *
  * const isMatch = picomatch('*.!(*a)');
@@ -4366,7 +4366,7 @@ const picomatch = (glob, options, returnState = false) => {
  * `picomatch()` function to test the input string.
  *
  * ```js
- * const picomatch = require('picomatch');
+ * import picomatch from 'picomatch';
  * // picomatch.test(input, regex[, options]);
  *
  * console.log(picomatch.test('foo/bar', /^(?:([^/]*?)\/([^/]*?))$/));
@@ -4412,7 +4412,7 @@ picomatch.test = (input, regex, options, { glob, posix } = {}) => {
  * Match the basename of a filepath.
  *
  * ```js
- * const picomatch = require('picomatch');
+ * import picomatch from 'picomatch';
  * // picomatch.matchBase(input, glob[, options]);
  * console.log(picomatch.matchBase('foo/bar.js', '*.js'); // true
  * ```
@@ -4431,7 +4431,7 @@ picomatch.matchBase = (input, glob, options, posix = utils.isWindows(options)) =
  * Returns true if **any** of the given glob `patterns` match the specified `string`.
  *
  * ```js
- * const picomatch = require('picomatch');
+ * import picomatch from 'picomatch';
  * // picomatch.isMatch(string, patterns[, options]);
  *
  * console.log(picomatch.isMatch('a.a', ['b.*', '*.a'])); //=> true
@@ -4451,7 +4451,7 @@ picomatch.isMatch = (str, patterns, options) => picomatch(patterns, options)(str
  * expression.
  *
  * ```js
- * const picomatch = require('picomatch');
+ * import picomatch from 'picomatch';
  * const result = picomatch.parse(pattern[, options]);
  * ```
  * @param {String} `pattern`
@@ -4469,7 +4469,7 @@ picomatch.parse = (pattern, options) => {
  * Scan a glob pattern to separate the pattern into segments.
  *
  * ```js
- * const picomatch = require('picomatch');
+ * import picomatch from 'picomatch';
  * // picomatch.scan(input[, options]);
  *
  * const result = picomatch.scan('!./foo/*.js');
@@ -4532,7 +4532,7 @@ picomatch.compileRe = (state, options, returnOutput = false, returnState = false
  * Create a regular expression from a parsed glob pattern.
  *
  * ```js
- * const picomatch = require('picomatch');
+ * import picomatch from 'picomatch';
  * const state = picomatch.parse('*.js');
  * // picomatch.compileRe(state[, options]);
  *
@@ -4569,7 +4569,7 @@ picomatch.makeRe = (input, options = {}, returnOutput = false, returnState = fal
  * Create a regular expression from the given regex source string.
  *
  * ```js
- * const picomatch = require('picomatch');
+ * import picomatch from 'picomatch';
  * // picomatch.toRegex(source[, options]);
  *
  * const { output } = picomatch.parse('*.js');
@@ -4607,7 +4607,7 @@ var picomatch_1 = picomatch;
 
 (function (module) {
 
-	module.exports= picomatch_1;
+	export default = picomatch_1;
 } (picomatch$1));
 
 const pm = /*@__PURE__*/getDefaultExportFromCjs(picomatch$1.exports);
@@ -9763,7 +9763,7 @@ class ExportDefaultDeclaration extends NodeBase {
     renderNamedDeclaration(code, declarationStart, declarationKeyword, endMarker, needsId, options) {
         const { exportNamesByVariable, format, snippets: { getPropertyAccess } } = options;
         const name = this.variable.getName(getPropertyAccess);
-        // Remove `module.exports`
+        // Remove `export default `
         code.remove(this.start, declarationStart);
         if (needsId) {
             code.appendLeft(getIdInsertPosition(code.original, declarationKeyword, endMarker, declarationStart), ` ${name}`);
@@ -10853,11 +10853,11 @@ const relativeUrlMechanisms = {
             relativePath = './' + relativePath;
         return getResolveUrl(`require.toUrl('${relativePath}'), document.baseURI`);
     },
-    cjs: relativePath => `(typeof document === 'undefined' ? ${getResolveUrl(`'file:' + __dirname + '/${relativePath}'`, `(require('u' + 'rl').URL)`)} : ${getRelativeUrlFromDocument(relativePath)})`,
+    cjs: relativePath => `(typeof document === 'undefined' ? ${getResolveUrl(`'file:' + dirname(fileURLToPath(import.meta.url)) + '/${relativePath}'`, `(require('u' + 'rl').URL)`)} : ${getRelativeUrlFromDocument(relativePath)})`,
     es: relativePath => getResolveUrl(`'${relativePath}', import.meta.url`),
     iife: relativePath => getRelativeUrlFromDocument(relativePath),
     system: relativePath => getResolveUrl(`'${relativePath}', module.meta.url`),
-    umd: relativePath => `(typeof document === 'undefined' && typeof location === 'undefined' ? ${getResolveUrl(`'file:' + __dirname + '/${relativePath}'`, `(require('u' + 'rl').URL)`)} : ${getRelativeUrlFromDocument(relativePath, true)})`
+    umd: relativePath => `(typeof document === 'undefined' && typeof location === 'undefined' ? ${getResolveUrl(`'file:' + dirname(fileURLToPath(import.meta.url)) + '/${relativePath}'`, `(require('u' + 'rl').URL)`)} : ${getRelativeUrlFromDocument(relativePath, true)})`
 };
 const importMetaMechanisms = {
     amd: getGenericImportMetaMechanism(() => getResolveUrl(`module.uri, document.baseURI`)),
@@ -12506,7 +12506,7 @@ class Module {
                 if (!module.ast) {
                     return null;
                 }
-                return module.exports.has('default') || reexportDescriptions.has('default');
+                return export default .has('default') || reexportDescriptions.has('default');
             },
             get hasModuleSideEffects() {
                 warnDeprecation('Accessing ModuleInfo.hasModuleSideEffects from plugins is deprecated. Please use ModuleInfo.moduleSideEffects instead.', false, options);
@@ -12970,7 +12970,7 @@ class Module {
     }
     addExport(node) {
         if (node instanceof ExportDefaultDeclaration) {
-            // module.exports foo;
+            // export default  foo;
             this.exports.set('default', {
                 identifier: node.variable.getAssignedVariableName(),
                 localName: 'default'
@@ -13543,7 +13543,7 @@ function cjs(magicString, { accessedGlobals, dependencies, exports, hasExports, 
     const importBlock = getImportBlock$1(dependencies, snippets, compact);
     const interopBlock = getInteropBlock(dependencies, interop, externalLiveBindings, freeze, namespaceToStringTag, accessedGlobals, t, snippets);
     magicString.prepend(`${useStrict}${intro}${namespaceMarkers}${importBlock}${interopBlock}`);
-    const exportBlock = getExportBlock$1(exports, dependencies, namedExportsMode, interop, snippets, t, externalLiveBindings, `module.exports${_}=${_}`);
+    const exportBlock = getExportBlock$1(exports, dependencies, namedExportsMode, interop, snippets, t, externalLiveBindings, `export default ${_}=${_}`);
     return magicString.append(`${exportBlock}${outro}`);
 }
 function getImportBlock$1(dependencies, { _, cnst, n }, compact) {
@@ -13955,7 +13955,7 @@ function umd(magicString, { accessedGlobals, dependencies, exports, hasExports, 
     const amdParams = (completeAmdId ? `'${completeAmdId}',${_}` : ``) +
         (amdDeps.length ? `[${amdDeps.join(`,${_}`)}],${_}` : ``);
     const define = amd.define;
-    const cjsExport = !namedExportsMode && hasExports ? `module.exports${_}=${_}` : ``;
+    const cjsExport = !namedExportsMode && hasExports ? `export default ${_}=${_}` : ``;
     const useStrict = strict ? `${_}'use strict';${n}` : ``;
     let iifeExport;
     if (noConflict) {
@@ -15516,7 +15516,7 @@ class Chunk {
             case 'es':
                 break;
             case 'cjs':
-                usedNames.add('module').add('require').add('__filename').add('__dirname');
+                usedNames.add('module').add('require').add('__filename').add('dirname(fileURLToPath(import.meta.url))');
             // fallthrough
             default:
                 usedNames.add('exports');
@@ -17744,7 +17744,7 @@ pp$8.parseExport = function(node, exports) {
     this.semicolon();
     return this.finishNode(node, "ExportAllDeclaration")
   }
-  if (this.eat(types$1._default)) { // module.exports ...
+  if (this.eat(types$1._default)) { // export default  ...
     this.checkExport(exports, "default", this.lastTokStart);
     var isAsync;
     if (this.type === types$1._function || (isAsync = this.isAsyncFunction())) {
@@ -17852,7 +17852,7 @@ pp$8.shouldParseExportStatement = function() {
     this.isAsyncFunction()
 };
 
-// Parses a comma-separated list of module exports.
+// Parses a comma-separated list of export default .
 
 pp$8.parseExportSpecifiers = function(exports) {
   var nodes = [], first = true;
@@ -23919,7 +23919,7 @@ async function writeOutputFile(outputFile, outputOptions) {
 }
 /**
  * Auxiliary function for defining rollup configuration
- * Mainly to facilitate IDE code prompts, after all, module.exports does not prompt, even if you add @type annotations, it is not accurate
+ * Mainly to facilitate IDE code prompts, after all, export default  does not prompt, even if you add @type annotations, it is not accurate
  * @param options
  */
 function defineConfig(options) {

@@ -1,0 +1,306 @@
+mongodb+srv://digvijaygour8:djayopbolte1234@kuwarpay1.r5aqmdk.mongodb.net/?retryWrites=true&w=majority&appName=KuwarPay1/kuwarpayDB
+
+
+mongodb+srv://digvijaygour8:djayopbolte1234@kuwarpay1.r5aqmdk.mongodb.net/?retryWrites=true&w=majority&appName=KuwarPay1
+
+
+
+ngrok http 5500
+
+nodemon api/api.mjs
+
+MY_APP_PASS=ltbl amzc agtd svym
+scwh ocvr ubnq oqnv
+
+const transactionNote = `Payment to Singh Advertisement for order ${order.id}`;
+//as per upi guidelines , payment throungh link is not allowed for this merchant. please scan the qrcode to pay
+
+const payeeAddress = 'singhadd.gour@okhdfcbank'; // 
+
+&tn=${encodeURIComponent(transactionNote)}
+
+sha256-YZavH2X2CwXMbEAvofPztOrXuAgNustmWUqVVx5gx3k=
+
+
+
+
+
+
+
+
+
+
+// Update the WebSocket route
+app.get('/ws', (req, res) => {
+  res.send('WebSocket endpoint');
+});
+
+app.post('/ws', (req, res) => {
+  // Handle POST request
+  res.send('WebSocket endpoint');
+});
+
+
+
+
+app.post('/', async function(req, res) {
+  console.log('POST / route called');
+  console.log('Request Body:', req.body);
+
+  try {
+    const order = req.body;
+    // Validate request body using Joi
+    const { error } = orderValidationSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({ message: 'Validation error', error });
+    }
+
+    // Create new order
+    const newOrder = new Order({
+      name: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone,
+      address_line1: req.body.address_line1,
+      address_line2: req.body.address_line2,
+      city: req.body.city,
+      state: req.body.state,
+      pincode: req.body.pincode,
+    });
+
+    const result = await newOrder.save();
+    const phonePeLink = await generatePhonePeLink(result);
+
+    console.log('Order Saved:', result);
+    console.log('PhonePe Link:', phonePeLink);
+    
+    res.redirect(phonePeLink);
+  } catch (error) {
+      console.error('Error creating order:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    
+  }
+});
+  
+
+app.get('/orders', async (req, res) => {
+  res.sendFile(__dirname + "/index.html");
+  res.sendFile("index.html")
+  try {
+    const orders = await Order.find().select(['-__v']); // Excludes version key
+    res.json(orders);
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+    
+  app.get('/orders/:id', async (req, res) => {
+    try {
+      const id = req.params.id;
+      if (!id) {
+        return res.status(400).json({ message: 'Missing order ID' });
+      }
+      const order = await Order.findById(id);
+      if (!order) {
+        return res.status(404).json({ message: `Order with ID ${id} not found` });
+      }
+      res.json(order);
+    } catch (error) {
+      console.error('Error fetching order:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+    try {
+      const id = req.params.id;
+      const order = await Order.findById(id).select(['-__v']); // Excludes version key
+      if (!order) {
+        return res.status(404).json({ message: `Order with ID ${id} not found` });
+      }
+      res.json(order);
+    } catch (error) {
+      console.error('Error fetching order:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  });
+  
+
+  app.put('/orders/:id', async (req, res) => {
+    try {
+      const id = req.params.id;
+      if (!id) {
+        return res.status(400).json({ message: 'Missing order ID' });
+      }
+      const updatedFormData = req.body;
+      const updatedOrder = await updateOrder(id, updatedFormData);
+      res.json(updatedOrder);
+    } catch (error) {
+      console.error('Error updating order:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  });
+  
+  app.delete('/orders/:id', async (req, res) => {
+    try {
+      const id = req.params.id;
+      if (!id) {
+        return res.status(400).json({ message: 'Missing order ID' });
+      }
+      await Order.findByIdAndDelete(id);
+      res.json({ message: `Order with ID ${id} deleted successfully` });
+    } catch (error) {
+      console.error('Error deleting order:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  });
+
+
+  app.post('/payment-confirmation', async (req, res) => {
+    try {
+      const paymentResponse = req.body;
+      const orderId = paymentResponse.orderId;
+      const order = await getOrderById(orderId);
+  
+      if (!order) {
+        return res.status(404).send(`Order with ID ${orderId} not found`);
+      }
+  
+      if (paymentResponse.status === 'success') {
+        order.status = 'paid';
+        await updateOrder(orderId, order);
+  
+        // Prepare email data
+        const userData = {
+          name: order.name,
+          email: order.email,
+          phone: order.phone,
+          address: `${order.address_line1}, ${order.address_line2}, ${order.city}, ${order.state} - ${order.pincode}`,
+        };
+  
+        // Send email to seller with user data
+        const sellerEmail = 'digvijaygour8@gmail.com';
+        await sendEmail(sellerEmail, userData);
+  
+        // Redirect user to feedback page
+        res.redirect('/feedback');
+      } else {
+        res.send('Payment failed. Please try again.');
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
+app.get('/success', (req, res) => {
+  res.send('Payment successful. Order confirmed.');
+});
+
+app.get('/failure', (req, res) => {
+  res.send('Payment failed. Please try again.');
+});
+
+// Handle feedback submission
+app.post('/feedback', async (req, res) => {
+  try {
+    const feedbackData = req.body;
+    
+    // Validate feedback data
+    if (!feedbackData || !feedbackData.question1 || !feedbackData.question2) {
+      return res.status(400).json({ message: 'Invalid feedback' });
+    }
+
+    // Create new Feedback document
+    const feedback = new Feedback(feedbackData);
+    
+    // Save feedback to MongoDB
+    const result = await feedback.save();
+    
+    res.json(result);
+  } catch (error) {
+    console.error('Error storing feedback:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+// Define helper function to send email
+async function sendEmail(to, userData) {
+  try {
+    const mailOptions = {
+      from: 'artbaba2007@gmail.com',
+      to,
+      subject: 'New Order Confirmation',
+      html: `
+        <h2>New Order Confirmation</h2>
+        <p>User Details:</p>
+        <ul>
+          <li>Name: ${userData.name}</li>
+          <li>Email: ${userData.email}</li>
+          <li>Phone: ${userData.phone}</li>
+          <li>Address: ${userData.address}</li>
+        </ul>
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log('Email sent successfully!');
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
+};
+
+
+// Define helper functions
+async function generatePhonePeLink(order) {
+  try {
+    console.log('Generating PhonePe link for order:', order);
+
+    const payeeAddress = '9822242222@axl'; 
+    const payeeName = 'Mahendra Singh Gour';
+    const amount = '1';
+    const transactionNote = 'test payment';
+    const currencyUnit = 'INR'; 
+    const merchantCategory = 'Retail';
+   
+    const transactionReferenceId = '';
+    
+    console.log('Payee Address:', payeeAddress);
+    console.log('Payee Name:', payeeName);
+    console.log('Amount:', amount);
+    console.log('Currency Unit:', currencyUnit);
+    console.log('Merchant Category:', merchantCategory);
+  
+    console.log('Transaction Reference ID:', transactionReferenceId);
+    
+    const deepLink = `upi://pay?pa=${payeeAddress}&pn=${encodeURIComponent(payeeName)}&am=${amount}&tn=${encodeURIComponent(transactionNote)}&cu=${currencyUnit}&mc=${merchantCategory}&tr=${transactionReferenceId}&intent=select`;
+    
+    console.log('Generated Deep upiLink:', deepLink);
+    return deepLink;
+} catch (error) {
+  if (error.message.includes('payment through link is not allowed')) {
+    res.send('As per UPI guidelines, payment through link is not allowed for this merchant. Please scan the QR code to pay.');
+  } else {
+    console.error('Error generating deep link:', error);
+    res.status(500).json({ message: 'Error generating deep link' });
+  }
+}
+}
+
+  // Usage
+  generatePhonePeLink({ /* order details */ })
+  .then((deepLink) => {
+  console.log('Deep link generated:', deepLink);
+  })
+  .catch((error) => {
+  handleDeepLinkError(error);
+  });
+  
+  
+  // Catch-all route for 404 errors
+  app.use((req, res) => {
+  res.status(404).send('Route not found');
+  });
+  
+  
+  app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+  });

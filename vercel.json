@@ -1,6 +1,15 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "netlify/functions/api/api.mjs" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/api/(.*)",
+      "destination": "/api.mjs",
+      "headers": {
+        "Content-Type": "application/javascript"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }

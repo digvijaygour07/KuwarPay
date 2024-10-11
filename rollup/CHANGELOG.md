@@ -460,7 +460,7 @@ _2022-02-18_
 - [#4401](https://github.com/rollup/rollup/pull/4401): Improve test stability by getting independent of module id ordering in more places (@lukastaegert)
 - [#4403](https://github.com/rollup/rollup/pull/4403): fix: remove unnecessary property descriptor spread (@dnalborczyk)
 - [#4404](https://github.com/rollup/rollup/pull/4404): refactor: use map for import descriptions + re-export descriptions (@dnalborczyk)
-- [#4405](https://github.com/rollup/rollup/pull/4405): refactor: module exports to map (@dnalborczyk)
+- [#4405](https://github.com/rollup/rollup/pull/4405): refactor: export default  to map (@dnalborczyk)
 - [#4406](https://github.com/rollup/rollup/pull/4406): Fix a typo in 'Direct plugin communication' code example (@younesmln)
 - [#4407](https://github.com/rollup/rollup/pull/4407): Document how resolveId is cached (@lukastaegert)
 - [#4409](https://github.com/rollup/rollup/pull/4409): Print ids for unfinished moduleParsed and shouldTransformCachedModule hooks (@lukastaegert)
@@ -730,7 +730,7 @@ _2021-11-01_
 
 ### Bug Fixes
 
-- Fix an issue with the CommonJS plugin when module.exportshas inherited properties (#4256)
+- Fix an issue with the CommonJS plugin when export default has inherited properties (#4256)
 
 ### Pull Requests
 
@@ -760,7 +760,7 @@ _2021-10-25_
 
 ### Bug Fixes
 
-- Fix an issue with the CommonJS plugin when module.exportsis falsy (#4247)
+- Fix an issue with the CommonJS plugin when export default is falsy (#4247)
 
 ### Pull Requests
 
@@ -4013,7 +4013,7 @@ _2019-06-21_
 
 - Generate proper namespace objects when dynamically importing external dependencies for AMD or CJS formats (#2954)
 - Fix dynamically imported variables not being resolved correctly when importing from an entry chunk with only a default export (#2954)
-- Do not remodule.exports when reexporting a namespace (#2954)
+- Do not reexport default  when reexporting a namespace (#2954)
 
 ### Pull Requests
 
@@ -5864,7 +5864,7 @@ _2017-08-27_
 - Deprecate `options.moduleId` in favour of `options.amd.id` ([#1365](https://github.com/rollup/rollup/pull/1365))
 - Add `options.amd.define` option to specify name of AMD `define` function ([#1365](https://github.com/rollup/rollup/pull/1365))
 - Fix incorrect class removal with `treeshake: false` ([#1375](https://github.com/rollup/rollup/pull/1375))
-- Deconflict module exports imported as namespaces ([#1384](https://github.com/rollup/rollup/issues/1384))
+- Deconflict export default  imported as namespaces ([#1384](https://github.com/rollup/rollup/issues/1384))
 - Handle bare self-imports ([#1274](https://github.com/rollup/rollup/issues/1274))
 - Allow config file to export an array of multiple configs ([#1389](https://github.com/rollup/rollup/pull/1389))
 - Handle exponentiation operator, and fail gracefully on unknown operators ([#1416](https://github.com/rollup/rollup/issues/1416))
@@ -5911,7 +5911,7 @@ _2017-08-27_
 
 ## 0.40.1
 
-- Allow missing space between `module.exports` and declaration ([#1218](https://github.com/rollup/rollup/pull/1218))
+- Allow missing space between `export default ` and declaration ([#1218](https://github.com/rollup/rollup/pull/1218))
 
 ## 0.40.0
 
@@ -6241,7 +6241,7 @@ _2017-08-27_
 ## 0.26.4
 
 - Prevent plugin-provided external IDs being normalised ([#630](https://github.com/rollup/rollup/issues/630), [#633](https://github.com/rollup/rollup/issues/633))
-- Throw if module exports/re-exports the same name twice, or has multiple default exports ([#679](https://github.com/rollup/rollup/issues/679))
+- Throw if export default /re-exports the same name twice, or has multiple default exports ([#679](https://github.com/rollup/rollup/issues/679))
 - Warn about `eval` security issue ([#675](<(https://github.com/rollup/rollup/issues/675)>))
 
 ## 0.26.3
@@ -6652,7 +6652,7 @@ _2017-08-27_
 
 ## 0.7.6
 
-- Better placement of `module.exports` statements ([#21](https://github.com/rollup/rollup/issues/21))
+- Better placement of `export default ` statements ([#21](https://github.com/rollup/rollup/issues/21))
 - Prevent function calls and property assignments from being treated as rebinding for sake of unbound default exports
 - Add `--external foo,bar,baz` option to CLI (equivalent to `external: ['foo', 'bar', 'baz']`)
 - Add CLI tests
@@ -6663,7 +6663,7 @@ _2017-08-27_
 
 ## 0.7.4
 
-- More precise statement re-ordering to satisfy `module.exports` constraint (fixes bug introduced in 0.7.3)
+- More precise statement re-ordering to satisfy `export default ` constraint (fixes bug introduced in 0.7.3)
 
 ## 0.7.3
 

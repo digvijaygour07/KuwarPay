@@ -1,6 +1,6 @@
 
-const fs = require('fs');
-const nodemailer = require('nodemailer');
+import fs from 'fs';
+import nodemailer from 'nodemailer';
 
 let orders = [];
 let isOrdersLoaded = false;
@@ -111,7 +111,7 @@ const sendEmail = async (to, order) => {
 
 loadOrders();
 
-module.exports= {
+export default = {
   createOrder,
   getOrders,
   getOrderById,
