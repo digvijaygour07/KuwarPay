@@ -5,7 +5,7 @@
   "main": "./api.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build:all",
+    "build": "npm run build",
     "build:babel": "babel src --out-dir lib",
     "build:node": "node public/build.js",
     "start": "nodemon api/api.mjs",
@@ -18,12 +18,14 @@
   "dependencies": {
     "@rollup/pluginutils": "^5.1.0",
     "add": "^2.0.6",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
     "dotenv": "^16.4.5",
     "email-validator": "^2.0.4",
     "express": "^4.21.0",
+    "glob": "^11.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.8.0",
     "mongoose": "^8.6.1",
