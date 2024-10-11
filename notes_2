@@ -4,6 +4,7 @@ mongodb+srv://digvijaygour8:djayopbolte1234@kuwarpay1.r5aqmdk.mongodb.net/?retry
 mongodb+srv://digvijaygour8:djayopbolte1234@kuwarpay1.r5aqmdk.mongodb.net/?retryWrites=true&w=majority&appName=KuwarPay1
 
 
+    "build": "rollup -c rollup.config.mjs",
 
 ngrok http 5500
 
