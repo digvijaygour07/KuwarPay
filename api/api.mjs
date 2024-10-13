@@ -301,7 +301,7 @@ app.post('/', async function (req, res) {
 
     const result = await newOrder.save();
    
-    const upiPaymentResponse = await generateUPIPaymentIDWithRetry(result);
+    const upiPaymentResponse = await generateUPIPaymentIDWithRetry(order);
     res.redirect(upiPaymentResponse.paymentUrl);
     
   } catch (error) {
@@ -502,25 +502,24 @@ async function generateUPIPaymentID(order) {
 
 async function generateUPIPaymentIDWithRetry(order) {
   const maxRetries = 5;
-  const delay = 500; 
+  const delay = 500;
   let retries = 0;
 
   while (retries < maxRetries) {
     try {
       const upiPaymentResponse = await generateUPIPaymentID(order);
-      await sendEmailToSeller(order); 
       return upiPaymentResponse;
     } catch (error) {
+      console.error(`Retry ${retries + 1} failed:`, error.message);
+      console.log('Error response:', error.response?.data);
+      console.log('Error config:', error.config);
+
       if (error.response && error.response.status === 429) {
         retries++;
         console.log(`Retry ${retries} after ${delay}ms`);
         await new Promise(resolve => setTimeout(resolve, delay));
-        delay *= 2; 
-      } else if (error.response) {
-        console.error('PhonePe API error:', error.response.status, error.response.data);
-        throw error;
+        delay *= 2;
       } else {
-        console.error('Unexpected error:', error.message);
         throw error;
       }
     }
