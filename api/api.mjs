@@ -447,7 +447,7 @@ async function generateUPIPaymentID(order) {
       merchantTransactionId: uniqid(),
       merchantUserId: "MUID123",
       amount: 49900,
-      redirectUrl: `http://127.0.0.1:5500/feedback.html?name=${order.name}&email=${order.email}&phone=${order.phone}&address_line1=${order.address_line1}&address_line2=${order.address_line2}&city=${order.city}&state=${order.state}&pincode=${order.pincode}`,
+      redirectUrl: `https://kuwarpay.onrender.com/feedback.html?name=${order.name}&email=${order.email}&phone=${order.phone}&address_line1=${order.address_line1}&address_line2=${order.address_line2}&city=${order.city}&state=${order.state}&pincode=${order.pincode}`,
       redirectMode: "REDIRECT",
       callbackUrl: "https://webhook.site/callback-url",
       mobileNumber: "9999999999",
